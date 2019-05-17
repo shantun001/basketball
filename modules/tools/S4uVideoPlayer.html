@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="media">
+        <div class="col-md-12 title-modal-box box-header">
+            <h4 style="font-size: 15px;" class="title-modal-box box-title">
+                <span class="uppercase">Scouting4U Video Player</span>
+            </h4>
+        </div>
+        <div class="content_info">
+            <p> It’s not a secret that “video” is the most powerful means of communication.
+            If you’ve got a video meeting coming up you need to be able to make relevant drawings that communicate your message.
+            Scouting4U has developed a unique video-drawing tool that’s easy to use and effective.</p>
+            <p>The Scouting4U Video Player is compatible with all computer systems, and can be installed in seconds.
+            This lightweight software will run perfectly on even the oldest of computers, and it’s the perfect choice for tablets too!</p>
+        </div>
+        <div class="a_wrapper">
+                <div class="content_info content_info-subscription">1 year subscription $50</div>
+                <div>
+                    <a href="https://checkout.bluesnap.com/buynow/checkout?sku3458790=1&storeid=550608" class="btn btn-default btn-buy_now">Buy Now</a>
+                </div>
+            <div>
+                <a href="https://clipspresentationtool.s3.amazonaws.com/index.html" class="btn btn-default btn-buy_now">Install</a>
+            </div>
+        </div>
+            <div class="image__wrapper">
+                <div>
+                    <img width="340" height="220" src="../../image/play.png" class="minimized" alt="" />
+                    <p>Draw on video in 5 deferent colors</p>
+                </div>
+                <div>
+                    <img width="340" height="220" src="../../image/play1.png" class="minimized" alt="" />
+                    <p>Select MP4 file from your PC or Tablet</p>
+                </div>
+                <div>
+                    <img width="340" height="220" src="../../image/play2.png" class="minimized" alt="" />
+                    <p>Select XML with time stamp</p>
+                </div>
+                <div>
+                    <img width="340" height="220" src="../../image/play3.png" class="minimized" alt="" />
+                    <p>Show or hide video and clips control screen</p>
+                </div>
+                <div>
+                    <img width="340" height="220" src="../../image/play4.png" class="minimized" alt="" />
+                    <p> Jump to a specific time on video file</p>
+                </div>
+                <div>
+                    <img width="340" height="220" src="../../image/play5.png" class="minimized" alt="" />
+                    <p>Short cuts for full control of video speed and time</p>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    $(function(){
+        $('.minimized').click(function(event) {
+            var i_path = $(this).attr('src');
+            $('body').append('<div id="overlay"></div><div id="magnify"><img src="'+i_path+'"><div id="close-popup"><i></i></div></div>');
+            $('#magnify').css({
+                left: ($(document).width() - $('#magnify').outerWidth())/2,
+                top: ($(window).height() - $('#magnify').outerHeight())/2
+            });
+            $('#overlay, #magnify').fadeIn('fast');
+        });
+
+        $('body').on('click', '#close-popup, #overlay', function(event) {
+            event.preventDefault();
+
+            $('#overlay, #magnify').fadeOut('fast', function() {
+                $('#close-popup, #magnify, #overlay').remove();
+            });
+        });
+    });
+</script>

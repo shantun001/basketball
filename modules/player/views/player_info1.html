@@ -1,0 +1,1559 @@
+<div class="player-info container" ng-controller="PlayerSearchController1">
+    <div class="row player_info-wrapper">
+              <div class=" player-info-block col-md-6 col-lg-6">
+                  <div class="thumbnail player-img">
+                      <img src="{{playerInfo.profile_photo}}">
+                  </div>
+                  <div class="player-data">
+                      <div class="player-name">
+                          <h4 class="player_name">{{ playerInfo.last_name }} {{ playerInfo.first_name }}</h4>
+                      </div>
+                      <div class="view_counter">
+                          <span>
+                              <h5 class="vievs_counters">Views:</h5>
+                              <h6>{{playerInfo.page_views}}</h6>
+                          </span>
+                      </div>
+                      <p class="player_height"><strong>Height</strong>: {{ playerInfo.height }} cm <span> / {{((playerInfo.height / 30.48).toFixed(1)+ "").replace(".", "'")}}"</span></p>
+                      <p class="player_dob"><strong>Age</strong>: {{playerInfo.age ? playerInfo.age : getAge(playerInfo.birth_date)}}</p>
+                      <p class="player_position"><strong>Position</strong>: {{playerInfo.position.name ? playerInfo.position.name : ''}}</p>
+                      <p class="player_nationality"><strong>Nationality</strong>: {{playerInfo.main_nationality.name}}</p>
+                  </div>
+              </div>
+        <div class="col-lg-6 player-info-chart-cont">
+            <div class="player-info-chart">
+            </div>
+        </div>
+    </div>
+                    <div class="box-title stats_info">
+                        <div class="box-header_player-profile" style="height:60px;">
+                            <h4 class="box-title"></h4>
+                        </div>
+                        <div class="player_profile">
+                            <p>{{selectedTab}}</p>
+                        </div>
+                     </div>
+          <div class="row">
+              <div class="col-lg-12 col-md-12" style="padding-left: 0;">
+                      <ul class="nav nav-tabs main-tab table-tab">
+                          <li class="active"><a data-toggle="tab" href="" data-target="#career" ng-click= "selectedTab ='Career Stats'">
+                              <i class="glyphicon glyphicon-signal"></i> CAREER</a></li>
+                          <li><a data-toggle="tab" href="" data-target="#rank" ng-click="initiateRankView(); selectedTab ='Rank Stats'">
+                              <i class="glyphicon glyphicon-zoom-in"></i> RANK</a></li>
+                          <li><a data-toggle="tab" href="" data-target="#stats-analysis" ng-click="initiateStatView(); selectedTab ='Stats Analysis'">
+                             <i class="fa fa-bar-chart-o"></i> STATS ANALYSIS</a></li>
+                          <li><a data-toggle="tab" href="" data-target="#best-worst" ng-click="initiateBestWorstView(); selectedTab ='Best / Worst stats'">
+                              <i class="glyphicon glyphicon-thumbs-up"></i> BEST / WORST
+                          <i class="glyphicon glyphicon-thumbs-down"></i></a></li>
+                          <li><a data-toggle="tab" href="" data-target="#game-by-game" ng-click="initiateGameByGameView(); selectedTab ='Game by Game'">
+                              <i class="fa fa-dribbble"></i> GAME BY GAME</a></li>
+                          <li><a data-toggle="tab" href="" data-target="#watch-games" ng-click="initiateWatchGamesView(); selectedTab ='Watch Games'">
+                              <i class="fa fa-youtube-play"></i>VIDEO</a></li>
+                          <li><a data-toggle="tab" href="" data-target="#tendency" ng-click="initiateTendencyView(); selectedTab ='Tendency'">
+                              <i class="fa fa-dribbble lm"></i>TENDENCY</a></li>
+
+                      </ul>
+                  <button class ="button_pint" onclick="window.print();">Print</button>
+                      <div class="tab-content">
+                          <div id="career" class="tab-pane fade in active">
+                                <table ng-repeat="season in careerData.seasons"
+                                       class=" box table table-condenced table-bordered table-hover">
+                                    <caption>
+                                        <div class="box-header">
+                                            <h4 class="box-title"><span class="title-font-size">SEASON {{season}}</span></h4>
+                                        </div>
+                                    </caption>
+                                    <thead class="career-thead table-header-red">
+                                    <tr>
+                                        <th class="wide">LEAGUE</th><th class="wide">TEAM</th><th>GP</th>
+                                        <th>GS</th><th>MIN</th>
+                                        <th>PTS</th><th>FGM</th><th>FGA</th><th>FG%</th>
+                                        <th>3PM</th><th>3PA</th><th>3P%</th><th>2PM	</th>
+                                        <th>2PA</th><th>2P%</th><th>FTM</th><th>FTA</th>
+                                        <th>FT%</th><th>OR</th><th>DR</th><th>TR</th>
+                                        <th>AS</th><th>TO</th><th>ST</th><th>BS</th>
+                                        <th>FM</th><th>FR</th><th>VAL</th><th>VIR</th>
+                                        <th>OER</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="careerData" ng-attr-style="{{ obj.league_name === 'average' && 'background-color : #ddd !important' || 'background-color : #fff !important'}}"
+                                        ng-repeat="obj in careerData[season].slice().reverse()" ng-style="obj.style" ng-hide="{{obj.country_name}}"
+                                        ng-if="obj.league_name !== 'average'">
+                                        <td>
+                                            <a class="close-modal-box"
+                                               ng-click="getLeagueDataNewTab(obj.league, obj.season, obj.league_name)">
+                                                {{obj.league_name === "average" && "Average" || obj.league_name}}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="close-modal-box"
+                                               ng-click="getTeamDataNewTab(obj.team, obj.league, obj.season, obj.team_name)">
+                                                {{obj.team_name}}
+                                            </a>
+                                        </td>
+                                        <td>{{obj.played.toFixed(0)}}</td>
+                                        <td>{{obj.started.toFixed(0)}}</td>
+                                        <td>{{obj.minutes}}</td>
+                                        <td>{{obj.points.toFixed(1)}}</td>
+                                        <td>{{obj.fg_made.toFixed(1)}}</td>
+                                        <td>{{obj.fg_attempts.toFixed(1)}}</td>
+                                        <!--<td>{{obj.fg_attempts ? ((obj.fg_made * 100) / obj.fg_attempts).toFixed(1) : 0}}</td>-->
+                                        <td ng-show="obj.fg_attempts !== 0">{{((obj.fg_made * 100) / obj.fg_attempts) === 100 && ((obj.fg_made * 100) / obj.fg_attempts).toFixed(0) || ((obj.fg_made * 100) / obj.fg_attempts).toFixed(1)}}</td>
+                                        <td ng-show="obj.fg_attempts === 0">0.0</td>
+                                        <td>{{obj.p3_made.toFixed(1)}}</td>
+                                        <td>{{obj.p3_attempts.toFixed(1)}}</td>
+                                        <td ng-show="obj.p3_attempts !== 0">{{((obj.p3_made * 100) / obj.p3_attempts) === 100 && ((obj.p3_made * 100) / obj.p3_attempts).toFixed(0) || ((obj.p3_made * 100) / obj.p3_attempts).toFixed(1)}}</td>
+                                        <td ng-show="obj.p3_attempts === 0">0.0</td>
+                                        <td>{{obj.p2_made.toFixed(1)}}</td>
+                                        <td>{{obj.p2_attempts.toFixed(1)}}</td>
+                                        <td ng-show="obj.p2_attempts !== 0">{{((obj.p2_made * 100) / obj.p2_attempts) === 100 && ((obj.p2_made * 100) / obj.p2_attempts).toFixed(0) || ((obj.p2_made * 100) / obj.p2_attempts).toFixed(1)}}</td>
+                                        <td ng-show="obj.p2_attempts === 0">0.0</td>
+                                        <td>{{obj.ft_made.toFixed(1)}}</td>
+                                        <td>{{obj.ft_attempts.toFixed(1)}}</td>
+                                        <td ng-show="obj.ft_attempts !== 0">{{((obj.ft_made * 100) / obj.ft_attempts) === 100 && ((obj.ft_made * 100) / obj.ft_attempts).toFixed(0) || ((obj.ft_made * 100) / obj.ft_attempts).toFixed(1)}}</td>
+                                        <td ng-show="obj.ft_attempts === 0">0.0</td>
+                                        <td>{{obj.of_rebounds.toFixed(1)}}</td>
+                                        <td>{{obj.df_rebounds.toFixed(1)}}</td>
+                                        <td>{{(obj.df_rebounds + obj.of_rebounds).toFixed(1)}}</td>
+                                        <td>{{obj.assists.toFixed(1)}}</td>
+                                        <td>{{obj.turnovers.toFixed(1)}}</td>
+                                        <td>{{obj. steals.toFixed(1)}}</td>
+                                        <td>{{obj.block_shots.toFixed(1)}}</td>
+                                        <td>{{obj.fouls_made.toFixed(1)}}</td>
+                                        <td>{{obj.fouls_received.toFixed(1)}}</td>
+                                        <td>{{obj.val.toFixed(1)}}</td>
+                                        <td>{{obj.vir.toFixed(2)}}</td>
+                                        <td>{{obj.oer.toFixed(2)}}</td>
+                                    </tr>
+                                    <tr class="careerData"
+                                        ng-attr-style="{{ obj.league_name === 'average' && 'background-color : #ddd !important' || 'background-color : #fff !important'}}"
+                                        ng-repeat="obj in careerData[season].slice().reverse()"
+                                        ng-style="obj.style"
+                                        ng-hide="{{obj.country_name}}"
+                                        ng-if="$last && obj.league_name == 'average' && careerData[season].length > 2">
+                                        <td colspan="2">
+                                            <a class="close-modal-box"
+                                               ng-click="getLeagueDataNewTab(obj.league, obj.season, obj.league_name)">
+                                                {{obj.league_name === "average" && "Average" || obj.league_name}}
+                                            </a>
+                                        </td>
+                                        <!--<td>-->
+                                            <!--<a class="close-modal-box"-->
+                                               <!--ng-click="getTeamDataNewTab(obj.team, obj.league, obj.season, obj.team_name)">-->
+                                                <!--{{obj.team_name}}-->
+                                            <!--</a>-->
+                                        <!--</td>-->
+                                        <td>{{obj.played.toFixed(0)}}</td>
+                                        <td>{{obj.started.toFixed(0)}}</td>
+                                        <td>{{obj.minutes}}</td>
+                                        <td>{{obj.points.toFixed(1)}}</td>
+                                        <td>{{obj.fg_made.toFixed(1)}}</td>
+                                        <td>{{obj.fg_attempts.toFixed(1)}}</td>
+                                        <td>{{obj.fg_attempts ? ((obj.fg_made * 100) / obj.fg_attempts).toFixed(1) : 0}}</td>
+                                        <td>{{obj.p3_made.toFixed(1)}}</td>
+                                        <td>{{obj.p3_attempts.toFixed(1)}}</td>
+                                        <td>{{obj.p3_attempts ? ((obj.p3_made * 100) / obj.p3_attempts).toFixed(1) : 0}}</td>
+                                        <td>{{obj.p2_made.toFixed(1)}}</td>
+                                        <td>{{obj.p2_attempts.toFixed(1)}}</td>
+                                        <td>{{obj.p2_attempts ? ((obj.p2_made * 100) / obj.p2_attempts).toFixed(1) : 0}}</td>
+                                        <td>{{obj.ft_made.toFixed(1)}}</td>
+                                        <td>{{obj.ft_attempts.toFixed(1)}}</td>
+                                        <td>{{obj.ft_attempts ? ((obj.ft_made * 100) / obj.ft_attempts).toFixed(1) : 0}}</td>
+                                        <td>{{obj.of_rebounds.toFixed(1)}}</td>
+                                        <td>{{obj.df_rebounds.toFixed(1)}}</td>
+                                        <td>{{(obj.df_rebounds + obj.of_rebounds).toFixed(1)}}</td>
+                                        <td>{{obj.assists.toFixed(1)}}</td>
+                                        <td>{{obj.turnovers.toFixed(1)}}</td>
+                                        <td>{{obj. steals.toFixed(1)}}</td>
+                                        <td>{{obj.block_shots.toFixed(1)}}</td>
+                                        <td>{{obj.fouls_made.toFixed(1)}}</td>
+                                        <td>{{obj.fouls_received.toFixed(1)}}</td>
+                                        <td>{{obj.val.toFixed(1)}}</td>
+                                        <td>{{obj.vir.toFixed(2)}}</td>
+                                        <td>{{obj.oer.toFixed(2)}}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                          </div>
+                          <div id="rank" class="tab-pane fade">
+                                <div class="wrapper_print_select">
+                                    <div class="col-lg-6 col-md-6 form-group">
+                                         <select class="form-control" id="rank-select" ng-model="selectedRank">
+                                            <option
+                                             ng-repeat="option in rankOptions"
+                                             ng-selected="{{$index == 0}}"
+                                             value="{{option.season}},{{option.league}},{{option.team}}"
+                                             class="ui-menu-item-wrapper each_options">
+                                                {{option.season_name}} - {{option.league_name}} - {{option.team_name}}
+                                            </option>
+                                         </select>
+                                    </div>
+                                </div>
+                              <div class="col-md-12 graph-container" style="    padding-right: 0;" ng-cloak>
+                                  <div class="col-md-3 chart-rank-cont-1">
+                                      <img src="">
+                                      <div class="rank-chart-1"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-2">
+                                      <img src="">
+                                      <div class="rank-chart-2"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-3">
+                                      <img src="">
+                                      <div class="rank-chart-3"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-4">
+                                      <img src="">
+                                      <div class="rank-chart-4"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-5">
+                                      <img src="">
+                                      <div class="rank-chart-5"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-6">
+                                      <img src="">
+                                      <div class="rank-chart-6"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-7">
+                                      <img src="">
+                                      <div class="rank-chart-7"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-8">
+                                      <img src="">
+                                      <div class="rank-chart-8"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-9">
+                                      <img src="">
+                                      <div class="rank-chart-9"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-10">
+                                      <img src="">
+                                      <div class="rank-chart-10"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-11">
+                                      <img src="">
+                                      <div class="rank-chart-11"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-12">
+                                      <img src="">
+                                      <div class="rank-chart-12"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-13">
+                                      <img src="">
+                                      <div class="rank-chart-13"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-14">
+                                      <img src="">
+                                      <div class="rank-chart-14"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-15">
+                                      <img src="">
+                                      <div class="rank-chart-15"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-16">
+                                      <img src="">
+                                      <div class="rank-chart-16"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-17">
+                                      <img src="">
+                                      <div class="rank-chart-17"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-18">
+                                      <img src="">
+                                      <div class="rank-chart-18"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-19">
+                                      <img src="">
+                                      <div class="rank-chart-19"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-20">
+                                      <img src="">
+                                      <div class="rank-chart-20"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-21">
+                                      <img src="">
+                                      <div class="rank-chart-21"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-22">
+                                      <img src="">
+                                      <div class="rank-chart-22"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-23">
+                                      <img src="">
+                                      <div class="rank-chart-23"></div>
+                                  </div>
+                                  <div class="col-md-3 chart-rank-cont-24">
+                                      <img src="">
+                                      <div class="rank-chart-24"></div>
+                                  </div>       
+                              </div>
+                          </div>
+                          <div id="stats-analysis" class="tab-pane fade">
+                              <div class="wrapper_print_select">
+                                  <div class="col-lg-6 col-md-6 form-group">
+                                      <select id="stat-select" class="form-control">
+                                          <option
+                                                  ng-repeat="season in seasonOptions"
+                                                  ng-selected="{{$index == 0}}"
+                                                  value="{{season.value}}"
+                                                  class="ui-menu-item-wrapper">
+                                              {{season.label}}
+                                          </option>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div id="chartContainerTab3"></div>
+                              <div class="tales_wpr season_breadown_wpr box">
+                                  <table ng-repeat="tableObj in statTablesArr" class="table table-condenced table-hover">
+                                      <caption>
+                                          <div class="box-header">
+                                              <h4 class="box-title"><span class="title-font-size">{{tableObj.name}}</span></h4>
+                                          </div>
+                                      </caption>
+                                      <thead class="table-header-red">
+                                      <tr>
+                                          <th class="center stat-width">GAMES</th>
+                                          <th class="center"><b>GP</b></th>
+                                          <th class="center"><b>GS</b></th>
+                                          <th class="center"><b>MIN</b></th>
+                                          <th class="center"><b>PTS</b></th>
+                                          <th class="center"><b>FGM</b></th>
+                                          <th class="center"><b>FGA</b></th>
+                                          <th class="center"><b>FG%</b></th>
+                                          <th class="center"><b>3PM</b></th>
+                                          <th class="center"><b>3PA</b></th>
+                                          <th class="center"><b>3P%</b></th>
+                                          <th class="center"><b>2PM</b></th>
+                                          <th class="center"><b>2PA</b></th>
+                                          <th class="center"><b>2P%</b></th>
+                                          <th class="center"><b>FTM</b></th>
+                                          <th class="center"><b>FTA</b></th>
+                                          <th class="center"><b>FT%</b></th>
+                                          <th class="center"><b>OR</b></th>
+                                          <th class="center"><b>DR</b></th>
+                                          <th class="center"><b>TR</b></th>
+                                          <th class="center"><b>AS</b></th>
+                                          <th class="center"><b>TO</b></th>
+                                          <th class="center"><b>ST</b></th>
+                                          <th class="center"><b>BS</b></th>
+                                          <th class="center"><b>SR</b></th>
+                                          <th class="center"><b>FM</b></th>
+                                          <th class="center"><b>FR</b></th>
+                                          <th class="center"><b>VAL</b></th>
+                                          <th class="center"><b>VIR</b></th>
+                                          <th class="center"><b>OER</b></th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr ng-repeat="obj in tableObj.data" ng-if="!$last">
+                                          <td class="stat-width">{{obj.row_type? obj.row_type : 'Average'}}</td>
+                                          <td>{{obj.count ? obj.count.toFixed(0): obj.played.toFixed(0)}}</td>
+                                          <td>{{obj.started.toFixed(0)}}</td>
+                                          <td>{{obj.minutes}}</td>
+                                          <td>{{obj.points.toFixed(1)}}</td>
+                                          <td>{{obj.fg_made.toFixed(1)}}</td>
+                                          <td>{{obj.fg_attempts.toFixed(1)}}</td>
+                                          <td ng-if="!$last">{{obj.fg_percent === 100.0 ? 100 : obj.fg_percent.toFixed(1)}}</td>
+                                          <td ng-if="$last" ng-show="((obj.fg_made * 100) / obj.fg_attempts) !== 100">{{obj.fg_percent ? obj.fg_percent : obj.fg_attempts ? ((obj.fg_made * 100) / obj.fg_attempts).toFixed(1) : 0.0}}</td>
+                                          <td ng-if="$last" ng-show="((obj.fg_made * 100) / obj.fg_attempts) === 100">{{obj.fg_percent ? obj.fg_percent : obj.fg_attempts ? ((obj.fg_made * 100) / obj.fg_attempts).toFixed(0) : 0.0}}</td>
+                                          <td>{{obj.p3_made.toFixed(1)}}</td>
+                                          <td>{{obj.p3_attempts.toFixed(1)}}</td>
+                                          <td ng-if="!$last">{{obj.p3_percent === 100.0 ? 100 : obj.p3_percent.toFixed(1)}}</td>
+                                          <td ng-if="$last" ng-show="((obj.p3_made * 100) / obj.p3_attempts) !== 100">{{obj.p3_percent ? obj.p3_percent : obj.p3_attempts ? ((obj.p3_made * 100) / obj.p3_attempts).toFixed(1) : 0.0}}</td>
+                                          <td ng-if="$last" ng-show="((obj.p3_made * 100) / obj.p3_attempts) === 100">{{obj.p3_percent ? obj.p3_percent : obj.p3_attempts ? ((obj.p3_made * 100) / obj.p3_attempts).toFixed(0) : 0.0}}</td>
+                                          <td>{{obj.p2_made.toFixed(1)}}</td>
+                                          <td>{{obj.p2_attempts.toFixed(1)}}</td>
+                                          <td ng-if="!$last">{{obj.p2_percent === 100.0 ? 100 : obj.p2_percent.toFixed(1)}}</td>
+                                          <td ng-if="$last" ng-show="((obj.p2_made * 100) / obj.p2_attempts) !== 100">{{obj.p2_percent ? obj.p2_percent : obj.p2_attempts ? ((obj.p2_made * 100) / obj.p2_attempts).toFixed(1) : 0.0}}</td>
+                                          <td ng-if="$last" ng-show="((obj.p2_made * 100) / obj.p2_attempts) === 100">{{obj.p2_percent ? obj.p2_percent : obj.p2_attempts ? ((obj.p2_made * 100) / obj.p2_attempts).toFixed(0) : 0.0}}</td>
+                                          <td>{{obj.ft_made.toFixed(1)}}</td>
+                                          <td>{{obj.ft_attempts.toFixed(1)}}</td>
+                                          <td ng-if="!$last">{{obj.ft_percent === 100.0 ? 100 : obj.ft_percent.toFixed(1) }}</td>
+                                          <td ng-if="$last" ng-show="((obj.ft_made * 100) / obj.ft_attempts) !== 100">{{obj.ft_percent ? obj.ft_percent : obj.ft_attempts ? ((obj.ft_made * 100) / obj.ft_attempts).toFixed(1) : 0.0}}</td>
+                                          <td ng-if="$last" ng-show="((obj.ft_made * 100) / obj.ft_attempts) === 100">{{obj.ft_percent ? obj.ft_percent : obj.ft_attempts ? ((obj.ft_made * 100) / obj.ft_attempts).toFixed(0) : 0.0}}</td>
+                                          <td>{{obj.of_rebounds.toFixed(1)}}</td>
+                                          <td>{{obj.df_rebounds.toFixed(1)}}</td>
+                                          <td>{{(obj.of_rebounds + obj.df_rebounds).toFixed(1)}}</td>
+                                          <td>{{obj.assists.toFixed(1)}}</td>
+                                          <td>{{obj.turnovers.toFixed(1)}}</td>
+                                          <td>{{obj.steals.toFixed(1)}}</td>
+                                          <td>{{obj.block_shots.toFixed(1)}}</td>
+                                          <td>{{obj.shots_rejected.toFixed(1)}}</td>
+                                          <td>{{obj.fouls_made.toFixed(1)}}</td>
+                                          <td>{{obj.fouls_received.toFixed(1)}}</td>
+                                          <td>{{obj.val.toFixed(1)}}</td>
+                                          <td>{{obj.vir.toFixed(2)}}</td>
+                                          <td>{{obj.oer.toFixed(2)}}</td>
+                                      </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div class="league_wrap">
+                                  <table ng-repeat="(league, tableObj) in leagueStatsData" class="color-caption table table-condenced table-hover">
+                                      <caption>
+                                          <div class="box-header">
+                                              <h4 class="box-title"><span class="title-font-size">{{league.toUpperCase()}}</span></h4>
+                                          </div>
+                                      </caption>
+                                      <thead class="table-header-red">
+                                      <tr>
+                                          <th class="center stat-width">GAMES</th>
+                                          <th class="center"><b>GP</b></th>
+                                          <th class="center"><b>GS</b></th>
+                                          <th class="center"><b>MIN</b></th>
+                                          <th class="center"><b>PTS</b></th>
+                                          <th class="center"><b>FGM</b></th>
+                                          <th class="center"><b>FGA</b></th>
+                                          <th class="center"><b>FG%</b></th>
+                                          <th class="center"><b>3PM</b></th>
+                                          <th class="center"><b>3PA</b></th>
+                                          <th class="center"><b>3P%</b></th>
+                                          <th class="center"><b>2PM</b></th>
+                                          <th class="center"><b>2PA</b></th>
+                                          <th class="center"><b>2P%</b></th>
+                                          <th class="center"><b>FTM</b></th>
+                                          <th class="center"><b>FTA</b></th>
+                                          <th class="center"><b>FT%</b></th>
+                                          <th class="center"><b>OR</b></th>
+                                          <th class="center"><b>DR</b></th>
+                                          <th class="center"><b>TR</b></th>
+                                          <th class="center"><b>AS</b></th>
+                                          <th class="center"><b>TO</b></th>
+                                          <th class="center"><b>ST</b></th>
+                                          <th class="center"><b>BS</b></th>
+                                          <th class="center"><b>SR</b></th>
+                                          <th class="center"><b>FM</b></th>
+                                          <th class="center"><b>FR</b></th>
+                                          <th class="center"><b>VAL</b></th>
+                                          <th class="center"><b>VIR</b></th>
+                                          <th class="center"><b>OER</b></th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr ng-repeat="obj in tableObj">
+                                          <td class="stat-width">{{obj.row_type_name}}</td>
+                                          <td>{{obj.count.toFixed(0)}}</td>
+                                          <td>{{obj.started.toFixed(0)}}</td>
+                                          <td>{{obj.minutes}}</td>
+                                          <td>{{obj.points.toFixed(1)}}</td>
+                                          <td>{{obj.fg_made.toFixed(1)}}</td>
+                                          <td>{{obj.fg_attempts.toFixed(1)}}</td>
+                                          <td>{{obj.fg_percent === 100.0 ? 100 : obj.fg_percent.toFixed(1)}}</td>
+                                          <td>{{obj.p3_made.toFixed(1)}}</td>
+                                          <td>{{obj.p3_attempts.toFixed(1)}}</td>
+                                          <td>{{obj.p3_percent === 100.0 ? 100 : obj.p3_percent.toFixed(1)}}</td>
+                                          <td>{{obj.p2_made.toFixed(1)}}</td>
+                                          <td>{{obj.p2_attempts.toFixed(1)}}</td>
+                                          <td>{{obj.p2_percent === 100.0 ? 100 : obj.p2_percent.toFixed(1)}}</td>
+                                          <td>{{obj.ft_made.toFixed(1)}}</td>
+                                          <td>{{obj.ft_attempts.toFixed(1)}}</td>
+                                          <td>{{obj.ft_percent === 100.0 ? 100 : obj.ft_percent.toFixed(1) }}</td>
+                                          <td>{{obj.of_rebounds.toFixed(1)}}</td>
+                                          <td>{{obj.df_rebounds.toFixed(1)}}</td>
+                                          <td>{{(obj.of_rebounds + obj.df_rebounds).toFixed(1)}}</td>
+                                          <td>{{obj.assists.toFixed(1)}}</td>
+                                          <td>{{obj.turnovers.toFixed(1)}}</td>
+                                          <td>{{obj.steals.toFixed(1)}}</td>
+                                          <td>{{obj.block_shots.toFixed(1)}}</td>
+                                          <td>{{obj.shots_rejected.toFixed(1)}}</td>
+                                          <td>{{obj.fouls_made.toFixed(1)}}</td>
+                                          <td>{{obj.fouls_received.toFixed(1)}}</td>
+                                          <td>{{obj.val.toFixed(1)}}</td>
+                                          <td>{{obj.vir.toFixed(2)}}</td>
+                                          <td>{{obj.oer.toFixed(2)}}</td>
+                                      </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+
+
+                              <div class="tales_wpr  box">
+                                  <div class="box-header">
+                                      <h4 class="box-title season_name_cls"><span class="title-font-size">SEASON STATS PER MINUTE</span></h4>
+                                  </div>
+                                  <table class="table">
+                                      <thead>
+                                          <tr class="table-header-red">
+                                              <th class="center"><b>PTS</b></th>
+                                              <th class="center"><b>FGM</b></th>
+                                              <th class="center"><b>FGA</b></th>
+                                              <th class="center"><b>3PM</b></th>
+                                              <th class="center"><b>3PA</b></th>
+                                              <th class="center"><b>2PM</b></th>
+                                              <th class="center"><b>2PA</b></th>
+                                              <th class="center"><b>FTM</b></th>
+                                              <th class="center"><b>FTA</b></th>
+                                              <th class="center"><b>OR</b></th>
+                                              <th class="center"><b>DR</b></th>
+                                              <th class="center"><b>TR</b></th>
+                                              <th class="center"><b>AS</b></th>
+                                              <th class="center"><b>TO</b></th>
+                                              <th class="center"><b>ST</b></th>
+                                              <th class="center"><b>BS</b></th>
+                                              <th class="center"><b>FM</b></th>
+                                              <th class="center"><b>FR</b></th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="content_wpr" id="stat_per_min"></tbody>
+                                  </table>
+                              </div>
+                              <div class="tales_wpr  box">
+                                  <div class="box-header">
+                                      <h4 class="box-title season_name_cls"><span class="title-font-size">SEASON STATS PER 40 MINUTES</span></h4>
+                                  </div>
+                                  <table class="table">
+                                      <thead class="table-header-red">
+                                          <tr>
+                                              <th class="center"><b>PTS</b></th>
+                                              <th class="center"><b>FGM</b></th>
+                                              <th class="center"><b>FGA</b></th>
+                                              <th class="center"><b>3PM</b></th>
+                                              <th class="center"><b>3PA</b></th>
+                                              <th class="center"><b>2PM</b></th>
+                                              <th class="center"><b>2PA</b></th>
+                                              <th class="center"><b>FTM</b></th>
+                                              <th class="center"><b>FTA</b></th>
+                                              <th class="center"><b>OR</b></th>
+                                              <th class="center"><b>DR</b></th>
+                                              <th class="center"><b>TR</b></th>
+                                              <th class="center"><b>AS</b></th>
+                                              <th class="center"><b>TO</b></th>
+                                              <th class="center"><b>ST</b></th>
+                                              <th class="center"><b>BS</b></th>
+                                              <th class="center"><b>FM</b></th>
+                                              <th class="center"><b>FR</b></th>
+                                          </tr>
+                                      </thead>
+                                      <tbody class="content_wpr" id="stat_per_40min"></tbody>
+                                  </table>
+                              </div>
+                          </div>
+                          <div id="best-worst" class="tab-pane fade">
+                              <div class="wrapper_print_select">
+                                  <div class="row">
+                                      <div class="col-lg-6 col-md-6 form-group">
+                                          <select id="best-worst-select" class="form-control">
+                                              <option ng-repeat="s in rankOptions"
+                                                      ng-selected="{{$index===0}}"
+                                                      value="{{s.season}}, {{s.league}}, {{s.team}}"
+                                                      class="ui-menu-item-wrapper each_options">
+                                                  {{s.season_name}} - {{s.league_name}} - {{s.team_name}}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-lg-12" style="padding-left: 0;    padding-right: 0;">
+                                      <div class="best_worst_game_wpr"></div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="game-by-game" class="tab-pane fade">
+                              <div class="wrapper_print_select">
+                                  <div class="row">
+                                      <div class="col-lg-6 form-group">
+                                          <select id="game-by-game-select" class="form-control">
+                                              <option ng-repeat="s in rankOptions"
+                                                      ng-selected="{{$index===0}}"
+                                                      value="{{s.season}}, {{s.league}}, {{s.team}}"
+                                                      class="ui-menu-item-wrapper each_options">
+                                                  {{s.season_name}} - {{s.league_name}} - {{s.team_name}}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div id="gameByGame" class="col-lg-12">
+                                    <table ng-repeat="(season, array) in gameByGameData" ng-hide="{{season === 'seasonId' || season === 'leagueId' }}"
+                                           class="color-caption table table-hover table-bordered table-condenced">
+                                        <caption>
+                                            <div class="box-header">
+                                                <h4 class="box-title"><span class="title-font-size">{{season}}</span></h4>
+                                            </div>
+                                        </caption>
+                                        <thead class="table-header-red">
+                                        <th class="wide">Against</th>
+                                        <th>min</th>
+                                        <th>pts</th>
+                                        <th>fgm</th>
+                                        <th>fga</th>
+                                        <th>fg%</th>
+                                        <th>3pm</th>
+                                        <th>3pa</th>
+                                        <th>3p%</th>
+                                        <th>2pm</th>
+                                        <th>2pa</th>
+                                        <th>2p%</th>
+                                        <th>ftm</th>
+                                        <th>fta</th>
+                                        <th>ft%</th>
+                                        <th>or</th>
+                                        <th>dr</th>
+                                        <th>tr</th>
+                                        <th>as</th>
+                                        <th>to</th>
+                                        <th>st</th>
+                                        <th>bs</th>
+                                        <th>fm</th>
+                                        <th>fr</th>
+                                        <th>val</th>
+                                        <th>vir</th>
+                                        <th>oer</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in array" ng-if="!$last" ng-style="item.style">
+                                            <!--<td class="wide">{{item.op_team_name}}</td>-->
+                                            <td class="wide">
+                                                <a class="close-modal-box"
+                                                   ng-click="getTeamDataTab(item.op_team,item.leagueId,item.seasonId, item.op_team_name)">
+                                                    {{item.op_team_name}}
+                                                </a>
+                                            </td>
+                                            <td>{{item.minutes.slice(3)}}</td>
+                                            <td>{{item.points.toFixed(0)}}</td>
+                                            <td>{{item.fg_made.toFixed(0)}}</td>
+                                            <td>{{item.fg_attempts.toFixed(0)}}</td>
+                                            <td>{{item.fg_percent === 100.0 ? 100 : item.fg_percent.toFixed(1)}}</td>
+                                            <td>{{item.p3_made.toFixed(0)}}</td>
+                                            <td>{{item.p3_attempts.toFixed(0)}}</td>
+                                            <td>{{item.p3_percent === 100.0 ? 100 : item.p3_percent.toFixed(1)}}</td>
+                                            <td>{{item.p2_made.toFixed(0)}}</td>
+                                            <td>{{item.p2_attempts.toFixed(0)}}</td>
+                                            <td>{{item.p2_percent === 100.0 ? 100 : item.p2_percent.toFixed(1)}}</td>
+                                            <td>{{item.ft_made.toFixed(0)}}</td>
+                                            <td>{{item.ft_attempts.toFixed(0)}}</td>
+                                            <td>{{item.ft_percent === 100.0 ? 100 : item.ft_percent.toFixed(1)}}</td>
+                                            <td>{{item.of_rebounds.toFixed(0)}}</td>
+                                            <td>{{item.df_rebounds.toFixed(0)}}</td>
+                                            <td>{{(item.of_rebounds + item.df_rebounds).toFixed(1)}}</td>
+                                            <td>{{item.assists.toFixed(0)}}</td>
+                                            <td>{{item.turnovers.toFixed(0)}}</td>
+                                            <td>{{item.steals.toFixed(0)}}</td>
+                                            <td>{{item.block_shots.toFixed(0)}}</td>
+                                            <td>{{item.fouls_made.toFixed(0)}}</td>
+                                            <td>{{item.fouls_received.toFixed(0)}}</td>
+                                            <td>{{item.val.toFixed(1)}}</td>
+                                            <td>{{item.vir.toFixed(2)}}</td>
+                                            <td>{{item.oer.toFixed(2)}}</td>
+                                        </tr>
+                                        <tr ng-repeat="item in array" ng-if="$last && season !== 'Total'" ng-style="item.style">
+                                            <td class="wide">{{item.op_team_name}}</td>
+                                            <td>{{item.average ? item.average : item.minutes}}</td>
+                                            <td>{{item.points.toFixed(1)}}</td>
+                                            <td>{{item.fg_made.toFixed(1)}}</td>
+                                            <td>{{item.fg_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.fg_made !== 0">{{(item.fg_made / item.fg_attempts * 100) === 100 && (item.fg_made / item.fg_attempts * 100).toFixed(0) || (item.fg_made / item.fg_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.fg_made === 0">0.0</td>
+                                            <td>{{item.p3_made.toFixed(1)}}</td>
+                                            <td>{{item.p3_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.p3_made !== 0">{{(item.p3_made / item.p3_attempts * 100) === 100 && (item.p3_made / item.p3_attempts * 100).toFixed(0) || (item.p3_made / item.p3_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.p3_made === 0">0.0</td>
+                                            <td>{{item.p2_made.toFixed(1)}}</td>
+                                            <td>{{item.p2_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.p2_made !== 0">{{(item.p2_made / item.p2_attempts * 100) === 100 && (item.p2_made / item.p2_attempts * 100).toFixed(0) || (item.p2_made / item.p2_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.p2_made === 0">0.0</td>
+                                            <td>{{item.ft_made.toFixed(1)}}</td>
+                                            <td>{{item.ft_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.ft_made !== 0">{{(item.ft_made / item.ft_attempts * 100) === 100 && (item.ft_made / item.ft_attempts * 100).toFixed(0) || (item.ft_made / item.ft_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.ft_made === 0">0.0</td>
+                                            <td>{{item.of_rebounds.toFixed(1)}}</td>
+                                            <td>{{item.df_rebounds.toFixed(1)}}</td>
+                                            <td>{{(item.of_rebounds + item.df_rebounds).toFixed(1)}}</td>
+                                            <td>{{item.assists.toFixed(1)}}</td>
+                                            <td>{{item.turnovers.toFixed(1)}}</td>
+                                            <td>{{item.steals.toFixed(1)}}</td>
+                                            <td>{{item.block_shots.toFixed(1)}}</td>
+                                            <td>{{item.fouls_made.toFixed(1)}}</td>
+                                            <td>{{item.fouls_received.toFixed(1)}}</td>
+                                            <td>{{item.val.toFixed(1)}}</td>
+                                            <td>{{item.vir.toFixed(2)}}</td>
+                                            <td>{{item.oer.toFixed(2)}}</td>
+                                        </tr>
+                                        <tr ng-repeat="item in array" ng-if="$last && season === 'Total'" ng-style="item.style">
+                                            <td class="wide">{{item.op_team_name}}</td>
+                                            <td>{{item.average ? item.minutes : item.minutes.slice(3)}}</td>
+                                            <td>{{item.points.toFixed(1)}}</td>
+                                            <td>{{item.fg_made.toFixed(1)}}</td>
+                                            <td>{{item.fg_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.fg_percent">{{item.fg_percent}}</td>
+                                            <td ng-show="item.fg_made !== 0">{{(item.fg_made / item.fg_attempts * 100) === 100 && (item.fg_made / item.fg_attempts * 100).toFixed(0) || (item.fg_made / item.fg_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.fg_made === 0">0.0</td>
+                                            <!--<td ng-show="!item.fg_percent">{{item.fg_attempts ? ((item.fg_made * 100) / item.fg_attempts).toFixed(1) : 0.0}}</td>-->
+                                            <td>{{item.p3_made.toFixed(1)}}</td>
+                                            <td>{{item.p3_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.p3_percent">{{item.p3_percent}}</td>
+                                            <td ng-show="item.p3_made !== 0">{{(item.p3_made / item.p3_attempts * 100) === 100 && (item.p3_made / item.p3_attempts * 100).toFixed(0) || (item.p3_made / item.p3_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.p3_made === 0">0.0</td>
+                                            <!--<td ng-show="!item.p3_percent">{{item.p3_attempts ? ((item.p3_made * 100) / item.p3_attempts).toFixed(1) : 0.0}}</td>-->
+                                            <td>{{item.p2_made.toFixed(1)}}</td>
+                                            <td>{{item.p2_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.p2_percent">{{item.p2_percent}}</td>
+                                            <td ng-show="item.p2_made !== 0">{{(item.p2_made / item.p2_attempts * 100) === 100 && (item.p2_made / item.p2_attempts * 100).toFixed(0) || (item.p2_made / item.p2_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.p2_made === 0">0.0</td>
+                                            <!--<td ng-show="!item.p2_percent">{{item.p2_attempts ? ((item.p2_made * 100) / item.p2_attempts).toFixed(1) : 0.0}}</td>-->
+                                            <td>{{item.ft_made.toFixed(1)}}</td>
+                                            <td>{{item.ft_attempts.toFixed(1)}}</td>
+                                            <td ng-show="item.ft_percent">{{item.ft_percent}}</td>
+                                            <!--<td ng-show="!item.ft_percent">{{item.ft_attempts ? ((item.ft_made * 100) / item.ft_attempts).toFixed(1) : 0.0}}</td>-->
+                                            <td ng-show="item.ft_made !== 0">{{(item.ft_made / item.ft_attempts * 100) === 100 && (item.ft_made / item.ft_attempts * 100).toFixed(0) || (item.ft_made / item.ft_attempts * 100).toFixed(1)}}</td>
+                                            <td ng-show="item.ft_made === 0">0.0</td>
+                                            <td>{{item.of_rebounds.toFixed(1)}}</td>
+                                            <td>{{item.df_rebounds.toFixed(1)}}</td>
+                                            <td>{{(item.of_rebounds + item.df_rebounds).toFixed(1)}}</td>
+                                            <td>{{item.assists.toFixed(1)}}</td>
+                                            <td>{{item.turnovers.toFixed(1)}}</td>
+                                            <td>{{item.steals.toFixed(1)}}</td>
+                                            <td>{{item.block_shots.toFixed(1)}}</td>
+                                            <td>{{item.fouls_made.toFixed(1)}}</td>
+                                            <td>{{item.fouls_received.toFixed(1)}}</td>
+                                            <td>{{item.val.toFixed(1)}}</td>
+                                            <td>{{item.vir.toFixed(2)}}</td>
+                                            <td>{{item.oer.toFixed(2)}}</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
+                              </div>
+                          </div>
+                          <div id="watch-games" class="tab-pane fade">
+                              <div class="wrapper_print_select">
+                                  <div class="row">
+                                      <div class="col-lg-6 form-group">
+                                          <select id="watch-games-select" class="form-control">
+                                              <option ng-repeat="s in rankOptions"
+                                                      ng-selected="{{$index===0}}"
+                                                      value="{{s.season}}, {{s.league}}, {{s.team}}"
+                                                      class="ui-menu-item-wrapper each_options">
+                                                  {{s.season_name}} - {{s.league_name}} - {{s.team_name}}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="watch_game_wpr col-lg-12">
+                                      <div class="game_tbl_wpr" ng-if="nodata">
+                                          <table class="table">
+                                              <thead>
+                                                  <tr>
+                                                      <td>League Name</td>
+                                                      <td>Date</td>
+                                                      <td>Home Team</td>
+                                                      <td>Away Team</td>
+                                                      <td>Box Score</td>
+                                                      <td>Videos</td>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr ng-repeat="game in wgvideo">
+                                                      <td>
+                                                          <a class="close-modal-box"
+                                                             ng-click="getLeagueNameTab(game.league_id, game.season_id, game.league_name)">
+                                                              {{game.league_name}}
+                                                          </a>
+                                                      </td>
+                                                      <td>{{game.game_date}}</td>
+                                                      <td>
+                                                          <a class="close-modal-box"
+                                                             ng-click="getHomeTeamNameTab(game.home_team_id,game.league_id,game.season_id,game.home_team_name)">
+                                                              {{game.home_team_name}}
+                                                          </a>
+                                                      </td>
+                                                      <!--<td>{{game.away_team_name}}</td>-->
+                                                      <td>
+                                                          <a class="close-modal-box"
+                                                             ng-click="getAwayTeamNameTab(game.away_team_id,game.league_id,game.season_id,game.away_team_name)">
+                                                              {{game.away_team_name}}
+                                                          </a>
+                                                      </td>
+                                                      <td><a  data-toggle="modal"
+                                                              data-target="#boxScoreModalPlayer"
+                                                              class="btn open_box"
+                                                              ng-click="handleModal(game.game_id)"
+                                                      >Box Score</a></td>
+                                                      <td>
+                                                          <a class='btn'
+                                                             id="show_video"
+                                                             ng-click="watchVideo(game.game_id, game.season_id, game.league_id, game.game_date, game.game_id); controlSpeedNormalButtons()">
+                                                              <i class="fa fa-play-circle" aria-hidden="true"></i> Watch video
+                                                          </a>
+                                                      </td>
+                                                  </tr>
+                                                  <tr ng-show="!norow" style="text-align:center;">
+                                                      <td colspan="6">No Data</td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="tendency" class="tab-pane fade">
+                                 <div class="row">
+                                    <div class="col-lg-8 col-md-8 player_carrer">
+                                        <div class="col-lg-4 col-md-4">
+                                            <select ng-init="tendencyObj.tendencySelected"
+                                                    class="tend-select" id="tend-select">
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <select class="selectpicker profile-games-search"
+                                                    id="profile-games-search"
+                                                    data-live-search="true"
+                                                    data-selected-text-format="count > 2"
+                                                    data-actions-box="true"
+                                                    multiple
+                                                    title="Choose games"
+                                                    tabindex="-98"
+                                                    ng-model="tendencyObj.games"
+                                                    ng-change="drawTendency()">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <button id="playPlayerVideos"
+                                                data-toggle="modal"
+                                                data-target="#playClipsModal"
+                                                type="button"
+                                                class="btn btn-default"
+                                                ng-click="playClips()">
+                                            <i class="glyphicon glyphicon-play-circle"></i>
+                                            <span>Play Clips</span>
+                                        </button>
+                                    </div>
+                                </div>
+                              <div class="display_none">
+                                <div class="row">
+                                  <div class="col-lg-12 col-md-12 tendency-first-chart">
+                                        <div class="action-chart"></div>
+                                  </div>
+                              </div>
+                                <div class="row action-filter">
+                                  <form ng-model="actionFilter">
+                                      <label class="radio-inline">
+                                          <input type="radio" name="action-type" ng-click="changeGauge('all')" value="all" checked>All actions
+                                      </label>
+                                      <label class="radio-inline">
+                                          <input type="radio" name="action-type" ng-click="changeGauge('def')" value="defence">Defensive
+                                      </label>
+                                      <label class="radio-inline">
+                                          <input type="radio" name="action-type" ng-click="changeGauge('off')" value="offence">Offensive
+                                      </label>
+                                  </form>
+                              </div>
+                                <div class="row tendency-second-chart">
+                                  <div class="action-chart-box" ng-repeat="data in actionChartData"
+                                       ng-class="{{tendencyObj.isDef(data.action)}}"
+                                       ng-click="playClips(data.action)"
+                                       data-toggle="modal"
+                                       data-target="#playClipsModal">
+                                        <div class="action-chart-title">
+                                            <p>{{data.name}}
+                                                <span>
+                                                    <i class="glyphicon glyphicon-play-circle"></i>
+                                                </span>
+                                                <!--<span class="download">-->
+                                                    <!--<a href="" style="color: black;">-->
+                                                        <!--<i class="fa fa-download" aria-hidden="true"></i>-->
+                                                    <!--</a>-->
+                                                <!--</span>-->
+                                            </p>
+                                        </div>
+                                          <div id='{{"action-chart-" + $index }}' class="action-chart-container"></div>
+                                          <div class="action-chart-footer">
+                                              <div class="text-box">
+                                                  <p>Player : </p><span>{{data.player}}</span>
+                                              </div>
+                                              <div class="text-box">
+                                                  <p>Team : </p> <span>{{data.team}}</span>
+                                              </div>
+                                          </div>
+                                    </div>
+                                  </div>
+                                <div class="row tendency-third-chart offence">
+                                  <div class="third-chart shot-pie"></div>
+                                  <div class="third-chart direction-chart"></div>
+                                  <div class="third-chart point-shots-chart"></div>
+                              </div>
+                                <div class="row tendency-fourth-chart offence">
+                              <div class="col-lg-12 col-md-12 shot-analysis">
+                              </div>
+                          </div>
+                                <div class="row tendency-third-chart offence print_pie">
+                                  <div class="third-chart col-md-6" id="shot_type-pie"></div>
+                                  <div class="player_legend col-md-4">
+                                      <p ng-repeat="obj in links | limitTo:30" ng-click="playClipsPlayer(null, obj.id, obj.name)"
+                                         data-toggle="modal"
+                                         data-target="#playClipsModal">
+                                          <span class="color_legend" ng-style={'background-color':obj.color}></span>
+                                          {{obj.name + ' ' + obj.sum.toFixed(0) + '%'}}
+                                          <i class="glyphicon glyphicon-play-circle"></i>
+                                      </p>
+                                  </div>
+                              </div>
+                                <div class="row tendency-fourth-chart offence">
+                                <div class="shot-chart-box"
+                                   ng-repeat= "data in shotGaugeData | limitTo:30"
+                                   ng-click="playClips(null,data.id, data.name)"
+                                   data-toggle="modal"
+                                   data-target="#playClipsModal">
+                                  <div class="shot-chart-title">
+                                      <p>{{data.name}} <span><i class="glyphicon glyphicon-play-circle"></i></span></p>
+
+                                  </div>
+                                  <div id='{{"shot-chart-" + $index }}' class="shot-chart-container"></div>
+
+                                  <div class="shot-chart-footer">
+                                      <div class="text-box">
+                                          <p>Made: </p> <span>{{data.made}}</span>
+                                      </div>
+                                      <div class="text-box">
+                                          <p>Attempts : </p> <span>{{data.attempts}}</span>
+                                      </div>
+                                  </div>
+
+                              </div>
+                                <div class="row tendency-fifth-chart offence">
+                                        <div class="col-lg-12 col-md-12 assist-analysis"></div>
+                                    </div>
+                                <div class="row tendency-sixth-chart offence">
+                                        <div class="col-lg-12 col-md-12 turnover-analysis"></div>
+                                    </div>
+                              </div>
+                          </div>
+                          </div>
+                          <div id="premium" class="tab-pane fade">
+                              <div class="row stats-2-win-container-flex"style="margin-top: 50px">
+
+                                  <div class="col-md-3 col-sm-6 hover" ng-hide="1 != 1">
+                                                   <div class="single_itme text-center stats-display-none-print">
+                                                   <h2 class="stats2WinTitle">League Stats Comparison</h2>
+                                                       <div>
+                                                           <a ui-sref="premiumlsc">
+                                                                <img src="../../../image/Report-5.png" alt="team"/>
+                                                           </a>
+                                                       </div>
+                                                   </div>
+                                              </div>
+                                      <div class="col-md-3 col-sm-6 hover" ng-hide="1 != 1">
+                                           <div class="single_itme text-center stats-display-none-print">
+                                           <h2 class="stats2WinTitle">Team Stats Comparison</h2>
+                                               <div>
+                                                   <a ui-sref="premiumptsc">
+                                                        <img src="../../../image/Report-2.png" alt="team"/>
+                                                   </a>
+                                               </div>
+                                           </div>
+                                      </div>
+                                          <div class="col-md-3 col-sm-6 hover" ng-hide="1 != 1">
+                                                   <div class="single_itme text-center stats-display-none-print">
+                                                   <h2 class="stats2WinTitle">Player Stats Comparison</h2>
+                                                       <div>
+                                                           <a ui-sref="premiumpsc">
+                                                                <img src="../../../image/Report-9.jpg" alt="team"/>
+                                                           </a>
+                                                       </div>
+                                                   </div>
+                                              </div>
+                                          <div class="col-md-3 col-sm-6 hover" ng-hide="1 != 1">
+                                                   <div class="single_itme text-center stats-display-none-print">
+                                                   <h2 class="stats2WinTitle">Player Analysis</h2>
+                                                       <div>
+                                                           <a ui-sref="premiumpa">
+                                                                <img src="../../../image/Report-4.png" alt="team"/>
+                                                           </a>
+                                                       </div>
+                                                   </div>
+                                              </div>
+
+                              </div>
+                          </div>
+                      </div>
+          </div>
+          </div>
+
+        <!--modal content-->
+        <div id="boxScoreModalPlayer" class="modal fade full_screen full_screen_modal" tabindex="-1" role="dialog"
+             aria-labelledby="watchGameModal" aria-hidden="true" style="padding-right: 0px !important;">
+            <div class="modal-dialog modal-lg" style="width: 100%;margin: 0;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="title-modal-box box-header">
+                            <h4 class="title-modal-box box-title">
+                                <span>{{boxScore.step.name}}</span>
+                                <!--<span>GAME: # {{boxScore.step.order_num}}</span>-->
+                                <span>DAY: # {{boxScore.jornada}}</span>
+                                <span>{{boxScore.game_date.split('-')[2]}}/{{boxScore.game_date.split('-')[1]}}/{{boxScore.game_date.split('-')[0]}}</span>
+                                <span>({{boxScore.id}})</span>
+                            </h4>
+                        </div>
+                        <button data-dismiss="modal" class="fa fa-times-circle button-scout"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="wrapper_team">
+                            <div class="first_team  div_design">
+                                <div class="team_design_wpr">
+                                    <h3 class="team_name">{{boxScore.home_team.name}}</h3>
+                                    <h3 class="team_points"
+                                        ng-if="boxScore.home_team.id == boxScore.game_stats[0].team">
+                                        {{boxScore.game_stats[0].points}}</h3>
+                                    <h3 class="team_points"
+                                        ng-if="boxScore.home_team.id == boxScore.game_stats[1].team">
+                                        {{boxScore.game_stats[1].points}}</h3>
+                                </div>
+                            </div>
+                            <table class="table quater_tbl table_points">
+                                <thead>
+                                <tr>
+                                    <th>Q1</th>
+                                    <th>Q2</th>
+                                    <th>Q3</th>
+                                    <th>Q4</th>
+                                    <th>OT</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-if="boxScore.home_team.id == boxScore.game_stats[0].team"
+                                    ng-init="q = boxScore.game_stats[0]">
+                                    <td>{{boxScore.game_stats[0].q1_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q2_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q3_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q4_points}}</td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points != 0">
+                                        {{boxScore.game_stats[0].ot1_points}}
+                                    </td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points == 0"></td>
+                                </tr>
+                                <tr ng-if="boxScore.home_team.id == boxScore.game_stats[1].team"
+                                    ng-init="q = boxScore.game_stats[1]">
+                                    <td>{{boxScore.game_stats[1].q1_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q2_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q3_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q4_points}}</td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points != 0">
+                                        {{boxScore.game_stats[1].ot1_points}}
+                                    </td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points == 0"></td>
+                                </tr>
+                                <tr ng-if="boxScore.away_team.id == boxScore.game_stats[0].team"
+                                    ng-init="q = boxScore.game_stats[0]">
+                                    <td>{{boxScore.game_stats[0].q1_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q2_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q3_points}}</td>
+                                    <td>{{boxScore.game_stats[0].q4_points}}</td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points != 0">
+                                        {{boxScore.game_stats[0].ot1_points}}
+                                    </td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points == 0"></td>
+                                </tr>
+                                <tr ng-if="boxScore.away_team.id == boxScore.game_stats[1].team"
+                                    ng-init="q = boxScore.game_stats[1]">
+                                    <td>{{boxScore.game_stats[1].q1_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q2_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q3_points}}</td>
+                                    <td>{{boxScore.game_stats[1].q4_points}}</td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points != 0">
+                                        {{boxScore.game_stats[1].ot1_points}}
+                                    </td>
+                                    <td ng-if="boxScore.game_stats[0].ot1_points == 0"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="second_team  div_design">
+                                <div class="team_design_wpr">
+                                    <h3 class="team_name">{{boxScore.away_team.name}}</h3>
+                                    <h3 class="team_points"
+                                        ng-if="boxScore.away_team.id == boxScore.game_stats[0].team">
+                                        {{boxScore.game_stats[0].points}}</h3>
+                                    <h3 class="team_points"
+                                        ng-if="boxScore.away_team.id == boxScore.game_stats[1].team">
+                                        {{boxScore.game_stats[1].points}}</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box_score_wrapper">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a class="close-modal-box"
+                                       ui-sref="team({seasonId: boxScore.season.id, leagueId: boxScore.league.id, teamId:boxScore.home_team.id, teamName:(boxScore.home_team.name).replace(regExp,'_')})"
+                                       href="{{boxScore.home_team.id}}">{{boxScore.home_team.name}}
+                                    </a>
+                                </h4>
+                            </div>
+                            <table class="table quater_tbl table_box_score">
+                                <thead>
+                                <tr>
+                                    <th style="width:34px;height:26px;">#</th>
+                                    <th>PLAYER</th>
+                                    <th>POS</th>
+                                    <th>MIN</th>
+                                    <th>PTS</th>
+                                    <th>FGM</th>
+                                    <th>FGA</th>
+                                    <th>FG%</th>
+                                    <th>3PM</th>
+                                    <th>3PA</th>
+                                    <th>3P%</th>
+                                    <th>2PM</th>
+                                    <th>2PA</th>
+                                    <th>2P%</th>
+                                    <th>FTM</th>
+                                    <th>FTA</th>
+                                    <th>FT%</th>
+                                    <th>DR</th>
+                                    <th>OR</th>
+                                    <th>TR</th>
+                                    <th>AS</th>
+                                    <th>TO</th>
+                                    <th>ST</th>
+                                    <th>BS</th>
+                                    <th>SR</th>
+                                    <th>FM</th>
+                                    <th>FR</th>
+                                    <th>VAL</th>
+                                    <th>VIR</th>
+                                    <th>OER</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="align_row" ng-if="boxScore.home_team.id == item.team"
+                                    ng-repeat="item in boxScore.players_stats">
+                                    <td>{{item.jersey_number}}</td>
+                                    <td><a class="close-modal-box"
+                                           ui-sref="player({pid: item.player.id,lastName: item.player.last_name,firstName: item.player.first_name})"
+                                           href="{{item.player.id}}" ng-click="setPlayerId(item.player.id)" ng-attr-style="{{item.started === true && 'font-weight: bolder !important' || 'font-weight: normal'}}">
+                                        {{item.player.last_name}}
+                                        {{item.player.first_name}}</a></td>
+                                    <td>{{item.player.position.short_name}}</td>
+                                    <td>{{item.minutes.split(':')[1]}}:{{item.minutes.split(':')[2]}}</td>
+                                    <td>{{item.points}}</td>
+                                    <td>{{item.fg_made}}</td>
+                                    <td>{{item.fg_attempts}}</td>
+                                    <td ng-if="item.fg_made !== 0 && item.fg_attempts !== 0">
+                                        {{(+(item.fg_made/item.fg_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.fg_made/item.fg_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.fg_made === 0 || item.fg_attempts === 0">0.0</td>
+                                    <td>{{item.p3_made}}</td>
+                                    <td>{{item.p3_attempts}}</td>
+                                    <td ng-if="item.p3_made !== 0 && item.p3_attempts !== 0">
+                                        {{(+(item.p3_made/item.p3_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.p3_made/item.p3_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.p3_made === 0 || item.p3_attempts === 0">0.0</td>
+                                    <td>{{item.p2_made}}</td>
+                                    <td>{{item.p2_attempts}}</td>
+                                    <td ng-if="item.p2_made !==0 && item.p2_attempts !== 0">
+                                        {{(+(item.p2_made/item.p2_attempts)*100).toFixed(1) === '100.0' ?
+                                        100: (+(item.p2_made/item.p2_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.p2_made ===0 || item.p2_attempts === 0">0.0</td>
+                                    <td>{{item.ft_made}}</td>
+                                    <td>{{item.ft_attempts}}</td>
+                                    <td ng-if="item.ft_made !==0 && item.ft_attempts !== 0">
+                                        {{(+(item.ft_made/item.ft_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.ft_made/item.ft_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.ft_made === 0 || item.ft_attempts === 0">0.0</td>
+                                    <td>{{item.df_rebounds}}</td>
+                                    <td>{{item.of_rebounds}}</td>
+                                    <td>{{item.df_rebounds + item.of_rebounds}}</td>
+                                    <td>{{item.assists}}</td>
+                                    <td>{{item.turnovers}}</td>
+                                    <td>{{item.steals}}</td>
+                                    <td>{{item.block_shots}}</td>
+                                    <td>{{item.shots_rejected}}</td>
+                                    <td>{{item.fouls_made}}</td>
+                                    <td>{{item.fouls_received}}</td>
+                                    <td>{{(item.val).toFixed(1)}}</td>
+                                    <td>{{(item.vir).toFixed(2)}}</td>
+                                    <td>{{(item.oer).toFixed(2)}}</td>
+                                </tr>
+                                <tr class="align_row total_row" ng-if="boxScore.home_team.id == bsHomeTeam.team">
+                                    <td colspan="4">Total</td>
+                                    <td>{{bsHomeTeam.points}}</td>
+                                    <td>{{bsHomeTeam.fg_made}}</td>
+                                    <td>{{bsHomeTeam.fg_attempts}}</td>
+                                    <td ng-if="bsHomeTeam.fg_made !== 0 && bsHomeTeam.fg_attempts !== 0">
+                                        {{(+(bsHomeTeam.fg_made/bsHomeTeam.fg_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsHomeTeam.fg_made/bsHomeTeam.fg_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsHomeTeam.fg_made === 0 || bsHomeTeam.fg_attempts === 0">0.0</td>
+                                    <td>{{bsHomeTeam.p3_made}}</td>
+                                    <td>{{bsHomeTeam.p3_attempts}}</td>
+                                    <td ng-if="bsHomeTeam.p3_made !== 0 && bsHomeTeam.p3_attempts !== 0">
+                                        {{(+(bsHomeTeam.p3_made/bsHomeTeam.p3_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsHomeTeam.p3_made/bsHomeTeam.p3_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsHomeTeam.p3_made === 0 || bsHomeTeam.p3_attempts === 0">0.0</td>
+                                    <td>{{bsHomeTeam.p2_made}}</td>
+                                    <td>{{bsHomeTeam.p2_attempts}}</td>
+                                    <td ng-if="bsHomeTeam.p2_made !==0 && bsHomeTeam.p2_attempts !== 0">
+                                        {{(+(bsHomeTeam.p2_made/bsHomeTeam.p2_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsHomeTeam.p2_made/bsHomeTeam.p2_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsHomeTeam.p2_made ===0 || bsHomeTeam.p2_attempts === 0">0.0</td>
+                                    <td>{{bsHomeTeam.ft_made}}</td>
+                                    <td>{{bsHomeTeam.ft_attempts}}</td>
+                                    <td ng-if="bsHomeTeam.ft_made !==0 && bsHomeTeam.ft_attempts !== 0">
+                                        {{(+(bsHomeTeam.ft_made/bsHomeTeam.ft_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsHomeTeam.ft_made/bsHomeTeam.ft_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsHomeTeam.ft_made === 0 || bsHomeTeam.ft_attempts === 0">0.0</td>
+                                    <td>{{bsHomeTeam.df_rebounds}}</td>
+                                    <td>{{bsHomeTeam.of_rebounds}}</td>
+                                    <td>{{bsHomeTeam.df_rebounds + bsHomeTeam.of_rebounds}}</td>
+                                    <td>{{bsHomeTeam.assists}}</td>
+                                    <td>{{bsHomeTeam.turnovers}}</td>
+                                    <td>{{bsHomeTeam.steals}}</td>
+                                    <td>{{bsHomeTeam.block_shots}}</td>
+                                    <td>{{bsHomeTeam.shots_rejected}}</td>
+                                    <td>{{bsHomeTeam.fouls_made}}</td>
+                                    <td>{{bsHomeTeam.fouls_received}}</td>
+                                    <td>{{(bsHomeTeam.val).toFixed(1)}}</td>
+                                    <td>{{(bsHomeTeam.vir).toFixed(2)}}</td>
+                                    <td>{{(bsHomeTeam.oer).toFixed(2)}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box_score_wrapper">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a class="close-modal-box"
+                                       ui-sref="team({seasonId: boxScore.season.id, leagueId: boxScore.league.id, teamId:boxScore.away_team.id, teamName:(boxScore.away_team.name).replace(regExp,'_')})"
+                                       href="{{boxScore.away_team.id}}">{{boxScore.away_team.name}}
+                                    </a>
+                                </h4>
+                            </div>
+
+                            <table class="table quater_tbl table_box_score">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>PLAYER</th>
+                                    <th>POS</th>
+                                    <th>MIN</th>
+                                    <th>PTS</th>
+                                    <th>FGM</th>
+                                    <th>FGA</th>
+                                    <th>FG%</th>
+                                    <th>3PM</th>
+                                    <th>3PA</th>
+                                    <th>3P%</th>
+                                    <th>2PM</th>
+                                    <th>2PA</th>
+                                    <th>2P%</th>
+                                    <th>FTM</th>
+                                    <th>FTA</th>
+                                    <th>FT%</th>
+                                    <th>DR</th>
+                                    <th>OR</th>
+                                    <th>TR</th>
+                                    <th>AS</th>
+                                    <th>TO</th>
+                                    <th>ST</th>
+                                    <th>BS</th>
+                                    <th>SR</th>
+                                    <th>FM</th>
+                                    <th>FR</th>
+                                    <th>VAL</th>
+                                    <th>VIR</th>
+                                    <th>OER</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="align_row" ng-if="boxScore.away_team.id == item.team"
+                                    ng-repeat="item in boxScore.players_stats">
+                                    <td>{{item.jersey_number}}</td>
+                                    <td><a class="close-modal-box"
+                                           ui-sref="player({pid: item.player.id,lastName: item.player.last_name,firstName: item.player.first_name})"
+                                           href="{{item.player.id}}" ng-click="setPlayerId(item.player.id)" ng-attr-style="{{item.started === true && 'font-weight: bolder !important' || 'font-weight: normal'}}">
+                                        {{item.player.last_name}}
+                                        {{item.player.first_name}}</a></td>
+                                    <td>{{item.player.position.short_name}}</td>
+                                    <td>{{item.minutes.split(':')[1]}}:{{item.minutes.split(':')[2]}}</td>
+                                    <td>{{item.points}}</td>
+                                    <td>{{item.fg_made}}</td>
+                                    <td>{{item.fg_attempts}}</td>
+                                    <td ng-if="item.fg_made != 0 && item.fg_attempts != 0">
+                                        {{(+(item.fg_made/item.fg_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.fg_made/item.fg_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.fg_made == 0 || item.fg_attempts == 0">0.0</td>
+                                    <td>{{item.p3_made}}</td>
+                                    <td>{{item.p3_attempts}}</td>
+                                    <td ng-if="item.p3_made != 0 && item.p3_attempts != 0">
+                                        {{(+(item.p3_made/item.p3_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.p3_made/item.p3_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.p3_made == 0 || item.p3_attempts == 0">0.0</td>
+                                    <td>{{item.p2_made}}</td>
+                                    <td>{{item.p2_attempts}}</td>
+                                    <td ng-if="item.p2_made != 0 && item.p2_attempts != 0">
+                                        {{(+(item.p2_made/item.p2_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.p2_made/item.p2_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.p2_made == 0 || item.p2_attempts == 0">0.0</td>
+                                    <td>{{item.ft_made}}</td>
+                                    <td>{{item.ft_attempts}}</td>
+                                    <td ng-if="item.ft_made !=0 && item.ft_attempts != 0">
+                                        {{(+(item.ft_made/item.ft_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(item.ft_made/item.ft_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="item.ft_made == 0 || item.ft_attempts == 0">0.0</td>
+                                    <td>{{item.df_rebounds}}</td>
+                                    <td>{{item.of_rebounds}}</td>
+                                    <td>{{item.df_rebounds + item.of_rebounds}}</td>
+                                    <td>{{item.assists}}</td>
+                                    <td>{{item.turnovers}}</td>
+                                    <td>{{item.steals}}</td>
+                                    <td>{{item.block_shots}}</td>
+                                    <td>{{item.shots_rejected}}</td>
+                                    <td>{{item.fouls_made}}</td>
+                                    <td>{{item.fouls_received}}</td>
+                                    <td>{{(item.val).toFixed(1)}}</td>
+                                    <td>{{(item.vir).toFixed(2)}}</td>
+                                    <td>{{(item.oer).toFixed(2)}}</td>
+                                </tr>
+                                <tr class="align_row total_row" ng-if="boxScore.away_team.id == bsAwayTeam.team">
+                                    <td colspan="4">Total</td>
+                                    <td>{{bsAwayTeam.points}}</td>
+                                    <td>{{bsAwayTeam.fg_made}}</td>
+                                    <td>{{bsAwayTeam.fg_attempts}}</td>
+                                    <td ng-if="bsAwayTeam.fg_made !== 0 && bsAwayTeam.fg_attempts !== 0">
+                                        {{(+(bsAwayTeam.fg_made/bsAwayTeam.fg_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsAwayTeam.fg_made/bsAwayTeam.fg_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsAwayTeam.fg_made === 0 || bsAwayTeam.fg_attempts === 0">0.0</td>
+                                    <td>{{bsAwayTeam.p3_made}}</td>
+                                    <td>{{bsAwayTeam.p3_attempts}}</td>
+                                    <td ng-if="bsAwayTeam.p3_made !== 0 && bsAwayTeam.p3_attempts !== 0">
+                                        {{(+(bsAwayTeam.p3_made/bsAwayTeam.p3_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsAwayTeam.p3_made/bsAwayTeam.p3_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsAwayTeam.p3_made === 0 || bsAwayTeam.p3_attempts === 0">0.0</td>
+                                    <td>{{bsAwayTeam.p2_made}}</td>
+                                    <td>{{bsAwayTeam.p2_attempts}}</td>
+                                    <td ng-if="bsAwayTeam.p2_made !==0 && bsAwayTeam.p2_attempts !== 0">
+                                        {{(+(bsAwayTeam.p2_made/bsAwayTeam.p2_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsAwayTeam.p2_made/bsAwayTeam.p2_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsAwayTeam.p2_made ===0 || bsAwayTeam.p2_attempts === 0">0.0</td>
+                                    <td>{{bsAwayTeam.ft_made}}</td>
+                                    <td>{{bsAwayTeam.ft_attempts}}</td>
+                                    <td ng-if="bsAwayTeam.ft_made !==0 && bsAwayTeam.ft_attempts !== 0">
+                                        {{(+(bsAwayTeam.ft_made/bsAwayTeam.ft_attempts)*100).toFixed(1) === '100.0' ?
+                                        100 : (+(bsAwayTeam.ft_made/bsAwayTeam.ft_attempts)*100).toFixed(1)}}
+                                    </td>
+                                    <td ng-if="bsAwayTeam.ft_made === 0 || bsAwayTeam.ft_attempts === 0">0.0</td>
+                                    <td>{{bsAwayTeam.df_rebounds}}</td>
+                                    <td>{{bsAwayTeam.of_rebounds}}</td>
+                                    <td>{{bsAwayTeam.df_rebounds + bsAwayTeam.of_rebounds}}</td>
+                                    <td>{{bsAwayTeam.assists}}</td>
+                                    <td>{{bsAwayTeam.turnovers}}</td>
+                                    <td>{{bsAwayTeam.steals}}</td>
+                                    <td>{{bsAwayTeam.block_shots}}</td>
+                                    <td>{{bsAwayTeam.shots_rejected}}</td>
+                                    <td>{{bsAwayTeam.fouls_made}}</td>
+                                    <td>{{bsAwayTeam.fouls_received}}</td>
+                                    <td>{{(bsAwayTeam.val).toFixed(1)}}</td>
+                                    <td>{{(bsAwayTeam.vir).toFixed(2)}}</td>
+                                    <td>{{(bsAwayTeam.oer).toFixed(2)}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- player clips modal -->
+        <div id="playClipsModal" class="modal fade" role="dialog"
+             aria-labelledby="playClipsModal" aria-hidden="true" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="button-container">
+                        <button class="btn btn-sm btn-danger" data-dismiss="modal"
+                                aria-hidden="true" ng-click="dismissModal()"
+                                class="close"><i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                        <button class="btn btn-sm btn-default" ng-click="videofullscreen()"><i class="glyphicon glyphicon-fullscreen"></i></button>
+                    </div>
+                    <div class="row">
+                        <div class="left-side col-sm-3">
+                            <div id="play_list_data">
+                                <div class="item-game-analysis row"
+                                     ng-class="{{obj.url === currentVideo.url ? 'active' : ''}}"
+                                     ng-repeat="obj in videos | limitTo:20">
+                                    <div class="image" ng-click="changeClip(obj)">
+                                        <img class="image_player-tendency" ng-src="{{obj.img}}" alt="">
+                                    </div>
+
+                                    <div class="description-game-analysis"ng-click="changeClip(obj)">
+                                        <h4 class="palyer_tendency-h4">{{obj.actionname}}</h4>
+                                    </div>
+                                    <div class="check" ng-if="accessConfig.video || isAdmin">
+                                        <input id='{{"tendency-video-" + $index}}' type="checkbox"
+                                        ng-model="selectedVideo[$index]">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-video" ng-class="(!accessConfig.video && !isAdmin) ? 'control-video_2' : 'control-video'">
+                                <button class="btn btn-sm btn-danger pull-left"
+                                        ng-click="prevClip()">
+                                    Previous
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-left"
+                                        ng-click="nextClip()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="control-video" ng-if="accessConfig.video || isAdmin">
+                                <button class="btn btn-sm btn-danger pull-left"
+                                        ng-click="selectAllVideos()">
+                                    Select all
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-left"
+                                        ng-click="deSelectAllVideos()">
+                                    Deselect all
+                                </button>
+                                <button class="btn btn-sm btn-danger pull-left"
+                                        ng-click="exportVideosToFolder()">
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 right-side" >
+                            <div id="play_clips_video">
+                                <video id="clip" controls autoplay preload="none"
+                                       type="video/mp4" src="{{currentVideo.url}}"
+                                       class="video-js vjs-default-skin">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Watch Game modal-->
+
+        <div id="open_video" class="modal fade bg_modal" role="dialog">
+            <div class="modal-dialog modal-dialog-youtube">
+                <div class="modal-content modal-content-youtube">
+                    <div class="modal-header modal-header-youtube box">
+                        <button data-dismiss="modal" ng-click="closeWatchVideo()" class="fa fa-times-circle button-scout"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="league-in-video">
+                            <img src="../../../image/part_line.png" alt="line"/>
+                            <ul>
+                                <li>{{getSeasonName}}</li>
+                                <li>{{getLeagueName}}</li>
+                                <li>{{homeName}}
+                                    <span class="small">vs</span>
+                                    {{awayName}}
+                                </li>
+                                <li>{{gameDate}}</li>
+                            </ul>
+                           <a href='' target="_blank" id="game_video_watch2" download>Right click here to save video</a>
+
+                        </div>
+
+                        <div class="align_block_modal">
+                            <div class="block_first_team">
+                                <h5>{{homeName}}</h5>
+                                <div class="wrapper_list_players">
+                                    <ul class="list_players">
+                                        <li ng-repeat="player in dataFirstTeam">
+                                            <!--<div class="{{'flag flag-' + player.country[0]+player.country[1] | lowercase}}"
+                                             alt="{{player.nationality[0].name}}"></div>-->
+                                            <div class="video-player-info">
+                                             <span ng-if="player.country.split(' ').length === 1"
+                                                   class="{{'flag flag-' + player.country[0]+player.country[1] | lowercase}} player-flag"
+                                                   alt="{{player.country}}"></span>
+                                                <span ng-if="player.country.split(' ').length > 1"
+                                                      class="{{'flag flag-' + player.country.split(' ')[0][0]+player.country.split(' ')[1][0] | lowercase}} player-flag"
+                                                      alt="{{player.country}}"></span>
+                                                <a class="player-in-jersey"
+                                                   ng-click="setPlayerId(player.player_id);getPhotoPlayer(player.player_id)">
+                                                     {{player.last_name}} {{player.first_name[0]}}.
+                                                </a>
+                                                <p class="player-list-info">#{{player.jersey}} {{player.position}} <span ng-show="player.height != null">{{player.height + ' ' + 'cm'}}</span></p>
+                                            </div>
+                                            <div class="team-player-photo">
+                                                <img src="{{player.photo}}" alt="photo"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="block_main_video">
+                                <!-- <iframe  frameborder="0" allowfullscreen></iframe>-->
+                                <!--<video id="game_video_watch" src="" class="video-js vjs-default-skin" controls>
+                                    <video id="game_video_watch" class="video-js" controls preload="auto" src="" style="height: 95%; width: 100%" autoplay>
+                                </video>-->
+
+                                <video id="game_video_watch" controls preload="none" autoplay style="height: 95%; width: 100%" type="video/mp4" >
+                                </video>
+
+                                
+                                <div class="video_control_buttons">
+                                    <button ng-click="controlSecondButtons(-10)">-10 Sec</button>
+                                    <button ng-click="controlSecondButtons(-5)">-5 Sec</button>
+                                    <button ng-click="controlSecondButtons(-3)">-3 Sec</button>
+                                    <button ng-click="controlSpeedButtons(-0.2)">Slow</button>
+                                    <button ng-click="controlPlayPause()">
+                                        <span ng-show="indexVideo"> <i class="glyphicon glyphicon-play"></i> Play</span>
+                                        <span ng-show="!indexVideo"> <i class="glyphicon glyphicon-pause"></i>Pause</span>
+                                    </button>
+                                    <button ng-click="controlSpeedNormalButtons()">Normal</button>
+                                    <button ng-click="controlSpeedButtons(0.2)">Fast</button>
+                                    <button ng-click="controlSecondButtons(3)">+3 Sec</button>
+                                    <button ng-click="controlSecondButtons(5)">+5 Sec</button>
+                                    <button ng-click="controlSecondButtons(10)">+10 Sec</button>
+                                </div>
+                            </div>
+                            <div class="block_second_team">
+                                <h5>{{awayName}}</h5>
+                                <div class="wrapper_list_players">
+                                    <ul class="list_players">
+                                        <li ng-repeat="player in dataSecondTeam">
+                                            <div class="video-player-info">
+                                             <span ng-if="player.country.split(' ').length === 1"
+                                                   class="{{'flag flag-' + player.country[0]+player.country[1] | lowercase}} player-flag"
+                                                   alt="{{player.country}}"></span>
+                                                <span ng-if="player.country.split(' ').length > 1"
+                                                      class="{{'flag flag-' + player.country.split(' ')[0][0]+player.country.split(' ')[1][0] | lowercase}} player-flag"
+                                                      alt="{{player.country}}"></span>
+                                                <a class="player-in-jersey"
+                                                   ng-click="setPlayerId(player.player_id);getPhotoPlayer(player.player_id)">
+                                                    {{player.last_name}} {{player.first_name[0]}}.
+                                                </a>
+                                                <p class="player-list-info">#{{player.jersey}} {{player.position}} <span ng-show="player.height != null">{{player.height + ' ' + 'cm'}}</span></p>
+                                            </div>
+                                            <div class="team-player-photo">
+                                                <img src="{{player.photo}}" alt="photo"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="loader-container-player">
+            <img ng-src="../../image/loading.gif" alt="loading...">
+        </div>
+          </div>

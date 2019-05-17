@@ -1,0 +1,28 @@
+{
+  "name": "stage.s4upro.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mariapyatnitskaya@bitbucket.org/scouting4udevs/scouting4u.git"
+  },
+  "author": "Maria",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/scouting4udevs/scouting4u#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-concat-js": "^0.1.0",
+    "gulp-uglify": "^3.0.0",
+    "ws": "3.3.2"
+  },
+  "dependencies": {
+    "gulp-minify-css": "^1.2.4",
+    "pump": "^3.0.0"
+  }
+}

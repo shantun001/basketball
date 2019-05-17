@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<global>
+  <fileSizeLimit>4096</fileSizeLimit>
+  <bucketNameUS>usavideos</bucketNameUS>
+  <bucketNameEU>europeanvideos</bucketNameEU>
+  <folderName>games/</folderName>
+  <emailDestination>scouting4u2010@gmail.com</emailDestination>
+  <sesRegion>eu-west-1</sesRegion>
+</global>
+

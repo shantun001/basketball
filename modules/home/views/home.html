@@ -1,0 +1,87 @@
+<section id="slider_area" ng-if="!isLoggedIn" ng-controller="HomeController">
+    <div class="promo_content">
+        <div class="promo_button">
+            <a class='btn' data-target="#see_yourself" id="openVideo">
+                Start Scouting
+            </a>
+        </div>
+
+    </div>
+
+    <!-- YouTube Video -->
+    <div id="see_yourself" class="modal fade " role="dialog">
+        <div class="modal-dialog modal-dialog-youtube">
+
+            <!-- Modal content-->
+            <div  class="modal-content modal-content-youtube">
+                <div class="modal-header modal-header-youtube box">
+                    <button type="button" class="close close-youtube" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="yt_video" frameborder="0"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<div class="match_manage" ng-if="isLoggedIn">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Leagues</h2>
+                    <div>
+                    <img src="../../../image/1.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Teams</h2>
+                    <div>
+                    <img src="../../../image/team.png" alt="team"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Players</h2>
+                    <div>
+                    <img src="../../../image/5.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+            <i class="fa fa-icon-search"></i>
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Customers</h2>
+                    <div>
+                    <img src="../../../image/customers.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Referees</h2>
+                    <div>
+                    <img src="../../../image/3.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 hover">
+                <div class="single_itme text-center">
+                    <h2>Fans</h2>
+                    <div>
+                    <img src="../../../image/6.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

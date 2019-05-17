@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>UploadVideo</title>
+    <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="84654520005-k2jp3ndoshrf2snlijc4h9k4ghr24a73.apps.googleusercontent.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.min.css" media="screen" />
+    <link type="text/css" href="UTCss/metro-bootstrap.min.css" rel="stylesheet" media="screen">
+    <link type="text/css" href="UTCss/metro-bootstrap-responsive.min.css" rel="stylesheet" media="screen">    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="UTJS/metro/metro-progressbar.min.js"></script>
+    <script type="text/javascript" src="UTJS/load-metro.min.js"></script>
+    <script type="text/javascript" src="UTScripts/AWS.js"></script>
+    <script type="text/javascript" async src="https://sdk.amazonaws.com/js/aws-sdk-2.202.0.min.js"></script>    
+    <style type="text/css">
+        body {
+            padding-bottom: 0;
+        }
+    </style>
+</head>
+<body class="metro">
+    <div class="preload">
+        <img class="img" style="display: block; margin-left: auto; margin-right: auto;" id="loadingmessage" src="UTImg/loading.gif" />
+    </div>
+    <div class="container-fluid" style="display:none;">
+        <table>
+            <tr>
+                <td style="display:none;"></td>
+                <td id="selectedGame">no game</td>
+            </tr>
+        </table>
+        <br />
+        <div class="input-control file">
+            <input type="file" id="file" title="select file" />
+            <button class="btn btn-file"></button>
+        </div>
+        <br />
+        <table>
+            <tr id="row">
+                <td id="videoID" style="display:none;"></td>
+                <td id="fn">no upload</td>
+            </tr>
+        </table>
+        <br />
+        <div id="progressbar" class="progress-bar" data-role="progress-bar" data-color="bg-red"></div>
+        <div id="message" style="width:100%; font-family:'Segoe UI';font-size:0.9em;font-weight:500"></div>
+        <br />
+        <table style="float:right; width:30%;">
+            <tr>
+                <td><button id="btnUpload" class="btn btn-danger" title="Upload"><i class="fa fa-cloud-upload"></i> upload</button></td>
+                <td><button id="cancelUpload" class="btn btn-danger" title="Cancel"><i class="fa fa-times"></i> cancel</button></td>
+                <td><button id="deleteUpload" class="btn btn-danger" title="Delete"><i class="fa fa-trash-o"></i> delete</button></td>
+            </tr>
+        </table>
+    </div>
+    <div id="dialog"></div>
+    <script type="text/javascript" src="UTScripts/UF2.js"></script>
+</body>
+</html>

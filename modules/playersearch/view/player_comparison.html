@@ -1,0 +1,364 @@
+<div class="wrapper_search" ng-controller="PSController">
+    <div class="title-modal-box box-header comparison-player-box">
+        <h4 class="comparison-title title-modal-box box-title">
+            <span class="uppercase uppercase_player-comparison">Player Comparison</span>
+        </h4>
+    </div>
+    <div class="comparison-wrap" ng-controller="PlayerComparisonController">
+    <div class="comparison_wrapper_modal">
+        <md-menu-content
+                         class="comparison-search-container" id="player-search-container" ng-blur="$mdMenu.close()">
+            <md-menu-item class="comparison-input-container">
+                <form>
+                    <label for="comparison-search-input" class="comparison-search-label">Compare up to 5 players</label>
+                    <div class="comparison-search-input-wrap">
+                        <ul class="selected-players">
+                            <li ng-repeat=" item in chosenPlayers" class="chosen-player">
+                                <img class="chosen-player-photo" ng-src="{{item.profile_photo}}">
+                                <span>{{item.last_name}} {{item.first_name[0]}}.</span>
+                                <span ng-click="deletePlayer($index)" class="delete-chosen-player">x</span>
+                            </li>
+                        </ul>
+                        <input id="comparison-search-input" class="comparison-search-input"  ng-model="searchString" ng-keydown="choosePlayerEnter($event)" ng-change="getPlayers()">
+                    </div>
+                </form>
+                <button class ="comparison_button_pint" onclick="window.print();">Print</button>
+            </md-menu-item>
+
+            <!--ng-blur="$mdMenu.close()"-->
+            <div ng-style="{'height':height}" class="result-wrap" >
+                <md-content ng-style="{'top':top}" class="comparison-search-result">
+                    <md-list style="padding: 0">
+                        <div class="comparison-search-result-wrap">
+
+                            <div ng-repeat=" item in data | limitTo: 20" ng-click="choosePlayer(item.id)" class="col-md-6"
+                                 ng-if="$odd">
+                                <md-list-item>
+                                    <div class="comparison-player-icon-wrap">
+                                        <img class="comparison-player-icon"
+                                             ng-src="{{data[$index].profile_photo}}"/>
+                                    </div>
+
+                                    <div class="comparison-player-search-wrap">
+                                        <span>{{data[$index].last_name
+                                            + ' '
+                                            + data[$index].first_name }}</span>
+                                        <div class="player-info-line">
+                                            <p>Position: {{data[$index].position ?
+                                                data[$index].position.short_name : "null"}} </p>
+                                            <p>Height: {{data[$index].height ? ((data[$index].height.toFixed(1)+ "").replace(".", "'"))
+                                                +" cm" :
+                                                ''}}</p>
+                                            <p>Age: {{getAge(data[$index].birth_date)}}</p>
+                                        </div>
+                                    </div>
+                                </md-list-item>
+                            </div>
+                            <div class="col-md-6" ng-repeat=" item in data | limitTo: 20" ng-click="choosePlayer(item.id)"
+                                 ng-if="$even">
+                                <md-list-item>
+                                    <div class="comparison-player-icon-wrap">
+                                        <img class="comparison-player-icon"
+                                             ng-src="{{data[$index].profile_photo}}"/>
+                                    </div>
+
+                                    <div class="player-wrap">
+                                        <span>{{data[$index].last_name + ' ' + data[$index].first_name }}</span>
+                                        <div class="player-info-line">
+                                            <p>{{data[$index].position ?
+                                                data[$index].position.short_name : ""}} </p>
+                                            <p>{{data[$index].height ? data[$index].height
+                                                +" cm" :
+                                                ""}} <span> / {{data[$index].height ? ((data[$index].height / 30.48).toFixed(1)+ "").replace(".", "'"): ""}}"</span></p>
+                                            <p>{{getAge(data[$index].birth_date)}}</p>
+                                        </div>
+                                    </div>
+                                </md-list-item>
+                            </div>
+                        </div>
+                    </md-list>
+                </md-content>
+            </div>
+        </md-menu-content>
+
+        <!--<div ng-controller="PlayerSearchController" class="searh_wrap">-->
+            <!--<span class="compare">Compare up to 5 players</span>-->
+            <!--<input  ng-keydown="choosePlayer($event)" ng-model="searchString" ng-change="getPlayers()"-->
+                    <!--type="search" placeholder="&#xf002;  Search player">-->
+        <!--</div>-->
+    </div>
+    <div class="comparison-players">
+
+        <div class="comparison-players-stats">
+            <table>
+                <tr>
+                    <td>Nationality</td>
+                </tr>
+                <tr>
+                    <td>Height</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                </tr>
+                <tr>
+                    <td>Position</td>
+                </tr>
+                <tr>
+                    <td>Team</td>
+                </tr>
+                <tr>
+                    <td>GP</td>
+                </tr>
+                <tr>
+                    <td>MIN</td>
+                </tr>
+                <tr>
+                    <td>PTS</td>
+                </tr>
+                <tr>
+                    <td>FGM</td>
+                </tr>
+                <tr>
+                    <td>FGA</td>
+                </tr>
+                <tr>
+                    <td>FG%</td>
+                </tr>
+                <tr>
+                    <td>3PM</td>
+                </tr>
+                <tr>
+                    <td>3PA</td>
+                </tr>
+                <tr>
+                    <td>3P%</td>
+                </tr>
+                <tr>
+                    <td>2PM</td>
+                </tr>
+                <tr>
+                    <td>2PA</td>
+                </tr>
+                <tr>
+                    <td>2P%</td>
+                </tr>
+                <tr>
+                    <td>FTM</td>
+                </tr>
+                <tr>
+                    <td>FTA</td>
+                </tr>
+                <tr>
+                    <td>FT%</td>
+                </tr>
+                <tr>
+                    <td>OR</td>
+                </tr>
+                <tr>
+                    <td>DR</td>
+                </tr>
+                <tr>
+                    <td>TR</td>
+                </tr>
+                <tr>
+                    <td>AS</td>
+                </tr>
+                <tr>
+                    <td>TO</td>
+                </tr>
+                <tr>
+                    <td>ST</td>
+                </tr>
+                <tr>
+                    <td>BS</td>
+                </tr>
+                <tr>
+                    <td>FM</td>
+                </tr>
+                <tr>
+                    <td>FR</td>
+                </tr>
+                <tr>
+                    <td>VAL</td>
+                </tr>
+                <tr>
+                    <td>VIR</td>
+                </tr>
+                <tr>
+                    <td>OER</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div ng-repeat=" item in chosenPlayers" class="comparison-player-info">
+            <div class="chosen-player-info">
+                <div class="chosen-player-name"><span>{{item.last_name}} {{item.first_name[0]}}.</span></div>
+                <div class="profile-photo-wrap">
+                    <img ng-src="{{item.profile_photo}}">
+                </div>
+                <div class="player-selects">
+                    <select ng-model="selectedSeason[$index].season" ng-change="selectSeason($index)" id="comparison-select-season_{{$index}}">
+                        <option ng-repeat="itemData in chosenPlayersSeasons[$index]" value="{{itemData}}">{{itemData}}</option>
+                    </select>
+                    <select ng-model="selectedLeague[$index].league" ng-change="selectLeague($index)" id="comparison-select-league_{{$index}}">
+                        <!--<option value="">All</option>-->
+                        <option ng-repeat="itemData in chosenPlayersLeagues[$index]" value="{{itemData}}">{{itemData}}</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-style="(chosenPlayersData[index].length === 0) ? {'display':'none'}:{'display':'block'} " class="table-player-stats" >
+                <table>
+                    <tr>
+                        <td>{{chosenPlayersDataTables[$index]['Nationality']}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{chosenPlayersDataTables[$index]['Height']}}<span> / {{((chosenPlayersDataTables[$index]['Height'] / 30.48).toFixed(1)+ "").replace(".", "'")}}"</span></td>
+                    </tr>
+                    <tr>
+                        <td>{{chosenPlayersDataTables[$index]['Age']}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{chosenPlayersDataTables[$index]['Position']}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{chosenPlayersDataTables[$index]['Team']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['GP'] === comparisonBubble['GP']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'"  ng-style="((chosenPlayersDataTables[$index]['GP'] === comparisonBubble['GP']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['GP']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['timeToNum'] === comparisonBubble['timeToNum']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'"  ng-style="((chosenPlayersDataTables[$index]['timeToNum'] === comparisonBubble['timeToNum']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['MIN']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['PTS'] === comparisonBubble['PTS']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['PTS'] === comparisonBubble['PTS']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['PTS']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FGM'] === comparisonBubble['FGM']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FGM'] === comparisonBubble['FGM']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FGM']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FGA'] === comparisonBubble['FGA']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FGA'] === comparisonBubble['FGA']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FGA']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FG%'] === comparisonBubble['FG%']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FG%'] === comparisonBubble['FG%']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FG%']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['3PM'] === comparisonBubble['3PM']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['3PM'] === comparisonBubble['3PM']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['3PM']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['3PA'] === comparisonBubble['3PA']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['3PA'] === comparisonBubble['3PA']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['3PA']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['3P%'] === comparisonBubble['3P%']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['3P%'] === comparisonBubble['3P%']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['3P%']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['2PM'] === comparisonBubble['2PM']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['2PM'] === comparisonBubble['2PM']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['2PM']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['2PA'] === comparisonBubble['2PA']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['2PA'] === comparisonBubble['2PA']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['2PA']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['2P%'] === comparisonBubble['2P%']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['2P%'] === comparisonBubble['2P%']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['2P%']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FTM'] === comparisonBubble['FTM']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FTM'] === comparisonBubble['FTM']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FTM']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FTA'] === comparisonBubble['FTA']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FTA'] === comparisonBubble['FTA']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FTA']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FT%'] === comparisonBubble['FT%']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FT%'] === comparisonBubble['FT%']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FT%']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['OR'] === comparisonBubble['OR']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['OR'] === comparisonBubble['OR']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['OR']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['DR'] === comparisonBubble['DR']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['DR'] === comparisonBubble['DR']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['DR']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['TR'] === comparisonBubble['TR']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['TR'] === comparisonBubble['TR']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['TR']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['AS'] === comparisonBubble['AS']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['AS'] === comparisonBubble['AS']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['AS']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['TO'] === comparisonBubble['TO']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['TO'] === comparisonBubble['TO']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['TO']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['ST'] === comparisonBubble['ST']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['ST'] === comparisonBubble['ST']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['ST']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['BS'] === comparisonBubble['BS']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['BS'] === comparisonBubble['BS']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['BS']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FM'] === comparisonBubble['FM']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FM'] === comparisonBubble['FM']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FM']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['FR'] === comparisonBubble['FR']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['FR'] === comparisonBubble['FR']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['FR']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['VAL'] === comparisonBubble['VAL']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['VAL'] === comparisonBubble['VAL']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['VAL']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['VIR'] === comparisonBubble['VIR']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['VIR'] === comparisonBubble['VIR']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['VIR']}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-class="((chosenPlayersDataTables[$index]['OER'] === comparisonBubble['OER']) && chosenPlayersDataTables.length > 1) ?'greenBg': 'none'" ng-style="((chosenPlayersDataTables[$index]['OER'] === comparisonBubble['OER']) && chosenPlayersDataTables.length > 1) ? {'background-color': '#b7deb7'}: {'background-color': 'none'}">{{chosenPlayersDataTables[$index]['OER']}}</td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="wrapper_slider">-->
+            <!--<div class="slider_height">-->
+                <!--<span>Height Range(CM)</span>-->
+                <!--<div id="rangeslider" class="slider">-->
+                    <!--<input />-->
+                    <!--<input />-->
+                <!--</div>-->
+        <!--</div>-->
+        <!--<div class="slider_age">-->
+            <!--<span>Age Range</span>-->
+            <!--<div id="rangeslider2" class="slider">-->
+                <!--<input />-->
+                <!--<input />-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-sm-12 panel_search">-->
+        <!--<div class="panel-group" id="collapse-group">-->
+            <!--<div class="panel panel-default panel_playersearch">-->
+                <!--<div class="panel-heading_player">-->
+                    <!--<h4 class="panel-title panel-title_playersearch">-->
+                        <!--<a data-toggle="collapse" data-parent="#collapse-group" href="#el1">Advanced search by stats</a>-->
+                    <!--</h4>-->
+                <!--</div>-->
+                <!--<div id="el1" class="panel-collapse collapse">-->
+                    <!--<div class="panel-body">-->
+
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div id="loader-container-players">-->
+        <!--<img ng-src="../../image/loading.gif" alt="loading...">-->
+    <!--</div>-->
+

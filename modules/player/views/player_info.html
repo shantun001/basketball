@@ -1,0 +1,518 @@
+<div class="container" style="padding-top: 50px;">
+      <div class="row">
+            
+          <div class="col-lg-6 player_info">
+             <div class="col-lg-4">
+                <div class="player_img_wpr">
+                    <img class="player_img" src="https://s3.amazonaws.com/s4usitesimages/upload/{{img}}" width="100%">
+                </div>
+                <input type="hidden" name="" value="">
+             </div>
+             <div class="col-lg-8 right_side"  data-ng-init="init()">
+                <div class="p_wpr">
+                    <h4 class="player_name">{{ pinfo.first_name }} {{ pinfo.last_name }}</h4>
+                    <p class="player_height"><strong>Height</strong>: {{ height }} </p>
+                    <p class="player_dob"><strong>Age</strong>: {{p_age}}</p>
+                    <p class="player_position"><strong>Position</strong>: {{position}}</p>
+                    <p class="player_nationality"><strong>Nationality</strong>: {{nslt}}</p> 
+                      
+                </div>
+                <div class="play_player_clips">
+                </div>
+             </div>
+          </div>
+
+          <div class="col-lg-12" style="margin-top: 15px;">
+              <div id="player-tabs" class="player_tabs clearfix">
+                  <ul>
+                    <li><a href="#tabs-1">Career</a></li>
+                    <li><a href="#tabs-2">Rank</a></li>
+                    <li><a href="#tabs-3">Stats Analysis</a></li>
+                    <li><a href="#tabs-4">Best/Worst</a></li>
+                    <li><a href="#tabs-5">Game by Game</a></li>
+                    <li><a href="#tabs-6">Watch Games</a></li>
+                    <li><a href="#tabs-7" style="display: none;">You Tube Clips</a></li>
+                    <li class="pl_tendency"><a href="#tabs-8">Tendency</a></li>
+                    
+                  </ul>
+                  <div id="tabs-1" class="tab_content_wpr ui-tabs-panel ui-corner-bottom ui-widget-content" style="padding:0px;">
+                        <div id="chartContainerTab1" style="min-height: 400px; width: 100%;">Career</div>
+                  </div>
+                  <div id="tabs-2" class="tab_content_wpr">
+                        <div class="col-lg-12">    
+                            <div class="col-lg-6 form-group">
+
+                                <select id="rank_pslt" class="option_sectors" ng-model="activity" >
+                            
+                                  <!--<option ng-repeat="c in selectopt" ng-selected="{{$index == 0}}" value="{{c.season}},{{c.league}},{{c.team}}">{{c.season_name}} - {{c.league_name}} - {{c.team_name}}</option>-->
+                                  <option ng-repeat="c in selectopt" ng-selected="{{$index == 0}}" value="{{c.season}},{{c.league}},{{c.team}}" class="ui-menu-item-wrapper each_options">{{c.season_name}} - {{c.league_name}} - {{c.team_name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="chartContainerTab2" class="row">
+                                <div ng-repeat="d in medi_count" id="rank_{{d}}" class="col-lg-3 each_field_ranks">
+                                <div class="rankimg_wpr text-center"></div>
+                                  <div class="draw_rank_chart"  style="height: 250px;"></div>
+                                </div>
+                        </div>
+                  </div>
+                  <div id="tabs-3" class="tab_content_wpr">
+                        <div class="col-lg-12">    
+                            <div class="col-lg-3 form-group">
+                                <select id="stat_analysis_s" ng-model="statAnalysis" class="option_sectors form-control">
+                                     <option ng-repeat="c in statseasonopt"  ng-selected="{{$index == 0}}" value="{{c.value}}" >{{c.label}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="chartContainerTab3" style="height: 400px; width: 100%;margin-top: 30px;"></div>
+
+                        <div class="tales_wpr season_breadown_wpr box">
+                          <div class="box-header"><h4 class="box-title season_name_cls">SEASON BREAKDOWN</h4></div>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="center">GAMES</th>
+                                <th class="center"><b>GP</b></th>
+                                <th class="center"><b>GS</b></th>
+                                <th class="center"><b>MIN</b></th>
+                                <th class="center"><b>PTS</b></th>
+                                <th class="center"><b>FGM</b></th>
+                                <th class="center"><b>FGA</b></th>
+                                <th class="center"><b>FG%</b></th>
+                                <th class="center"><b>3PM</b></th>
+                                <th class="center"><b>3PA</b></th>
+                                <th class="center"><b>3P%</b></th>
+                                <th class="center"><b>2PM</b></th>
+                                <th class="center"><b>2PA</b></th>
+                                <th class="center"><b>2P%</b></th>
+                                <th class="center"><b>FTM</b></th>
+                                <th class="center"><b>FTA</b></th>
+                                <th class="center"><b>FT%</b></th>
+                                <th class="center"><b>OR</b></th>
+                                <th class="center"><b>DR</b></th>
+                                <th class="center"><b>TR</b></th>
+                                <th class="center"><b>AS</b></th>
+                                <th class="center"><b>TO</b></th>
+                                <th class="center"><b>ST</b></th>
+                                <th class="center"><b>BS</b></th>
+                                <th class="center"><b>SR</b></th>
+                                <th class="center"><b>FM</b></th>
+                                <th class="center"><b>FR</b></th>
+                                <th class="center"><b>VIR</b></th>
+                                <th class="center"><b>OER</b></th>
+                                <th class="center"><b>VAL</b></th>
+                            </tr>
+                            </thead>
+                            <tbody class="content_wpr" id="ssn_brk">
+                              
+                            </tbody>
+
+                          </table>
+                        </div>
+                        <div class="tales_wpr month_stat box">
+                          <div class="box-header"><h4 class="box-title season_name_cls">SEASON STATS PER MONTH</h4></div>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="center">GAMES</th>
+                                <th class="center"><b>GP</b></th>
+                                <th class="center"><b>GS</b></th>
+                                <th class="center"><b>MIN</b></th>
+                                <th class="center"><b>PTS</b></th>
+                                <th class="center"><b>FGM</b></th>
+                                <th class="center"><b>FGA</b></th>
+                                <th class="center"><b>FG%</b></th>
+                                <th class="center"><b>3PM</b></th>
+                                <th class="center"><b>3PA</b></th>
+                                <th class="center"><b>3P%</b></th>
+                                <th class="center"><b>2PM</b></th>
+                                <th class="center"><b>2PA</b></th>
+                                <th class="center"><b>2P%</b></th>
+                                <th class="center"><b>FTM</b></th>
+                                <th class="center"><b>FTA</b></th>
+                                <th class="center"><b>FT%</b></th>
+                                <th class="center"><b>OR</b></th>
+                                <th class="center"><b>DR</b></th>
+                                <th class="center"><b>TR</b></th>
+                                <th class="center"><b>AS</b></th>
+                                <th class="center"><b>TO</b></th>
+                                <th class="center"><b>ST</b></th>
+                                <th class="center"><b>BS</b></th>
+                                <th class="center"><b>SR</b></th>
+                                <th class="center"><b>FM</b></th>
+                                <th class="center"><b>FR</b></th>
+                                <th class="center"><b>VIR</b></th>
+                                <th class="center"><b>OER</b></th>
+                                <th class="center"><b>VAL</b></th>
+                            </tr>
+                            </thead>
+                            <tbody class="content_wpr" id="stat_per_month">
+                              
+                            </tbody>
+
+                          </table>
+                        </div>
+                        <div class="tales_wpr  box" id="league_type">
+
+                        </div>
+                        <div class="tales_wpr  box">
+                          <div class="box-header"><h4 class="box-title season_name_cls">SEASON STATS PER MINUTE</h4></div>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="center"><b>PTS</b></th>
+                                <th class="center"><b>FGM</b></th>
+                                <th class="center"><b>FGA</b></th>
+                                <th class="center"><b>3PM</b></th>
+                                <th class="center"><b>3PA</b></th>
+                                <th class="center"><b>2PM</b></th>
+                                <th class="center"><b>2PA</b></th>
+                                <th class="center"><b>FTM</b></th>
+                                <th class="center"><b>FTA</b></th>
+                                <th class="center"><b>OR</b></th>
+                                <th class="center"><b>DR</b></th>
+                                <th class="center"><b>TR</b></th>
+                                <th class="center"><b>AS</b></th>
+                                <th class="center"><b>TO</b></th>
+                                <th class="center"><b>ST</b></th>
+                                <th class="center"><b>BS</b></th>
+                                <th class="center"><b>FM</b></th>
+                                <th class="center"><b>FR</b></th>
+                            </tr>
+                            </thead>
+                            <tbody class="content_wpr" id="stat_per_min">
+                              
+                            </tbody>
+
+                          </table>
+                        </div>
+                        <div class="tales_wpr  box">
+                          <div class="box-header"><h4 class="box-title season_name_cls">SEASON STATS PER 40 MINUTES</h4></div>
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th class="center"><b>PTS</b></th>
+                                <th class="center"><b>FGM</b></th>
+                                <th class="center"><b>FGA</b></th>
+                                <th class="center"><b>3PM</b></th>
+                                <th class="center"><b>3PA</b></th>
+                                <th class="center"><b>2PM</b></th>
+                                <th class="center"><b>2PA</b></th>
+                                <th class="center"><b>FTM</b></th>
+                                <th class="center"><b>FTA</b></th>
+                                <th class="center"><b>OR</b></th>
+                                <th class="center"><b>DR</b></th>
+                                <th class="center"><b>TR</b></th>
+                                <th class="center"><b>AS</b></th>
+                                <th class="center"><b>TO</b></th>
+                                <th class="center"><b>ST</b></th>
+                                <th class="center"><b>BS</b></th>
+                                <th class="center"><b>FM</b></th>
+                                <th class="center"><b>FR</b></th>
+                            </tr>
+                            </thead>
+                            <tbody class="content_wpr" id="stat_per_40min">
+                              
+                            </tbody>
+
+                          </table>
+                        </div>
+                  </div>
+                  <div id="tabs-4" class="tab_content_wpr">
+                        <div class="">    
+                            <div class="col-lg-6 form-group">
+                                <select id="best_worst_pslt">
+                                  <option ng-repeat="c in selectopt" ng-selected="{{$index == 0}}" value="{{c.season}},{{c.league}},{{c.team}}" class="ui-menu-item-wrapper each_options">{{c.season_name}} - {{c.league_name}} - {{c.team_name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-12 ">
+                              <div class="best_worst_game_wpr"></div>                              
+                            </div>
+                        </div>
+                        <div id="chartContainerTab4" style="height: 400px; width: 100%;"></div>
+                  </div>
+                  <div id="tabs-5" class="tab_content_wpr clearfix">
+                        <div class="col-lg-12">    
+                            <div class="col-lg-6 form-group">
+                                <select id="game_by_pslt" class="" ></select>
+                            </div>
+                        </div>
+                        <!-- <div id="chartContainerTab5" style="height: 400px; width: 100%;"></div> -->
+                        <div class="all_game_data_wpr col-lg-12">
+                          
+                        </div>
+                  </div>
+                  <div id="tabs-6" class="tab_content_wpr clearfix">
+                        <!-- <div id="chartContainerTab6" style="height: 400px; width: 100%;"></div> -->
+                        <div class="col-lg-12">
+                        
+                           <select id="wgSeasonLeague" class="option_sectors col-lg-4" ng-model="wgame" >                      
+                              <option ng-repeat="c in selectopt" ng-selected="{{$index == 0}}" value="{{c.season}},{{c.league}},{{c.team}}" class="ui-menu-item-wrapper each_options">{{c.season_name}} - {{c.league_name}} - {{c.team_name}}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="watch_game_wpr col-lg-12" style="padding-top: 20px;">
+                          <div class="game_tbl_wpr" ng-if="nodata">
+                            <table class="table"><thead><tr><td>League Name</td><td>Date</td><td>Home Team</td><td>Away Team</td><td>Box Score</td><td>Videos</td></tr></thead>
+                            <tbody>
+                              <tr ng-repeat="gm in wgvideo">
+                              <td>{{gm.league_name}}</td><td>{{gm.game_date}}</td><td>{{gm.home_team_name}}</td><td>{{gm.away_team_name}}</td><td><a  ng-click="boxScoreFun(gm.gameid)">Box Score</a></td><td ng-click="getBothTeamPlayer(gm.gameid,gm.sid)"><span class="glyphicon glyphicon-play-circle"></span> <span><a href="javascript:void(0)"> Watch Video</a></span></td>
+                              </tr>
+                              <tr ng-show="!norow" style="text-align:center;"><td colspan="6">No Data</td></tr>
+                            </tbody></table>
+                          </div>
+                        </div>
+                  </div>
+                  <div id="tabs-7" class="tab_content_wpr">
+                        <div id="chartContainerTab7" style="height: 400px; width: 100%;"></div>
+                  </div>
+                  <div id="tabs-8" class=" tab_content_wpr row">
+                    <div class="col-lg-8 combos_wpr">
+                        <div class="col-lg-4 ccsg">
+
+                            <select class="ccsg" id="ccsg_id" ng-model="playerData" ng-init="playerData='0'">
+                            <option value="0" selected>Career</option>
+                            <option ng-repeat="s in ssn" value="{{s.id}}">{{s.name}}</option>
+                            
+                                
+                            </select>
+                        </div>
+                        <div class="col-lg-6 game_list" ng-hide="gmstatus">
+                            <!-- <select  ng-disabled="gmstatus" class="selectpicker" id="player_games_id"    data-selected-text-format="count > 2" data-actions-box="true" multiple ng-model="pgames" ng-change="fetch_games(false);" >
+
+
+                            <option ng-repeat="gm in playergame" value="{{gm.gid}}">{{gm.optionname}}</option>
+                                
+                            </select> -->
+                            <select gmstatus" class="form-control selectpicker" id="player_games_id" data-live-search="true" data-selected-text-format="count > 2" data-actions-box="true" name="plyergames" multiple tabindex="-98" onchange="changeGame()">
+                                
+                           </select>
+                            <!-- <div  ng-hide="gmstatus" ng-dropdown-multiselect="" options="playergame" selected-model="pgames" ng-click="fetch_games(false)"></div> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-2 float-right">
+                        <button id="playPlayerVideos" ng-click="playPlayerVideos()" type="button" class="btn btn-default btn-sm"  >
+                            <i class="glyphicon glyphicon-play-circle"></i>
+                            <span>Play Clips</span>
+                        </button>    
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="graphs_row clearfix">
+                            <div id="chartContainer" style="height: 350px; width: 100%;"></div>    
+                        </div>
+                        <div class="graphs_row clearfix">
+                        
+                            <fieldset class="action_filter_wpr" style="text-align: center;">
+                              <input ng-change="typeFilter(action_filter)" type="radio" ng-model="action_filter" value="3" checked="checked" id="radio-3"> <label for="radio-3">All</label>
+                              <input ng-change="typeFilter(action_filter)" type="radio" ng-model="action_filter" value="1" id="radio-1">
+                              <label for="radio-1">Offensive</label> 
+                              <input ng-change="typeFilter(action_filter)" type="radio" ng-model="action_filter" value="2" id="radio-2"><label for="radio-2">Defensive</label>  
+                              
+                            </fieldset>
+                             
+                            <div id="all_actions" style="margin-top: 20px;">
+                              <div ng-repeat="a in actionarr" ng-if="a.player>0 ? true :false" ng-show="[1,2,3,4,6,9,12,17,19,21,25,26,29,30,33].indexOf(a.action) > -1 ? offactions : ([5,7,8,10,11,13,14,15,16,18,20,22,23,27,28,31,32,34].indexOf(a.action) > -1 ? defactions : allact)" on-finish-render isolated-expression-foo="updateItem()" data-count="{{a.player}}" data-actid="{{a.action}}" data-action="{{a.name}}" class="col-lg-2 each_act each_act_d" ><div class="act_topdiv"><span>{{a.name}}</span> <i class="glyphicon glyphicon-play-circle" ng-click="actionIndTags(a.action,a.name)"></i><br/><strong></strong></div><div class="act_bottomdiv1" id="action_{{a.action}}" style="height: 100px; width: 100%;"><div class="inner_div"></div></div><div class="shots_info"><p>Player<span style="float:right;">{{a.player}}</span></p><p>Team<span style="float:right;">{{a.team}}</span></p></div></div>
+                            </div>
+                        </div>
+                        <div class="graphs_row clearfix" ng-show="isdeffensive">
+                            <div id="chart12" style="width: 33%; height: 200px;float: left;"></div>
+                            <div id="direction_tendency" style="width: 33%; height: 200px;float: left;border-left: 1px solid #ccc;border-right: 1px solid #ccc;"></div>
+                            <div id="baskets_points" style="width: 33%; height: 200px;float: right;"></div>
+                        </div>
+                        <div class="graphs_row clearfix" ng-show="isdeffensive">
+                            <div id="shortAnalysis" style="height: 300px; width: 100%;"></div>
+                        </div>
+                        <div class="graphs_row clearfix" ng-show="isdeffensive">
+                            <div id="shorts_status" style="height: 300px; width: 100%;">
+                              <div ng-repeat="a in shots" data-shortid="{{a.id}}" data-shortname="{{a.name}}" class="col-lg-2 each_shot each_act_d"><div class="act_topdiv"><span>{{a.id == null ? 'Other':a.name}}</span> <i class="glyphicon glyphicon-play-circle" ng-click="shotsIndTags(a.id,a.name)"></i><br/><strong></strong></div><div class="act_bottomdiv1" id="short_{{a.id == null ? 'null' : a.id}}" style="height: 100px; width: 100%;"><div class="inner_div"><span></span></div></div><div class="shots_info"><p>Made<span style="float:right;">{{a.made}}</span></p><p>Attempts<span style="float:right;">{{a.attempts}}</span></p></div></div>
+                            </div>
+                        </div>
+                        
+                        <div class="graphs_row clearfix" ng-show="isdeffensive">
+                            <div id="assistsAnalysis" style="height: 300px; width: 100%;"></div>
+                        </div>
+                        <div class="graphs_row clearfix" ng-show="isdeffensive">
+                            <div id="turnoverAnalysis" style="height: 300px; width: 100%;"></div>
+                        </div>
+
+                    </div>
+                  </div>
+              </div>
+          </div>
+         
+      </div>
+     
+  </div> 
+
+  <!-- watch modal -->
+<div id="watchGameModal" class="modal fade full_screen full_screen_modal" tabindex="-1" role="dialog" aria-labelledby="watchGameModal" aria-hidden="true" style="padding-right: 0px !important;">
+    <div class="modal-dialog modal-lg" style="width: 100%;margin: 0px;">
+        <div class="modal-content">
+            <div class="modal-header">
+              <div class="box">
+                <div class="box-header"><h4 class="box-title season_name_cls">Watch Game</h4></div>  
+              </div>
+              <a href="javascript:void(0)" type="button" class="" data-dismiss="modal">X</a>
+            </div>
+            <div class="modal-body game_detail_wpr clearfix">
+              <div class="home_team_p player_list_cls">
+                <ul>
+                  <li ng-repeat="pg in players | orderBy : 'jersey_number' " ng-if="game.home_team.id == pg.team ? true : false" class="border-bottom tickets">                    
+                      <div class="row">
+                          <div class="col-sm-12 sml-fnt">
+                              <!-- <div style="margin-right: 0px; margin-top: 3px;" class="pull-left flag_new">
+                                  <table style="width: 16px; height: 16px;" border="0" cellpadding="0" cellspacing="0">
+                                      <tbody>
+                                          <tr>
+                                          <td class="flag_16 a224_16_left"></td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div> -->
+                              <div class="pull-left profile">
+                                       <img class="pimg_exist" width="100" alt="" title="Jason Williams" class="thumb pull-left animated fadeInDown" src="https://s3.amazonaws.com/s4usitesimages/upload/players/{{pg.player.id}}/{{pg.player.profile_photo}}" style="visibility: visible;" ng-if="pg.player.profile_photo ? true : false">
+                                      <img class="pimg_not_exist" width="100" alt="" title="Jason Williams" class="thumb pull-left animated fadeInDown" src="http://s4usitesimages.s3.amazonaws.com/images/anon.gif" style="visibility: visible;" ng-if="pg.player.profile_photo ? false : true">
+
+                              </div>
+                                    <strong><b style="color:#000;"># {{pg.jersey_number}}</b> <a style="color: #c30200;">{{pg.player.last_name}} {{pg.player.first_name | limitTo:1 }}.</a></strong>     
+
+                              <div class="sep">
+                                  <a class="pull-left frm strong" style="padding: 4px 0px;"><i class="fa fa-search-plus" onclick="OpenAddToPlayerFolder(20499);"></i></a>
+                                      <p>{{pg.player.position.short_name}},{{pg.player.height}} cm </p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="game_video_wpr">
+                <video id="watch_video_tag" width="100%" src="" controls="true"></video>
+              </div>
+              <div class="away_team_p player_list_cls">
+                <ul>
+                  <li ng-repeat="pg in players | orderBy : 'jersey_number'" ng-if="game.away_team.id == pg.team ? true : false" class="border-bottom tickets">
+                    <div class="row">
+                          <div class="col-sm-12 sml-fnt">
+                              <!-- <div style="margin-right: 0px; margin-top: 3px;" class="pull-left flag_new">
+                                  <table style="width: 16px; height: 16px;" border="0" cellpadding="0" cellspacing="0">
+                                      <tbody>
+                                          <tr>
+                                          <td class="flag_16 a224_16_left"></td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div> -->
+                              <div class="pull-left profile">
+                                      <img class="pimg_exist" width="100" alt="" title="Jason Williams" class="thumb pull-left animated fadeInDown" src="https://s3.amazonaws.com/s4usitesimages/upload/players/{{pg.player.id}}/{{pg.player.profile_photo}}" style="visibility: visible;" ng-if="pg.player.profile_photo ? true : false">
+                                      <img class="pimg_not_exist" width="100" alt="" title="Jason Williams" class="thumb pull-left animated fadeInDown" src="http://s4usitesimages.s3.amazonaws.com/images/anon.gif" style="visibility: visible;" ng-if="pg.player.profile_photo ? false : true">
+
+                              </div>
+                                  <strong><b style="color:#000;"># {{pg.jersey_number}}</b> <a style="color: #c30200;">{{pg.player.last_name}} {{pg.player.first_name | limitTo:1 }}.</a></strong>     
+
+                              <div class="sep">
+                                  <a class="pull-left frm strong" style="padding: 4px 0px;"><i class="fa fa-search-plus"></i></a>
+                                      <p>{{pg.player.position.short_name}},{{pg.player.height}} cm </p>
+
+                              </div>
+                          </div>
+                      </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- <div class="modal-footer">
+              <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-hidden="true" class="close">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+<div id="boxScoreModal" class="modal fade full_screen full_screen_modal" tabindex="-1" role="dialog" aria-labelledby="watchGameModal" aria-hidden="true" style="padding-right: 0px !important;">
+    <div class="modal-dialog modal-lg" style="width: 100%;margin: 0px;">
+        <div class="modal-content">
+            <div class="modal-header">
+              <div class="box">
+                <div class="box-header"><h4 class="box-title season_name_cls">BoxScore</h4></div>  
+              </div>
+              <a href="javascript:void(0)" type="button" class="" data-dismiss="modal">X</a>
+            </div>
+            <div class="modal-body">
+              <div class="game_desc_Wpr">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>GAME: {{game_info.step.order_num}} &nbsp;&nbsp;&nbsp;
+                      DATE: {{game_info.game_date}} &nbsp;&nbsp;&nbsp;
+                       {{game_info.step.name}}</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="both_team_wpr clearfix">
+                <div class="first_team  div_design">
+                  <div class="team_design_wpr">
+
+                    <img src="https://s3.amazonaws.com/s4usitesimages/upload/teams/{{game_info.home_team.id}}/{{game_info.home_team.logo}}">
+                    <div class="team_name">{{game_info.home_team.name}}</div>
+                    <h3 ng-if="game_info.home_team.id == game_info.game_stats[0].team">{{game_info.game_stats[0].points}}</h3>
+                    <h3 ng-if="game_info.home_team.id == game_info.game_stats[1].team">{{game_info.game_stats[1].points}}</h3>
+                  </div>
+                </div>
+                <div class="team_quaters  div_design">
+                  <table class="table quater_tbl">
+                  <thead>
+                    <tr style="text-align: center;">
+                      <th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>OT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-if="game_info.home_team.id == game_info.game_stats[0].team" ng-init="q = game_info.game_stats[0]">
+                      <td>{{game_info.game_stats[0].q1_points}}</td>
+                      <td>{{game_info.game_stats[0].q2_points}}</td>
+                      <td>{{game_info.game_stats[0].q3_points}}</td>
+                      <td>{{game_info.game_stats[0].q4_points}}</td>
+                      <td>{{game_info.game_stats[0].ot1_points}}</td>
+                    </tr>
+                    <tr ng-if="game_info.home_team.id == game_info.game_stats[1].team" ng-init="q = game_info.game_stats[1]">
+                      <td>{{game_info.game_stats[1].q1_points}}</td>
+                      <td>{{game_info.game_stats[1].q2_points}}</td>
+                      <td>{{game_info.game_stats[1].q3_points}}</td>
+                      <td>{{game_info.game_stats[1].q4_points}}</td>
+                      <td>{{game_info.game_stats[1].ot1_points}}</td>
+                      </tr>
+
+                    <tr ng-if="game_info.away_team.id == game_info.game_stats[0].team" ng-init="q = game_info.game_stats[0]">
+                      <td>{{game_info.game_stats[0].q1_points}}</td>
+                      <td>{{game_info.game_stats[0].q2_points}}</td>
+                      <td>{{game_info.game_stats[0].q3_points}}</td>
+                      <td>{{game_info.game_stats[0].q4_points}}</td>
+                      <td>{{game_info.game_stats[0].ot1_points}}</td>
+                    </tr>
+                    <tr ng-if="game_info.away_team.id == game_info.game_stats[1].team" ng-init="q = game_info.game_stats[1]">
+                      <td>{{game_info.game_stats[1].q1_points}}</td>
+                      <td>{{game_info.game_stats[1].q2_points}}</td>
+                      <td>{{game_info.game_stats[1].q3_points}}</td>
+                      <td>{{game_info.game_stats[1].q4_points}}</td>
+                      <td>{{game_info.game_stats[1].ot1_points}}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+                </div>
+                <div class="second_team  div_design">
+                  <div class="team_design_wpr">
+                    <img src="https://s3.amazonaws.com/s4usitesimages/upload/teams/{{game_info.away_team.id}}/{{game_info.away_team.logo}}">
+                    <div class="team_name">{{game_info.away_team.name}}</div>
+                    <h3 ng-if="game_info.away_team.id == game_info.game_stats[0].team">{{game_info.game_stats[0].points}}</h3>
+                    <h3 ng-if="game_info.away_team.id == game_info.game_stats[1].team">{{game_info.game_stats[1].points}}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="box_score_wpr"></div>
+            </div>
+        </div>
+    </div>
+</div>

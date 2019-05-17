@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="main_app">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Basketball scouting service</title>
+
+    <!-- Fonts (refactoring wanted) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo&amp;subset=devanagari,latin-ext,vietnamese" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700,800,900,900i|Roboto:400,500,700,900,900i" rel="stylesheet">
+
+    <!-- Font Awesome --->
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css" />
+
+    <!-- Bootstrap (refactoring wanted) -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <!-- JQuery UI (refactoring wanted) -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+    <!-- Material -->
+    <link href="bower_components/angular-material/angular-material.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link href="dist/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="dist/player_style.css"/>
+    <link rel="stylesheet" href="dist/header_style.min.css"/>
+    <link rel="stylesheet" href="dist/home_style.min.css"/>
+    <link rel="stylesheet" href="dist/players_style.min.css"/>
+    <link rel="stylesheet" href="css/flags.css"/>
+    <link rel="stylesheet" href="dist/league.style.min.css">
+    <link rel="stylesheet" href="dist/team_style.min.css">
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.2.504/styles/kendo.common.min.css"/>
+    <!--<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.2.504/styles/kendo.default.min.css"/>-->
+    <!--<link rel="stylesheet" href="css/kendo.common.min.css"/>-->
+    <link rel="stylesheet" href="css/kendo.default.min.css"/>
+    <link rel="stylesheet" href="dist/toolsStyle.min.css">
+    <link rel="stylesheet" href="dist/aboutUsStyle.min.css">
+    <link rel="stylesheet" href="dist/termsOfUseStyle.min.css">
+    <!-- Animation -->
+    <link href="css/animations/app.animations.css" rel="stylesheet">
+    <!-- css playerserch -->
+    <link href="dist/playserch_style.min.css" rel="stylesheet">
+    <link href="dist/player_comparison.min.css" rel="stylesheet">
+
+    <!--upload tool-->
+    <!-- HolaSpark -->
+    <script async crossorigin="anonymous" src="//player.h-cdn.com/loader.js?customer=scouting4u"></script>
+    <!--<script src="//player2.h-cdn.com/hola_player.js?customer=scouting4u"></script>-->
+    <!-- End HolaSpark -->
+</head>
+<body>
+<div class="container-fluid container-fluid-index" style="display: flex; flex-direction: column; height: 100%">
+<div class="container-wrapper" style="flex: 1 0 auto;">
+    <div ng-include="'modules/header/header.html'"></div>
+    <div ui-view></div>
+</div>
+<div style="flex: 0 0 auto;" ng-include="'modules/footer/footer.html'"></div>
+</div>
+<!-- jQuery -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Angular -->
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/material-angular-paging/build/dist.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<!-- Angular custom configuration -->
+<script src="libs/app.js"></script>
+<script src="config/app.js"></script>
+<script src="config/helpers.js"></script>
+<!-- (refactoring wanted) -->
+<script src="libs/angularjs-dropdown-multiselect.min.js"></script>
+<script src="libs/loading-bar.min.js"></script>
+<!-- modules (refactoring wanted) -->
+<!-- header -->
+<script src="modules/header/header.js"></script>
+<!-- home -->
+<script src="modules/home/routes.js"></script>
+<script src="modules/home/controllers/home.js"></script>
+<!-- user authentication -->
+<script src="modules/user/routes.js"></script>
+<script src="modules/user/services/user.js"></script>
+<script src="modules/user/services/auth.js"></script>
+<script src="modules/user/controllers/auth.js"></script>
+<!-- <script src="libs/fingerprint2.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fingerprintjs2/1.8.0/fingerprint2.min.js"></script>
+
+<!-- league -->
+<script src="modules/league/league.routes.js"></script>
+<script src="modules/league/league.controller.min.js"></script>
+<script src="modules/league/league.service.js"></script>
+<!-- team -->
+<script src="modules/team/routes.js"></script>
+<script src="modules/team/controllers/team-controller.min.js"></script>
+<script src="modules/team/controllers/team.service.js"></script>
+<!-- playersearch -->
+<script src="modules/playersearch/services/player.search.service.js"></script>
+<script src="modules/playersearch/controllers/PScontroller.min.js"></script>
+<script src="modules/playersearch/controllers/PRController.min.js"></script>
+<!-- player -->
+<script src="modules/player/routes.js"></script>
+<script src="modules/tools/routes.js"></script>
+<script src="modules/player/controllers/player.min.js"></script>
+<script src="modules/player/controllers/playerController.js"></script>
+<script src="modules/player/services/servic.js"></script>
+<script src="modules/player/services/playersearch.service.js"></script>
+<script src="modules/player/controllers/playersearchcontroller.min.js"></script>
+<script src="modules/playersearch/controllers/playerComparisonController.min.js"></script>
+<script type="text/javascript" src="//player.wowza.com/player/latest/wowzaplayer.min.js"></script>
+<!-- player (refactoring wanted)-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://kendo.cdn.telerik.com/2017.2.504/js/kendo.all.min.js"></script>
+<script src="libs/raphael-2.1.4.min.js"></script>
+<script src="libs/justgage.js"></script>
+<script type="text/javascript" src="libs/bootstrap-select.min.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/ng-idle/angular-idle.js"></script>
+<script src="libs/point-in-svg-polygon.min.js"></script>
+<!--upload tool-->
+<!--<script src="modules/uploadTool/UTScripts/AWS.js"></script>
+<script src="modules/uploadTool/UTScripts/UT.js"></script>-->
+</body>
+</html>

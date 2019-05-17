@@ -1,0 +1,51 @@
+<div class="footer container" ng-controller="HeaderController">
+    <div class="col-md-2 col-sm-3" style="padding-right: 0px;">
+        <div class="logo logo_wpr">
+            <a href="/#">
+                <img src="../../../image/logo.png" alt="logo"
+                     style="width: 72%;">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8 col-md-offset-1 " style="padding-left: 0;">
+        <md-toolbar>
+            <div ng-if="!frame.frameEditorFlag && !frame.frameReportFlag" layout="row" class="wrapper_toolbar">
+                <md-list class="footer_nav nav navbar-nav menus col-md-9 col-sm-9">
+                    <md-list-item>
+                        <md-button>
+                            <a>
+                                &#169; Scouting4u
+                            </a>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-button ng-click="goToAbout()">
+                            <a>About us</a>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-button data-toggle="modal" data-target="#modal-contact-us">
+                            <a>Contact us</a>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-button ng-click="goToTerms()">
+                            <a>Terms of use and privacy</a>
+                        </md-button>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-button ng-click="openTools()">
+                            <a>TOOLS</a>
+                        </md-button>
+                    </md-list-item>
+
+                </md-list>
+                <md-list class="nav-sign col-md-2 col-md-offset-1 col-sm-2 footer_nav nav navbar-nav menus">
+                    <md-list-item class="footer_social"><a href=""><i class="fa fa-youtube-square" aria-hidden="true"></i></a></md-list-item>
+                    <md-list-item class="footer_social"><a href=""><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></md-list-item>
+                    <md-list-item class="footer_social social_insta"><a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a></md-list-item>
+                    <md-list-item class="footer_social"><a href=""><i class="fa fa-twitter-square" aria-hidden="true"></i></a></md-list-item>
+                </md-list>
+            </div></md-toolbar>
+    </div>
+</div>

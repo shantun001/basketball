@@ -1,0 +1,399 @@
+/*SEARCH INPUT*/
+
+.comparison_wrapper_modal {
+    position: relative;
+}
+.comparison-player-box {
+    margin-top: 20px;
+}
+
+.comparison-title {
+    margin-top: 20px;
+}
+
+.comparison-search-container {
+    width: 100%;
+}
+.comparison-search-label{
+    padding: 0;
+    font-weight: 500;
+    width: 40%;
+    float: left;
+    text-align: right;
+    margin-right: 2%;
+}
+.comparison-search-input-wrap {
+    width: 650px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background-color: #F2F2F2;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    height: 25px;
+    /*border: 1px solid #c5c5c5;*/
+}
+
+.selected-players {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    text-decoration: none;
+    font-size: 100%;
+    list-style: none;
+}
+.selected-players>.chosen-player{
+    display: flex;
+    white-space: nowrap;
+    font-size:.8em;
+    align-items: center;
+    cursor: pointer;
+    padding: .1em .15em .1em .4em;
+    background-color: #F2F2F2;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+}
+.chosen-player-photo {
+    height: 20px;
+    width: 15px;
+    margin-right: 5px;
+}
+.delete-chosen-player{
+    width: 16px;
+    height:16px;
+    text-align: center;
+}
+
+.comparison-search-input {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border: none;
+    background-color: transparent;
+    margin-left: 1px;
+    width: 100%;
+    cursor: default;
+}
+.comparison-search-input:focus {
+    outline: none;
+}
+.comparison-input-container {
+    /*height: 25px;*/
+    min-height: 25px;
+}
+.comparison-input-container > form {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}
+.comparison_button_pint {
+    float: right;
+    width: auto;
+    margin-left: 22%;
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+/*.selected-players {*/
+
+/*}*/
+
+
+/*RESULTS*/
+.result-wrap {
+    position: absolute;
+    overflow: hidden;
+    left: 21%;
+    top: 82%;
+    /*height: 300px;*/
+    width: 650px;
+    z-index: 2;
+}
+
+.comparison-header-photo {
+    display: inline-block;
+    border-right: 1px solid #c5c5c5;
+    width: 75px;
+}
+
+.comparison-header-info {
+    padding-left: 2px;
+}
+
+.comparison-search-result {
+    position: absolute;
+    width: 650px;
+    height: 300px;
+    transition: top 0.25s ease-in;
+    /*left: 21%;*/
+}
+.comparison-search-result-wrap {
+    background-color: #F2F2F2;
+}
+.comparison-search-result .ng-scope{
+    width: 100%;
+    padding: 0;
+}
+
+
+/*SEARCH-ITEMS*/
+
+
+.comparison-search-result .ng-scope>._md{
+    padding: 0;
+}
+
+.comparison-search-result .ng-scope>._md:hover{
+    box-sizing: border-box;
+    outline: 1px solid #c5c5c5;
+}
+
+.comparison-player-icon-wrap {
+    width: 75px;
+    height: 75px;
+}
+.comparison-player-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.comparison-player-search-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.comparison-player-search-wrap > span {
+    margin-top: 6px;
+}
+
+.comparison-player-search-wrap > .player-info-line{
+    width: 60%;
+}
+
+
+/*COMPARISON*/
+
+.comparison-players-stats {
+    margin-top: 280px;
+}
+
+.comparison-players-stats table {
+    border-collapse: collapse;
+}
+
+.comparison-players-stats td{
+    background-image: linear-gradient(to bottom, #930008 0%, #4F0002 100%);
+    color: #fff;
+    padding: 4px 0px 5px;
+    text-align: center;
+    width: 110px;
+    border-bottom-color: #8F030A;
+}
+
+
+.comparison-players{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+
+}
+
+.chosen-player-info{
+    width: 200px;
+    height: auto;
+
+}
+
+.chosen-player-name {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.profile-photo-wrap{
+    width: 100%;
+    height: 200px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+.profile-photo-wrap>img{
+    width: 150px;
+    height: auto;
+}
+
+
+/*SELECTS*/
+
+.player-selects{
+    display: flex;
+    flex-direction: column;
+}
+.player-selects>.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+    height: 25px;
+    /*border: none;*/
+    width: 200px;
+    text-align-last: center;
+    text-align: center;
+    /*background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);*/
+}
+
+.player-selects>.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn)>.btn{
+    padding: 0;
+    height: 25px;
+}
+
+.player-selects>.bootstrap-select.btn-group .dropdown-menu {
+    width: 100%;
+}
+.player-selects>.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    width: 98%;
+}
+
+
+.table-player-stats table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.table-player-stats table td{
+    padding: 4px 0px 5px;
+    text-align: center;
+}
+
+
+@media print {
+    .comparison_wrapper_modal {
+        display: none;
+     }
+
+    .comparison-wrap {
+        font-size: 0.6em;
+    }
+    .comparison-player-box:before{
+        background: #ad0202!important;
+    }
+    .comparison-title > span {
+        color: #ad0202!important;
+        font-size: 15px!important;
+    }
+    .comparison-title:after{
+        content:url("../../image/logo.png");
+        position: relative;
+        left: 100px;
+        top:13px;
+        margin-top:40px;
+        padding-bottom:50px;
+        padding-left: 50px;
+        transform: scale(1.0,1.0) !important;
+
+    }
+    .comparison-title.title-modal-box.box-title{
+        margin-top: -20px !important;
+    }
+    .comparison-players {
+        margin-top: 20px;
+    }
+    .chosen-player-info{
+        width: 120px;
+        height: auto;
+    }
+
+    .chosen-player-name {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+    .profile-photo-wrap{
+        width: 100%;
+        height: 150px;
+        padding: 2px;
+        display: flex;
+        justify-content: center;
+    }
+    .profile-photo-wrap>img{
+        width: 100%;
+        height: 150px;
+    }
+    .chosen-player-info{
+        width: 120px;
+        height: auto;
+    }
+    .uppercase_player-comparison{
+        font-size: 16px;
+     }
+    .chosen-player-name {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .profile-photo-wrap{
+        width: 100%;
+        height: 150px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+    }
+    .profile-photo-wrap>img{
+        width: 120px;
+        height: auto;
+    }
+
+    /*.bootstrap-select.btn-group .dropdown-toggle .filter-option {*/
+        /*font-size: .6em;*/
+    /*}*/
+
+    .player-selects>.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+        height: 20px;
+        /*border: none;*/
+        width: 120px;
+        text-align-last: center;
+        text-align: center;
+
+        /*background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);*/
+    }
+
+    .player-selects>.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+        font-size: 12px!important;
+    }
+
+    .comparison-players-stats {
+        margin-top: 211px;
+    }
+    .comparison-players-stats td{
+        background-image: linear-gradient(to bottom, #930008 0%, #4F0002 100%)!important;
+        color: #fff!important;
+        padding: 4px 0px 5px 0px!important;
+        margin: 0px!important;
+        text-align: center!important;
+        border-bottom-color: #8F030A!important;
+        border-left-color: #8F030A!important;
+        border-top-color: #8F030A!important;
+    }
+    .greenBg {
+        background: #b7deb7!important;
+    }
+
+}
+

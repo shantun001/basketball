@@ -1,0 +1,37 @@
+{
+  "name": "stage.s4upro.com",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Maria"
+  ],
+  "license": "MIT",
+  "homepage": "www.s4upro.com",
+  "private": true,
+  "dependencies": {
+    "angular": "1.6.5",
+    "angular-animate": "1.6.5",
+    "angular-material": "^1.1.4",
+    "angular-mocks": "1.5.x",
+    "angular-resource": "1.5.x",
+    "angular-route": "1.5.x",
+    "angular-sanitize": "1.6.5",
+    "angular-touch": "1.6.5",
+    "angular-ui-router": "^1.0.5",
+    "bootstrap": "3.3.x",
+    "components-font-awesome": "^4.7.0",
+    "jquery": "2.2.x",
+    "jquery-ui": "^1.12.1",
+    "material-angular-paging": "*"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "ng-idle": "^1.3.2"
+  }
+}

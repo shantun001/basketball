@@ -1,0 +1,291 @@
+<div ng-controller="PSController">
+    <div class="wrapper_search wrapper_search-playersearch" >
+        <div class="title-modal-box box-header player-box">
+            <h4 class="title-modal-box box-title">
+                <span class="uppercase_player">Player Search</span>
+            </h4>
+        </div>
+        <div class="wrapper_modal">
+            <div class="select-menu col-lg-3 col-md-3">
+                <select class="selectpicker"
+                        id="search-season"
+                        data-live-search="true"
+                        data-selected-text-format="count > 2"
+                        data-actions-box="true"
+                        title="Select season"
+                        tabindex="-98">
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <select class="selectpicker profile-games-search"
+                        id="search-league"
+                        data-live-search="true"
+                        data-selected-text-format="count > 2"
+                        data-actions-box="true"
+                        multiple
+                        title="Select leagues"
+                        tabindex="-98">
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <select class="selectpicker"
+                        id="search-country"
+                        data-live-search="true"
+                        data-selected-text-format="count > 2"
+                        data-actions-box="true"
+                        tabindex="-98"
+                        multiple
+                        title="Select Country">
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <select class="selectpicker"
+                        id="search-position"
+                        tabindex="-98"
+                        multiple>
+                    <option value="0,1">PG</option>
+                    <option value="1,2,3">SG</option>
+                    <option value="3,4,5">SF</option>
+                    <option value="5,6,7">PF</option>
+                    <option value="7,8">C</option>
+                </select>
+            </div>
+        </div>
+        <div class="wrapper_slider">
+            <div class="slider_height">
+                <span>Height Range(CM)</span>
+                <div id="rangeslider" class="slider">
+                    <input />
+                    <input />
+                </div>
+            </div>
+            <div class="slider_age">
+                <span>Age Range</span>
+                <div id="rangeslider2" class="slider">
+                    <input />
+                    <input />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 panel_search">
+        <div class="panel-group" id="collapse-group">
+            <div class="panel panel-default panel_playersearch">
+            <button type="button" class="btn btn-lg btn-info collapsed search_players" data-toggle="collapse" data-target="#demo">Advanced search by stats</button>
+                <div class="btn_wrapper-search">
+                    <button class="btn_search" ng-click="startSearch($event)">
+                        <img src="../../../image/search-icon.png" alt="">
+                        Search player
+                    </button>
+                </div>
+                <button class ="button_pint button_print-playersearch" onclick="window.print();">Print</button>
+                <div id="demo" class="collapse">
+                    <div class="panel-body">
+                        <div id="example">
+                            <div class="demo-section k-content">
+                                <table class="prlayersearch_table">
+                                    <tbody>
+                                    <tr>
+                                        <td><span>FGM</span></td>
+                                        <td><input id="slider1" class="balSlider" value="0" title="eqSlider1"/></td>
+                                        <td><span>FGA</span></td>
+                                        <td><input id="slider2" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>FG%</span></td>
+                                        <td><input id="slider3" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>3PM</span></td>
+                                        <td><input id="slider4" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>3PA</span></td>
+                                        <td><input id="slider5" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>3P%</span></td>
+                                        <td><input id="slider6" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>2PM</span></td>
+                                        <td><input id="slider7" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>2PA</span></td>
+                                        <td><input id="slider8" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>2P%</span></td>
+                                        <td><input id="slider9" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>FTM</span></td>
+                                        <td><input id="slider10" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>FTA</span></td>
+                                        <td><input id="slider11" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>FT%</span></td>
+                                        <td><input id="slider12" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>OR</span></td>
+                                        <td><input id="slider13" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>DR</span></td>
+                                        <td><input id="slider14" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>TR</span></td>
+                                        <td><input id="slider15" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>AS</span></td>
+                                        <td><input id="slider16" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>TO</span></td>
+                                        <td><input id="slider17" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>ST</span></td>
+                                        <td><input id="slider18" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>PTS</span></td>
+                                        <td><input id="slider19" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>MIN</span></td>
+                                        <td><input id="slider20" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>BS</span></td>
+                                        <td><input id="slider21" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>VAL</span></td>
+                                        <td><input id="slider22" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>OER</span></td>
+                                        <td><input id="slider23" class="balSlider" value="0" title="slider"/></td>
+                                        <td><span>VIR</span></td>
+                                        <td><input id="slider24" class="balSlider" value="0" title="slider"/></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper_player-search_table" style="margin-left: -25px;">
+                    <table  ng-show="playersPagin" class=" table table-bordered table-hover table-team visited_player-tab ">
+                        <thead class="thead_player-search">
+                        <tr>
+                            <th class="nationale" style="width: 50px">Nat.</th>
+                            <th style="width: 100px">Photo</th>
+                            <th class="playerSort players_name text_left_align" style="text-align: center !important;"  ng-click="playerSort('name')"> <p>Name</p> <span ng-show="playerSortObj.name == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.name == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_pos "style="text-align: center" ng-click="playerSort('position')"> <p>Position</p> <span ng-show="playerSortObj.position == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.position == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_height"style="text-align: center" ng-click="playerSort('height')"> <p>Height</p> <span ng-show="playerSortObj.height == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.height == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_age"style="text-align: center" ng-click="playerSort('age')"> <p>Age</p> <span ng-show="playerSortObj.age == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.age == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_pts"style="text-align: center" ng-click="playerSort('pts')"> <p>PTS</p> <span ng-show="playerSortObj.pts == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.pts == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_tr"style="text-align: center" ng-click="playerSort('tr')"> <p>TR</p> <span ng-show="playerSortObj.tr == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.tr == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_astn"style="text-align: center" ng-click="playerSort('astn')"> <p>AS</p> <span ng-show="playerSortObj.astn == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.astn == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_team"style="text-align: center" ng-click="playerSort('team')"> <p>Team</p> <span ng-show="playerSortObj.team == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.team == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_video"style="text-align: center" ng-click="playerSort('video')"><p>Video</p> <span ng-show="playerSortObj.video == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.video == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                        </tr>
+
+                        </thead>
+                             <tbody>
+                                <md-content layout-padding="">
+                                <tr  ng-repeat="player in playersPagin">
+                                    <td style="width: 50px">
+                                <span ng-show="player.country_code.length > 0" class="{{'flag flag-' + player.country_code | lowercase}} player-flag"
+                                      alt="{{player.country_name}}">
+                                </span>
+                                        <md-tooltip style="font-size: 12px">{{player.country_name}}</md-tooltip>
+                                    </td>
+                                    <td width="100px">
+                                        <img ng-src="{{player.player_photo}}" alt="photo" width="55" height="75"/>
+                                    </td>
+                                    <td>
+                                        <a class="close-modal-box"
+                                           ng-click="getPlayerData(player.player_id, player.player_last_name, player.player_first_name)">
+                                            {{player.player_last_name +' '+ player.player_first_name}}
+                                        </a>
+                                    </td>
+                                    <td style="width:90px;">{{player.player_position}}</td>
+                                    <td>
+                                        <div class="div_wrapper-height">
+                                            <span ng-show="player.player_height != null">{{player.player_height + ' ' + 'cm'}}</span>
+                                            <span ng-show="player.player_height != null"> / {{((player.player_height / 30.48).toFixed(1)+ "").replace(".", "'")}}"</span>
+                                        </div>
+                                    </td>
+                                    <td>{{player.player_age}}</td>
+                                    <td>{{player.points.toFixed(1)}}</td>
+                                    <td>{{player.total_rebounds.toFixed(1)}}</td>
+                                    <td>{{player.assists.toFixed(1)}}</td>
+                                    <td>{{player.team_name}}</td>
+                                    <td style="width:90px;"><i class="fa fa-play-circle" aria-hidden="true"></i> {{' ' + player.videos.length-1 + ' ' +'video'}}</td>
+                                </tr>
+                                </md-content>
+                             </tbody>
+                    </table>
+                    <table  ng-show="playerListData"  class="table table-bordered table-hover table-team hidden_player-tab">
+                        <thead>
+                        <tr>
+                            <th class="nationale" style="width: 50px">Nat.</th>
+                            <th style="width: 100px">Photo</th>
+                            <th style="text-align:center !important;"class="playerSort players_name text_left_align"> <p style="color: #fff !important;">Name</p>
+
+                            </th>
+                            <th style="width:90px;" class="playerSort players_pos"> <p style="color: #fff !important;">Position</p>
+
+                            </th>
+
+                            <th class="playerSort players_height" style="text-align:center;"> <p style="color: #fff !important;">Height</p>
+
+                            </th>
+                            <th class="playerSort players_age" style="text-align:center"> <p style="color: #fff !important;">Age</p>
+
+                            </th>
+                            <th class="playerSort players_pts" style="text-align:center"> <p style="color: #fff !important;">PTS</p>
+
+                            </th>
+                            <th class="playerSort players_tr" style="text-align:center"> <p style="color: #fff !important;">TR</p>
+
+                            </th>
+                            <th class="playerSort players_astn" style="text-align:center"> <p style="color: #fff !important;">AS</p>
+
+                            </th>
+                            <th class="playerSort players_team" style="text-align:center"> <p style="color: #fff !important;">Team name</p>
+
+                            </th>
+                            <th class="playerSort players_video" style="text-align:center;width:90px;"> <p style="color: #fff !important;">Videos</p>
+                                <!--<span  class="fa fa-caret-down"></span>-->
+                                <!--<span  class="fa fa-caret-up"></span>-->
+                            </th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr  ng-repeat="player in playerListData">
+                                <td class="player_flag-hidden" style="width: 50px">
+                                <span ng-show="player.country_code.length > 0" class="{{'flag flag-' + player.country_code | lowercase}} player-flag"
+                                      alt="{{player.country_name}}">
+                                </span>
+                                    <md-tooltip style="font-size: 12px">{{player.country_name}}</md-tooltip>
+                                </td>
+                                <td width="100px">
+                                    <img ng-src="{{player.player_photo}}" alt="photo" width="55" height="75"/>
+                                </td>
+                                <td>
+                                    <a class="close-modal-box"
+                                       ng-click="getPlayerProfileTab(player.player_id, player.player_last_name, player.player_first_name)">
+                                        {{player.player_last_name +' '+ player.player_first_name}}
+                                    </a>
+                                </td>
+                                <td style="width:90px;">{{player.player_position}}</td>
+                                <td>
+                                    <span ng-show="player.player_height != null">{{player.player_height + ' ' + 'cm'}}</span>
+                                </td>
+                                <td>{{player.player_age}}</td>
+                                <td>{{player.points.toFixed(1)}}</td>
+                                <td>{{player.total_rebounds.toFixed(1)}}</td>
+                                <td>{{player.assists.toFixed(1)}}</td>
+                                <td>{{player.team_name}}</td>
+                                <td style="width:90px;"><i class="fa fa-play-circle" aria-hidden="true"></i> {{' ' + player.videos.length-1 + ' ' +'video'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <cl-paging flex cl-pages="paging.total"
+                       cl-steps="4" cl-page-changed="paging.onPageChanged()"
+                       cl-align="center center" cl-current-page="paging.current"
+            ></cl-paging>
+            <div id="loader-container-players">
+                <img ng-src="../../image/loading.gif" alt="loading...">
+            </div>
+        </div>
+    </div>
+</div>
+

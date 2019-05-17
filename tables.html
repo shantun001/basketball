@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>angular moviemasher</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/player_style.css">
+        <style>
+            body{font-size: 12px;}
+            .clearfix:after {
+                visibility: hidden;
+                display: block;
+                font-size: 0;
+                content: " ";
+                clear: both;
+                height: 0;
+                }
+           .clearfix { display: inline-block; }
+           .h4, .h5, .h6, h4, h5, h6 { margin-top: 5px; margin-bottom: 5px;}
+           /* start commented backslash hack \*/
+           * html .clearfix { height: 1%; }
+           .clearfix { display: block; }
+            .single_table.row1.tbl_wpr {
+                float: left;
+                padding: 4px;
+            }
+            .tbl_wpr tbody tr:nth-child(even){
+                background-color: #e9e9e9;
+            }
+            /*.tbl_wpr tbody tr:first-child{
+                background-color: darkgrey; 
+            }*/
+            .tbl_wpr thead tr{background-color: #000;color: #fff;}
+            .tbl_wpr thead th{border: 1px solid #fff;}
+            tr td,tr th{
+                padding: 3px;
+                text-align: center; 
+            }
+            tr td{
+                border: 1px solid #dddddd;
+            }
+            tr td span:nth-child(1) {
+                margin-right: 10px;
+            }
+            .tbl_head{text-align: center;color: red;}
+            .space {height: 20px;clear: both;}
+            .row2 table{width: 100%;}
+            
+        </style>
+    </head>
+    <body>
+        <div class="main_container container">
+            <div class="hori_div">
+                <div class="single_table row1 tbl_wpr">
+                    <!-- <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls"></h4></div>    
+                    </div> -->
+                    <table style="margin-top: 38px;">
+                        <thead>
+                            <tr>
+                                <TH>PERIODS</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                            <tr>
+                                <td>1ST quarter</td>
+                              
+                            </tr>
+                            <tr>
+                                <td>2nd quarter</td>
+                                
+                            </tr>
+                            <tr>
+                                <td>3nd quarter</td>
+                               
+                            </tr>
+                            <tr>
+                                <td>4nd quarter</td>
+                                
+                            </tr>
+                          
+                        </tbody>
+                        
+                    </table>                        
+                </div>  
+                <div class="single_table row1 tbl_wpr">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                             
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr>
+                                <td>POINTS</td>
+                                <td>77</td>
+                                <td>61</td>
+                            </tr> -->
+                            <tr>
+                               
+                                <td>18</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                               
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                               
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                             
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>                        
+                </div>               
+                <div class="single_table row1 tbl_wpr">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">FIELD GOALS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                
+                                <TH colspan=2">Hapoel Holon</TH>
+                                <TH colspan=2">Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr><tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                        </tbody>
+                        
+                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">3 POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH colspan=2">Hapoel Holon</TH>
+                                <TH colspan=2">Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr><tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                        </tbody>
+                        
+                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">2 POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH colspan=2">Hapoel Holon</TH>
+                                <TH colspan=2">Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr><tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                        </tbody>
+                        
+                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">FT POINTS</h4></div>    
+                    </div>                  
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH colspan=2">Hapoel Holon</TH>
+                                <TH colspan=2">Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr><tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                            <tr>
+                                <td>31-66</td>
+                                <td>47%</td>
+                                <td>26-69</td>
+                                <td>28%</td>
+                            </tr>
+                        </tbody>
+                    </table>                        
+                </div>
+                <div class="clearfix space"></div>
+                <div class="single_table row1 tbl_wpr row2 col-lg-4">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">POSESSIONS POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH></TH>
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Second Change Points</td>
+                                <td>77</td>
+                                <td>61</td>
+                            </tr>
+                            <tr>
+                                <td>Fast break points</td>
+                                <td>18</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Transition points</td>
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>Points of turnovers</td>
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>Paint points</td>
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>Starting lineup points</td>
+                                <td><span>38</span><span>49%</span></td>
+                                <td><span>38</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>bench points</td>
+                                <td><span>39</span><span>51%</span></td>
+                                <td><span>38</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Possessions, number</td>
+                                <td>18</td>
+                                <td>20</td>
+                            </tr>
+                        </tbody>                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr row2 col-lg-4">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">POSESSIONS TYPES</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH></TH>
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transitions</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Fast break </td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Baseline combinations</td>
+                                <td>-</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sidelines combinations</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                           
+                        </tbody>                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr row2 col-lg-4">
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">ACTIONS POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH></TH>
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DRIVER</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>POSTS</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>PICK N ROLLS</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>SCREEN OFFS</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>HAND OFFS</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>CUTS</td>
+                                <td><span>1-5</span><span>49%</span></td>
+                                <td><span>1-5</span><span>49%</span></td>
+                            </tr>
+                            <tr>
+                                <td>points</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                            <tr>
+                                <td>turnovers</td>
+                                <td><span>5</span><span></span></td>
+                                <td><span>5</span><span></span></td>
+                            </tr>
+                        </tbody>                        
+                    </table>                       
+                </div> 
+                
+<!--                <div class="clearfix"></div>-->
+                <div class="single_table row1 tbl_wpr">
+<!--                    <h4 class="tbl_head">Points</h3>-->
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">POSESSIONS POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH></TH>
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pick n rolls handler</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pick n rolls roller</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Spot ups</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Screen offs</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Post ups</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Trnsitions</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Isolations</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Hand offs</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>putbacks</td>
+                                <td><span>3-7</span><span>70%</span></td>
+                                <td><span>2-5</span><span>50%</span></td>
+                            </tr>
+                        </tbody>                        
+                    </table>                        
+                </div>
+                <div class="single_table row1 tbl_wpr">
+<!--                    <h4 class="tbl_head">Points</h3>-->
+                    <div class="box">
+                        <div class="box-header"><h4 class="box-title season_name_cls">POSESSIONS POINTS</h4></div>    
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <TH></TH>
+                                <TH>Hapoel Holon</TH>
+                                <TH>Hapoel Gilboa Galil</TH>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>floter</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Lay up</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Dunk</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pull up</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Hook</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Reserve</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tip In</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Alley oop</td>
+                                <td><span>1-1</span><span>50%</span></td>
+                                <td><span>1-1</span><span>50%</span></td>
+                            </tr>
+                           
+                        </tbody>                        
+                    </table>                        
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,1364 @@
+<div ng-controller="HeaderController" class="clearfix" style="background-color: #222;">
+    <div class="top-links-wrapper" ng-if="false">
+        <div class="container">
+            <ul>
+                <li><a ui-sref="league()">Leagues</a></li>
+                <li><a ui-sref="team()">Teams</a></li>
+                <li><a ui-sref="player()">Players</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-container" ng-controller="AuthController">
+        <div id="login-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Login</h4>
+                    </div> -->
+                    <div class="modal-body" ng-submit="login()">
+                        <div class="alert alert-danger" ng-if="loginErrors.non_field_errors">
+                            <strong>Error!</strong> {{ loginErrors.non_field_errors[0] }}
+                        </div>
+                        <form id="loginForm">
+                            <div class="box page-break-inside-avoid">
+                                <div class="box-header">
+                                    <h4 class="box-title">Login</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" ng-class="{'has-error': loginErrors.email}">
+                                        <label for="inputEmail">Email address</label>
+                                        <input id="signinId" class="form-control" ng-model="authdata.email">
+                                        <small class="error" ng-if="loginErrors.email[0]">{{ loginErrors.email[0] }}
+                                        </small>
+                                    </div>
+                                    <div class="form-group" ng-class="{'has-error': loginErrors.password}">
+                                        <label for="inputPassword">Password</label>
+                                        <input type="password" id="signinPwd" class="form-control" ng-model="authdata.password">
+                                        <small class="error" ng-if="loginErrors.password[0]">{{ loginErrors.password[0]
+                                            }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="box-footer text-right">
+                                    <small class="forgot-password"><a href="https://app.s4upro.com/password-reset" target="_blank" data-toggle="modal">Forgot your password?</a></small>
+                                    <div class="wrapper_check-box">
+                                         <input id="checkBox" type="checkbox" name="remember" data-ng-model="remember">
+                                         <label for="checkBox" class="remeber_me">Remember Me</label>
+                                    </div>
+                                    <input type="submit"  id="loginButton"  class="btn btn-primary loginButton" value="Login" style="background: #c30200;border: #c30200;"/>
+                                    <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--forgot password start-->
+        <div id="forgot-password-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Login</h4>
+                    </div> -->
+                    <div class="modal-body" ng-submit="login()">
+                        <form>
+                            <div class="box page-break-inside-avoid">
+                                <div class="box-header">
+                                    <h4 class="box-title">Forgot your password?</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group" ng-class="{'has-error': loginErrors.email}">
+                                        <label for="inputEmail">Email address</label>
+                                        <input type="email" class="form-control" ng-model="authdata.email">
+                                        <small class="error" ng-if="loginErrors.email[0]">{{ loginErrors.email[0] }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="box-footer text-right">
+                                    <input type="submit" class="btn btn-primary" value="Send"
+                                           style="background: #c30200;border: #c30200;"/>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--forgot password end-->
+
+        <div id="register-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <!-- <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Register</h4>
+                    </div> -->
+                    <div class="box modal-body" ng-submit="create()">
+                        <div class="box-header">
+                            <h4 class="box-title">Register</h4>
+                        </div>
+                        <div class="alert alert-danger" ng-if="registerErrors.non_field_errors">
+                            <strong>Error!</strong> {{ registerErrors.non_field_errors[0] }}
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.first_name}">
+                                    <label>First name</label>
+                                    <input type="text" required ng-model="user.first_name" class="form-control reset-register-form"/>
+                                    <small class="error" ng-if="registerErrors.first_name[0]">{{
+                                        registerErrors.first_name[0] }}
+                                    </small>
+                                </div>
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.last_name}">
+                                    <label>Last name</label>
+                                    <input type="text" required ng-model="user.last_name" class="form-control reset-register-form"/>
+                                    <small class="error" ng-if="registerErrors.last_name[0]">{{
+                                        registerErrors.last_name[0] }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.email}">
+                                    <label>Email</label>
+                                    <input type="email" required ng-model="user.email" class="form-control reset-register-form"/>
+                                    <small class="error" ng-if="registerErrors.email[0]">{{ registerErrors.email[0] }}
+                                    </small>
+                                </div>
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.password}">
+                                    <label>Password</label>
+                                    <input type="password" required ng-model="user.password" class="form-control reset-register-form"/>
+                                    <small class="error" ng-if="registerErrors.password[0]">{{
+                                        registerErrors.password[0] }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.user_type}">
+                                    <label>Occupation</label>
+                                    <select
+                                            ng-model="user.user_type"
+                                            class="form-control"
+                                            ng-options="+(userType.id) as userType.name for userType in userTypes">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.phone}">
+                                    <label>Phone</label>
+                                    <input type="text" ng-model="user.phone" class="form-control reset-register-form"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.skype}">
+                                    <label>Skype</label>
+                                    <input type="text" ng-model="user.skype" class="form-control reset-register-form"/>
+                                </div>
+                                <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.team}">
+                                    <label>Team</label>
+                                    <input type="text" ng-model="user.team" class="form-control reset-register-form"/>
+                                </div>
+                                <div class="form-group col-sm-12 text-right">
+                                    <input type="submit" class="btn btn-primary" value="Register"
+                                           style="background: #c30200;border: #c30200;"/>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <small ng-show="updateError" class="error error-align-header" >An error occurred</small>
+                                    <small ng-show="updateSuccess" class="success" >Successfully registered</small>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="top_header">
+        <div class="container-fluid">
+            <div class="head_overlay" ng-click="noAccess()"></div>
+            <div class="container header_container" style="width: 100%;margin: 0 auto;">
+                <div class="col-md-3 col-sm-3" style="padding: 0; margin-left: 35px;">
+                    <div class="logo logo_wpr">
+                        <a class="homeLink" href="/#">
+                            <img src="../../image/logo.png" alt="logo"
+                                 style="width: 85%;">
+                        </a>
+                    </div>
+                </div>
+                <!--<div class="col-md-1 col-sm-1" style="padding: 0; margin-left: -40px;">-->
+                    <!--<div class="logo logo_wpr">-->
+                        <!--<a class="homeLink" href="/#">-->
+                            <!--<img width="150" height="30" src="../../image/logo1.png" alt="logo"-->
+                                 <!--style="width: 85%;">-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="col-md-8 col-sm-7 tp_right_header" style="padding: 0;">
+                    <div class="row">
+                        <md-toolbar class="header_navigation">
+                            <div layout="row" ng-if="isLoggedIn">
+                                <md-menu-bar class="nav navbar-nav menus col-md-9">
+                                    <md-menu class="hover-effect">
+                                        <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button ><!--ng-click="goHome()"-->
+                                                <a href="/#" class="open-home" >HOME</a>
+                                            </md-button>
+                                        <!--</md-menu-content>-->
+                                        <md-menu-content ng-click hide></md-menu-content>
+                                    </md-menu>
+                                    <md-menu ng-class="accessConfig.league ? 'hover-effect hover_leagues' : 'menu-disabled'" >
+                                        <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button ng-disabled="!accessConfig.league" class="open-menu" ng-click="$mdMenu.open()">
+                                                <a class="open-home">LEAGUES</a>
+                                                <small class="menu-tooltip">Leagues subscription required</small>
+                                            </md-button>
+                                        <!--</md-menu-content>-->
+                                        <md-menu-content ng-show="accessConfig.league" class="inside-menu-all">
+                                            <md-menu-item class="md-indent menu-height" ng-repeat="i in dataLeagues" ng-if="dataLeagues[$index].leagues.length > 0"
+                                                          ng-click="$mdMenu.open($event)" >
+                                                <md-menu>
+                                                    <md-button class="elem-league"
+                                                               ng-mouseover="getHeight();HeaderController.openMenu($mdMenu, $event);setOverflow()"
+                                                               ng-click="getPlayers()">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        {{i.name}}
+                                                    </md-button>
+                                                    <md-menu-content class="search-result inside-menu-league">
+                                                        <!--style="min-height: 530px"-->
+                                                        <md-list>
+                                                            <div class="search-table">
+                                                                <div class="search-tr"
+                                                                     ng-repeat="j in i.leagues "
+                                                                     ng-hide="$index % 2 !== 0">
+                                                                    <div class="search-td">
+                                                                        <md-list-item class="leagues-item">
+                                                                            <img ng-src="{{i.leagues[$index].logo}}"/>
+                                                                            <a ui-sref="league({seasonId: i.leagues[$index].season, leagueId: i.leagues[$index].pk,leagueName: (i.leagues[$index].name).replace(regExp, '_')})"
+                                                                               >{{i.leagues[$index].name}} {{i.leagues.$index}}</a>
+                                                                        </md-list-item>
+                                                                    </div>
+                                                                    <div class="search-td">
+                                                                        <md-list-item class="leagues-item">
+                                                                            <img ng-src="{{i.leagues[$index + 1].logo}}"/>
+                                                                            <a ui-sref="league({seasonId: i.leagues[$index + 1].season, leagueId: i.leagues[$index + 1].pk,leagueName: (i.leagues[$index + 1].name).replace(regExp, '_')})"
+                                                                               >{{i.leagues[$index
+                                                                                + 1].name}}</a>
+                                                                        </md-list-item>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </md-list>
+                                                    </md-menu-content>
+                                                </md-menu>
+                                            </md-menu-item>
+                                            <div class="position_absolute_leagues"></div>
+                                        </md-menu-content>
+                                    </md-menu>
+
+                                    <md-menu ng-class="accessConfig.team ? 'hover-effect' : 'menu-disabled'" ><!--ng-controller="AuthController" ng-show="accessTeam"-->
+                                        <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button  ng-disabled="!accessConfig.team"  ng-click="$mdMenu.open()"><!--ng-click="$mdMenu.open()"--> <!--insert "!" before accessConfig -->
+                                                <a class="open-home demo">TEAMS</a>
+                                                <small class="menu-tooltip">Teams subscription required</small>
+                                            </md-button>
+                                        <!--</md-menu-content>-->
+                                        <md-menu-content ng-show="accessConfig.team" ng-controller="TeamController" style="width:{{width-38}}px"
+                                                         class="team-search-container" id="team-search-container" ng-blur="$mdMenu.close()">
+                                            <md-menu-item class="input-container">
+                                                <form>
+                                                    <input  ng-model="searchString" ng-change="getTeams()"
+                                                           type="search" ng-keydown="chooseTeam($event)"
+                                                           placeholder="&#xf002;  Search team">
+                                                </form>
+                                            </md-menu-item>
+                                            <!--ng-blur="$mdMenu.close()"-->
+
+
+                                            <md-content ng-show="searching" class="search-result">
+                                                <md-list>
+                                                    <div class="search-result-wrap">
+                                                        <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                             ng-if="$odd && (teamIds.includes(item.id) || isAdmin || goldSubscription)">
+                                                            <md-list-item>
+                                                                <img class="team-icon" ng-src="{{data[$index].logo}}"/>
+                                                                <div class="team-wrap">
+                                                                    <a ui-sref="team({seasonId: data[$index].season, leagueId: data[$index].league, teamId:data[$index].id, teamName:(data[$index].name).replace(regExp, '_')})"
+                                                                       href="{{data[$index].id}}" ng-click="sendTeamParams(data[$index].season,data[$index].league,data[$index].id,data[$index].name,data[$index].logo); lostFocus()">{{data[$index].name}}</a>
+                                                                </div>
+                                                            </md-list-item>
+                                                        </div>
+                                                        <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                             ng-if="$even && (teamIds.includes(item.id) || isAdmin || goldSubscription)">
+                                                            <md-list-item>
+                                                                <img class="team-icon" ng-src="{{data[$index].logo}}"/>
+                                                                <div class="team-wrap">
+                                                                    <a ui-sref="team({seasonId: data[$index].season, leagueId: data[$index].league, teamId:data[$index].id, teamName:(data[$index].name).replace(regExp,'_')})"
+                                                                       href="{{data[$index].id}}" ng-click="sendTeamParams(data[$index].season,data[$index].league,data[$index].id,data[$index].name,data[$index].logo); lostFocus()">{{data[$index].name}}</a>
+                                                                </div>
+                                                            </md-list-item>
+                                                        </div>
+
+                                                    </div>
+                                                </md-list>
+
+                                            </md-content>
+                                        </md-menu-content>
+                                    </md-menu>
+
+                                    <md-menu ng-class="accessConfig.player ? 'hover-effect players player-search' : 'menu-disabled'"  > <!---->
+                                        <md-button ng-disabled="!accessConfig.player"><!--ng-click="$mdMenu.open()"  -->
+                                            <a href="" class="open-home" ng-click="$mdMenu.open()">PLAYERS</a>
+                                            <small class="menu-tooltip">Players subscription required</small>
+                                        </md-button>
+
+                                        <md-menu-content ng-show="accessConfig.player" ng-controller="PlayerSearchController"
+                                                         style="width:{{width-38}}px; min-height:{{height}}px;"
+                                                         class="player-search-container" id="player-search-container" ng-blur="$mdMenu.close()">
+                                            <md-menu-item class="playersearch_input-container input-container">
+                                                <form>
+                                                    <input  ng-keydown="choosePlayer($event)" ng-model="searchString" ng-change="getPlayers()"
+                                                           type="search" placeholder="&#xf002;  Search player"/>
+                                                    <!--<md-button class="button_player-search" ng-click="transitionToPlayerSearch()">-->
+                                                        <!--<a href="" class="player_tools">Player Tools</a>-->
+                                                    <!--</md-button>-->
+
+                                                    <div class="row2">
+                                                        <div class="block1">
+                                                            <div class="players_search player_search-tools" ng-controller="PSController" ng-click="updateSeasonSelect()">
+                                                                <a class="bd-gray search_player-modal" ui-sref="players">
+                                                                    <img src="../../../image/search-icon.png" alt="">
+                                                                    <h4 class="strong">Search</h4>
+                                                                </a>
+                                                            </div>
+                                                            <div class="players_search players_search-rankings" ng-controller="PRController" ng-click="updateSeasonSelectRank()">
+                                                                <a class="bd-gray" ui-sref="player_rankings">
+                                                                    <img src="../../../image/icon-rankings.png" alt="">
+                                                                    <h4 class="strong">Rankings</h4>
+                                                                </a>
+                                                            </div>
+                                                            <div class="players_search players_search-comparison" ng-controller="PSController">
+                                                                <a class="bd-gray" ui-sref="player_comparison">
+                                                                    <img src="../../../image/icon-comparison.png" alt="">
+                                                                    <h4 class="strong">Comparison</h4>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </md-menu-item>
+
+                                            <!--ng-blur="$mdMenu.close()"-->
+
+                                            <md-content ng-show="searching" class="search-result">
+                                                <md-list style="padding: 0">
+                                                    <div class="search-result-wrap">
+                                                        <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                             ng-if="$odd">
+                                                            <md-list-item>
+                                                                <img class="player-icon"
+                                                                     ng-src="{{data[$index].profile_photo}}"/>
+
+                                                                <div class="player-wrap">
+                                                                    <a ui-sref="player({pid: data[$index].id,lastName: data[$index].last_name,firstName: data[$index].first_name})"
+                                                                       href="{{data[$index].id}}" ng-click="foundPlayerId(data[$index]); lostFocus()">{{data[$index].last_name
+                                                                        + ' '
+                                                                        + data[$index].first_name }}</a>
+                                                                    <div class="player-info-line">
+                                                                        <p> {{data[$index].position ? data[$index].position.short_name : ""}}
+                                                                            {{data[$index].height ? data[$index].height +" cm" :''}} <br>
+                                                                            {{getAge(data[$index].birth_date)}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </md-list-item>
+                                                        </div>
+                                                        <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                             ng-if="$even">
+                                                            <md-list-item>
+                                                                <img class="player-icon"
+                                                                     ng-src="{{data[$index].profile_photo}}"/>
+
+                                                                <div class="player-wrap">
+                                                                    <a ui-sref="player({pid: data[$index].id,lastName: data[$index].last_name,firstName: data[$index].first_name})"
+                                                                       href="{{data[$index].id}}" ng-click="foundPlayerId(data[$index]); lostFocus()">{{data[$index].last_name + ' ' + data[$index].first_name }}</a>
+                                                                    <div class="player-info-line">
+                                                                        <p> {{data[$index].position ? data[$index].position.short_name : ""}}
+                                                                            {{data[$index].height ? data[$index].height +" cm" :''}} <br>
+                                                                            {{getAge(data[$index].birth_date)}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </md-list-item>
+                                                        </div>
+                                                    </div>
+                                                </md-list>
+                                            </md-content>
+                                        </md-menu-content>
+                                    </md-menu>
+
+                                    <md-menu ng-controller="HeaderController" ng-class="accessConfig.video ? 'hover-effect' : 'menu-disabled'">
+                                        <md-button ng-disabled="!accessConfig.video" ng-click="frame.frameEditorFlag = true; hideFooter()">
+                                            <a href="" class="open-home">EDITOR</a>
+                                            <small class="menu-tooltip">Video editor subscription required</small>
+                                        </md-button>
+                                        <md-menu-content ng-click hide></md-menu-content>
+
+                                        <div ng-if="frame.frameEditorFlag" class="frame-container">
+                                            <div class="frame-header">
+                                                <button ng-click="frame.frameEditorFlag = false; showFooter()"
+                                                        class="fa fa-times-circle"></button>
+                                            </div>
+                                            <iframe scrolling="no" ng-src="{{frame.getEditorLink()}}"
+                                                    frameborder="0" style="z-index: 1000000000000000000000000000000"></iframe>
+                                        </div>
+                                    </md-menu>
+
+                                    <md-menu  ng-controller="HeaderController" ng-class="accessConfig.scoutReport ? 'hover-effect' : 'menu-disabled'">
+                                        <md-button ng-disabled="!accessConfig.scoutReport" ng-click="frame.frameReportFlag = true">
+                                            <a class="open-home" href="/#">SCOUT REPORT</a>
+                                            <small class="menu-tooltip">Gold subscription required</small>
+                                        </md-button>
+                                        <md-menu-content ng-click hide></md-menu-content>
+                                        <div ng-if="frame.frameReportFlag" class="frame-container report-frame">
+                                            <div class="frame-header">
+                                                <button ng-click="frame.frameReportFlag = false"
+                                                        class="fa fa-times-circle"></button>
+                                            </div>
+                                            <iframe ng-src="{{frame.getReportLink()}}" frameborder="0"></iframe>
+
+                                        </div>
+                                    </md-menu>
+
+                                    <!--<md-menu ng-class="user.last_name == 'Demo'? 'menu-disabled' : 'hover-effect'">-->
+                                        <!--<md-button ng-click="openPremium()">&lt;!&ndash;ng-click="$mdMenu.open()"&ndash;&gt;-->
+                                            <!--<a class="open-home demoPrem" >PREMIUM</a>-->
+                                        <!--</md-button>-->
+                                        <!--<md-menu-content ng-click hide></md-menu-content>-->
+                                    <!--</md-menu>-->
+                                </md-menu-bar>
+                                <div ng-controller="HeaderController" class="nav-sign col-md-4 nav-sign-div"
+                                             ng-if="isLoggedIn" ng-show="!frame.frameEditorFlag && !frame.frameReportFlag">
+                                    <div ng-show="!frame.frameEditorFlag && !frame.frameReportFlag"
+                                             class="navbar-login menus" >
+                                        <a class="dropdown-toggle" data-toggle="modal" data-target="#modal-contact-us">Contact Us</a>
+
+                                            <a href="#" data-toggle="modal" data-target="#update-modal">
+                                                {{ user.first_name + ' ' + user.last_name}}
+                                            </a>
+
+                                        <div ng-click="logout()" class="nav-sign-div">Log out</div>
+                                        <!--<md-menu-content ng-click hide></md-menu-content>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div layout="row" class="sign-in-block" ng-if="!isLoggedIn">
+                                <!--<md-menu-bar class="col-md-8 col-sm-8"></md-menu-bar>-->
+                                <div class="nav-sign col-md-4 col-sm-4">
+                                    <div class="navbar-login menus navbar-login-div">
+                                        <a class="dropdown-toggle" data-toggle="modal" data-target="#modal-contact-us">Contact Us</a>
+                                        <a href="#" data-toggle="modal" data-target="#login-modal">Sign
+                                                In</a>
+                                        <a href="#" data-toggle="modal" data-target="#register-modal"  ng-click="refreshRegisterForm()">
+                                                    Join</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-toolbar>
+                    </div>
+                    <!-- <div class="search_box_wpr col-lg-12"  ng-if="isLoggedIn">
+                        <nav class="navbar navbar-default">
+                            <ul class="nav navbar-nav" style="float: right;">
+                                <li class="float-right">
+                                    <div class="navbar-form">
+                                        <div class="input-group add-on" style="position: relative;">
+                                            <input type="hidden" name="pid" value="0" id="player_id">
+                                            <input class="form-control" placeholder="Search Player" name="player" id="srch-player" type="text" autocomplete="off" autofocus="true" style="float: right;">
+                                              <div class="input-group-btn">
+                                                <button class="btn btn-default" id="submit-btn"><i class="glyphicon glyphicon-search"></i></button>
+                                              </div>
+                                              <ul id="searched">
+
+                                              </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+
+                    <!--modal contact us start-->
+                    <div id="modal-contact-us" class="modal fade full_screen_modal" role="dialog">
+                        <div class="modal-dialog" style="width: 60%;margin: 0 auto;">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!-- Modal heading -->
+                                <div class="modal-header">
+                                    <button data-dismiss="modal" class="fa fa-times-circle button-scout"></button>
+                                    <h3 class="modal-title" style="height: 30px"></h3>
+                                </div>
+                                <!-- Modal body -->
+                                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfaqqn0fYbYMeAme3E3_Ilnh4km5YIfokLqybj6trCq9yOJg/viewform?c=0&w=1" frameborder="0" width="100%" height="800px"></iframe>
+                                <!-- // Modal body END -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--modal contact us end-->
+
+                    <div id="editor" class="modal fade full_screen_modal" role="dialog">
+                        <div class="modal-dialog" style="width: 100%;margin: 0 auto;">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header box">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="box-header">
+                                        <h4 class="box-title">Editor</h4>
+                                    </div>
+                                </div>
+                                <div class="modal-body" style="overflow-y: scroll;">
+
+                                    <iframe id="if_editor" src="" width="100%" height="100%" style="border-width: 0px;">
+
+                                    </iframe>
+                                    <!--  <script type="text/javascript">
+                                      // console.log(JSON.parse(sessionStorage.user).token);
+                                      if(sessionStorage.length>0 && sessionStorage.user != '')
+                                       var iurl = 'http://tools.s4upro.com/angular-moviemasher/app/?token='+JSON.parse(sessionStorage.user).token;
+                                      else var iurl = 'http://tools.s4upro.com/angular-moviemasher/app/';
+                                       //document.getElementById('if_editor').getAttribute('src') = iurl;
+                                       $('#if_editor').attr('src',iurl);
+
+                                   </script> -->
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="scout_report" class="modal fade full_screen_modal" role="dialog">
+                        <div class="modal-dialog" style="width: 100%; margin: 0 auto;">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header box">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="box-header">
+                                        <h4 class="box-title">Scout Report</h4>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe src="" width="100%" height="100%" style="border-width: 0px;">
+
+                                    </iframe>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--update-modal-->
+                <div id="update-modal" class="modal fade" role="dialog" ng-controller="AuthController">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <!-- <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Register</h4>
+                            </div> -->
+                            <div class="box modal-body" ng-submit="update()">
+                                <div class="box-header">
+                                    <h4 class="box-title">Update profile</h4>
+                                </div>
+                                <div class="alert alert-danger" ng-if="registerErrors.non_field_errors">
+                                    <strong>Error!</strong> {{ registerErrors.non_field_errors[0] }}
+                                </div>
+                                <form>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.first_name}">
+                                            <label>First name</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.first_name" class="form-control"/>
+                                            <small class="error" ng-if="registerErrors.first_name[0]">
+                                                {{registerErrors.first_name[0] }}
+                                            </small>
+                                        </div>
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.last_name}">
+                                            <label>Last name</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.last_name" class="form-control"/>
+                                            <small class="error" ng-if="registerErrors.last_name[0]">
+                                                {{registerErrors.last_name[0] }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.email}">
+                                            <label>Email</label>
+                                            <input type="email" ng-model="user.email" disabled="disabled" class="form-control"/>
+                                            <small class="error" ng-if="registerErrors.email[0]">
+                                                {{ registerErrors.email[0] }}
+                                            </small>
+                                        </div>
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.password}">
+                                            <label>Password</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="password" ng-model="user.password" class="form-control"/>
+                                            <small id="small-pass" class="error" ng-if="user.password && user.password.length < 8">
+                                                password must contain at least 8 characters
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.user_type}">
+                                            <label>Occupation</label>
+                                            <select
+                                            ng-disabled="user.last_name == 'Demo'? true:false"
+                                                    ng-model="user.user_type"
+                                                    class="form-control"
+                                                    ng-options="+(userType.id) as userType.name for userType in userTypes">
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.phone}">
+                                            <label>Phone</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.phone" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.skype}">
+                                            <label>Skype</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.skype" class="form-control"/>
+                                        </div>
+                                        <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.team}">
+                                            <label>Team</label>
+                                            <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.team" class="form-control"/>
+                                        </div>
+                                        <div class="form-group col-sm-12 text-right">
+                                            <small ng-show="updateError" class="error" >An error occurred</small>
+                                            <small ng-show="updateSuccess" class="success" >Successfully updated</small>
+                                            <input ng-disabled="!checkRegexPassword() || user.first_name == '' || user.last_name == ''|| user.last_name == 'Demo'? true:false" type="submit" class="btn btn-primary" value="Update" style="background: #c30200;border: #c30200;"/>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!--player modal-->
+                <div id="playerProfileModal" class="modal fade full_screen" tabindex="-1" role="dialog"
+                     aria-labelledby="playerProfileModal" aria-hidden="true" style="">
+                    <div class="modal-dialog modal-lg" style="">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <a href="#" data-dismiss="modal" aria-hidden="true" class="close"
+                                   onclick="$('#play-video').html('');">×</a>
+                                <a href="javascript:void(0)" class="play_clips_modal"
+                                   style="float:right;margin-right: 15px;">
+                                    <i class="glyphicon glyphicon-fullscreen"></i>
+                                </a>
+                                <h4 id="labelPlayMediaModal">Player Clips <span></span></h4>
+                            </div>
+                            <div style="">
+                                <div id="pcm_wppr" role="main">
+                                    <div id="play_list_data"
+                                         style="float: left; width: 250px; border-right: 1px solid silver; overflow: auto; padding: 0px 0;height: 100%;overflow-y: scroll;"></div>
+                                    <div style="overflow-y: hidden; display: block;padding-right: 1px;position: relative;"
+                                         id="play-video">
+                                        <div class="overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="np_btn_wpr">
+                                    <button class="btn btn-sm btn-danger pull-left"
+                                            onclick="previous_play_list_clip();">
+                                        Previous
+                                    </button>
+                                    <button class="btn btn-sm btn-danger pull-left" onclick=" next_play_list_clip();">
+                                        Next
+                                    </button>
+                                </div>
+
+                                <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-hidden="true"
+                                        class="close">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- player clips modal -->
+                <!--<div id="playClipsModal" class="modal fade full_screen" tabindex="-1" role="dialog"-->
+                     <!--aria-labelledby="playClipsModal" aria-hidden="true" style="">-->
+                    <!--<div class="modal-dialog modal-lg" style="">-->
+                        <!--<div class="modal-content">-->
+                            <!--<div class="modal-header">-->
+                                <!--<a href="#" data-dismiss="modal" aria-hidden="true" class="close"-->
+                                   <!--onclick="$('#play_clips_video').html('');">×</a>-->
+                                <!--<a href="javascript:void(0)" class="play_clips_modal"-->
+                                   <!--style="float:right;margin-right: 15px;">-->
+                                    <!--<i class="glyphicon glyphicon-fullscreen"></i>-->
+                                <!--</a>-->
+                                <!--<h4 id="labelPlayMediaModal">Player Clips <span></span></h4>-->
+                            <!--</div>-->
+                            <!--<div style="">-->
+                                <!--<div id="pcm_wppr" role="main">-->
+                                    <!--<div id="play_list_data"-->
+                                         <!--style="float: left; width: 250px; border-right: 1px solid silver; overflow: auto; padding: 0px 0;height: 100%;overflow-y: scroll;"></div>-->
+                                    <!--<div style="overflow-y: hidden; display: block;padding-right: 1px;position: relative;"-->
+                                         <!--id="play_clips_video">-->
+                                        <!--<div class="overlay"></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="modal-footer">-->
+                                <!--<div class="np_btn_wpr">-->
+                                    <!--<button class="btn btn-sm btn-danger pull-left"-->
+                                            <!--onclick="previous_play_list_clip();">-->
+                                        <!--Previous-->
+                                    <!--</button>-->
+                                    <!--<button class="btn btn-sm btn-danger pull-left" onclick=" next_play_list_clip();">-->
+                                        <!--Next-->
+                                    <!--</button>-->
+                                <!--</div>-->
+
+                                <!--<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-hidden="true"-->
+                                        <!--class="close">Close-->
+                                <!--</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+            </div>
+        </div>
+        <div ng-show="!frame.frameReportFlag && !frame.frameEditorFlag" class="top_header show_up fixed_header">
+            <div class="container-fluid">
+                <div class="head_overlay" ng-click="noAccess()"></div>
+                <div class="container header_container" style="width: 100%;margin: 0 auto;">
+                    <div class="col-md-3 col-sm-3" style="padding: 0; margin-left: 35px;">
+                        <div class="logo logo_wpr">
+                            <a class="homeLink" href="/#">
+                                <img src="../../image/logo.png" alt="logo"
+                                     style="width: 85%;">
+                            </a>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-1 col-sm-1" style="padding: 0; margin-left: -40px;">-->
+                    <!--<div class="logo logo_wpr">-->
+                    <!--<a class="homeLink" href="/#">-->
+                    <!--<img width="150" height="30" src="../../image/logo1.png" alt="logo"-->
+                    <!--style="width: 85%;">-->
+                    <!--</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="col-md-8 col-sm-7 tp_right_header" style="padding: 0;">
+                        <div class="row">
+                            <md-toolbar class="header_navigation">
+                                <div layout="row" ng-if="isLoggedIn">
+                                    <md-menu-bar class="nav navbar-nav menus col-md-9">
+                                        <md-menu class="hover-effect">
+                                            <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button ><!--ng-click="goHome()"-->
+                                                <a href="/#" class="open-home" >HOME</a>
+                                            </md-button>
+                                            <!--</md-menu-content>-->
+                                            <md-menu-content ng-click hide></md-menu-content>
+                                        </md-menu>
+                                        <md-menu ng-class="accessConfig.league ? 'hover-effect hover_leagues' : 'menu-disabled'" >
+                                            <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button ng-disabled="!accessConfig.league" class="open-menu" ng-click="$mdMenu.open()">
+                                                <a class="open-home">LEAGUES</a>
+                                                <small class="menu-tooltip">Leagues subscription required</small>
+                                            </md-button>
+                                            <!--</md-menu-content>-->
+                                            <md-menu-content ng-show="accessConfig.league" class="inside-menu-all">
+                                                <md-menu-item class="md-indent menu-height" ng-repeat="i in dataLeagues" ng-if="dataLeagues[$index].leagues.length > 0"
+                                                              ng-click="$mdMenu.open($event)" >
+                                                    <md-menu>
+                                                        <md-button class="elem-league"
+                                                                   ng-mouseover="getHeight();HeaderController.openMenu($mdMenu, $event);setOverflow()"
+                                                                   ng-click="getPlayers()">
+                                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                                            {{i.name}}
+                                                        </md-button>
+                                                        <md-menu-content class="search-result inside-menu-league">
+                                                            <!--style="min-height: 530px"-->
+                                                            <md-list>
+                                                                <div class="search-table">
+                                                                    <div class="search-tr"
+                                                                         ng-repeat="j in i.leagues "
+                                                                         ng-hide="$index % 2 !== 0">
+                                                                        <div class="search-td">
+                                                                            <md-list-item class="leagues-item">
+                                                                                <img ng-src="{{i.leagues[$index].logo}}"/>
+                                                                                <a ui-sref="league({seasonId: i.leagues[$index].season, leagueId: i.leagues[$index].pk,leagueName: (i.leagues[$index].name).replace(regExp, '_')})"
+                                                                                >{{i.leagues[$index].name}} {{i.leagues.$index}}</a>
+                                                                            </md-list-item>
+                                                                        </div>
+                                                                        <div class="search-td">
+                                                                            <md-list-item class="leagues-item">
+                                                                                <img ng-src="{{i.leagues[$index + 1].logo}}"/>
+                                                                                <a ui-sref="league({seasonId: i.leagues[$index + 1].season, leagueId: i.leagues[$index + 1].pk,leagueName: (i.leagues[$index + 1].name).replace(regExp, '_')})"
+                                                                                >{{i.leagues[$index
+                                                                                    + 1].name}}</a>
+                                                                            </md-list-item>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </md-list>
+                                                        </md-menu-content>
+                                                    </md-menu>
+                                                </md-menu-item>
+                                                <div class="position_absolute_leagues"></div>
+                                            </md-menu-content>
+                                        </md-menu>
+
+                                        <md-menu ng-class="accessConfig.team ? 'hover-effect' : 'menu-disabled'" ><!--ng-controller="AuthController" ng-show="accessTeam"-->
+                                            <!--<md-menu-content class="md-menu-content-header-style">-->
+                                            <md-button  ng-disabled="!accessConfig.team"  ng-click="$mdMenu.open()"><!--ng-click="$mdMenu.open()"--> <!--insert "!" before accessConfig -->
+                                                <a class="open-home demo">TEAMS</a>
+                                                <small class="menu-tooltip">Teams subscription required</small>
+                                            </md-button>
+                                            <!--</md-menu-content>-->
+                                            <md-menu-content ng-show="accessConfig.team" ng-controller="TeamController" style="width:{{width-38}}px"
+                                                             class="team-search-container" id="team-search-container" ng-blur="$mdMenu.close()">
+                                                <md-menu-item class="input-container">
+                                                    <form>
+                                                        <input  ng-model="searchString" ng-change="getTeams()"
+                                                                type="search" ng-keydown="chooseTeam($event)"
+                                                                placeholder="&#xf002;  Search team">
+                                                    </form>
+                                                </md-menu-item>
+                                                <!--ng-blur="$mdMenu.close()"-->
+
+
+                                                <md-content ng-show="searching" class="search-result">
+                                                    <md-list>
+                                                        <div class="search-result-wrap">
+                                                            <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                                 ng-if="$odd && (teamIds.includes(item.id) || isAdmin || goldSubscription)">
+                                                                <md-list-item>
+                                                                    <img class="team-icon" ng-src="{{data[$index].logo}}"/>
+                                                                    <div class="team-wrap">
+                                                                        <a ui-sref="team({seasonId: data[$index].season, leagueId: data[$index].league, teamId:data[$index].id, teamName:(data[$index].name).replace(regExp, '_')})"
+                                                                           href="{{data[$index].id}}" ng-click="sendTeamParams(data[$index].season,data[$index].league,data[$index].id,data[$index].name,data[$index].logo); lostFocus()">{{data[$index].name}}</a>
+                                                                    </div>
+                                                                </md-list-item>
+                                                            </div>
+                                                            <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                                 ng-if="$even && (teamIds.includes(item.id) || isAdmin || goldSubscription)">
+                                                                <md-list-item>
+                                                                    <img class="team-icon" ng-src="{{data[$index].logo}}"/>
+                                                                    <div class="team-wrap">
+                                                                        <a ui-sref="team({seasonId: data[$index].season, leagueId: data[$index].league, teamId:data[$index].id, teamName:(data[$index].name).replace(regExp,'_')})"
+                                                                           href="{{data[$index].id}}" ng-click="sendTeamParams(data[$index].season,data[$index].league,data[$index].id,data[$index].name,data[$index].logo); lostFocus()">{{data[$index].name}}</a>
+                                                                    </div>
+                                                                </md-list-item>
+                                                            </div>
+
+                                                        </div>
+                                                    </md-list>
+                                                </md-content>
+                                            </md-menu-content>
+                                        </md-menu>
+                                        <md-menu ng-class="accessConfig.player ? 'hover-effect players player-search' : 'menu-disabled'"  > <!---->
+                                            <md-button ng-disabled="!accessConfig.player"><!--ng-click="$mdMenu.open()"  -->
+                                                <a href="" class="open-home" ng-click="$mdMenu.open()">PLAYERS</a>
+                                                <small class="menu-tooltip">Players subscription required</small>
+                                            </md-button>
+
+                                            <md-menu-content ng-show="accessConfig.player" ng-controller="PlayerSearchController"
+                                                             style="width:{{width-38}}px; min-height:{{height}}px;"
+                                                             class="player-search-container" id="player-search-container" ng-blur="$mdMenu.close()">
+                                                <md-menu-item class="playersearch_input-container input-container">
+                                                    <form>
+                                                        <input  ng-keydown="choosePlayer($event)" ng-model="searchString" ng-change="getPlayers()"
+                                                                type="search" placeholder="&#xf002;  Search player">
+                                                        <!--<md-button class="button_player-search" ng-click="transitionToPlayerSearch()">-->
+                                                        <!--<a href="" class="player_tools">Player Tools</a>-->
+                                                        <!--</md-button>-->
+
+                                                        <div class="row2">
+                                                            <div class="block1">
+                                                                <div class="players_search player_search-tools" ng-controller="PSController" ng-click="updateSeasonSelect()">
+                                                                    <a class="bd-gray search_player-modal" ui-sref="players">
+                                                                        <img src="../../../image/search-icon.png" alt="">
+                                                                        <h4 class="strong">Search</h4>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="players_search players_search-rankings" ng-controller="PRController" ng-click="updateSeasonSelectRank()">
+                                                                    <a class="bd-gray" ui-sref="player_rankings">
+                                                                        <img src="../../../image/icon-rankings.png" alt="">
+                                                                        <h4 class="strong">Rankings</h4>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="players_search players_search-comparison" ng-controller="PSController">
+                                                                    <a class="bd-gray" ui-sref="player_comparison">
+                                                                        <img src="../../../image/icon-comparison.png" alt="">
+                                                                        <h4 class="strong">Comparison</h4>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </md-menu-item>
+
+                                                <!--ng-blur="$mdMenu.close()"-->
+
+                                                <md-content ng-show="searching" class="search-result">
+                                                    <md-list style="padding: 0">
+                                                        <div class="search-result-wrap">
+                                                            <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                                 ng-if="$odd">
+                                                                <md-list-item>
+                                                                    <img class="player-icon"
+                                                                         ng-src="{{data[$index].profile_photo}}"/>
+
+                                                                    <div class="player-wrap">
+                                                                        <a ui-sref="player({pid: data[$index].id,lastName: data[$index].last_name,firstName: data[$index].first_name})"
+                                                                           href="{{data[$index].id}}" ng-click="foundPlayerId(data[$index]); lostFocus()">{{data[$index].last_name
+                                                                            + ' '
+                                                                            + data[$index].first_name }}</a>
+                                                                        <div class="player-info-line">
+                                                                            <p> {{data[$index].position ? data[$index].position.short_name : ""}}
+                                                                                {{data[$index].height ? data[$index].height +" cm" :''}} <br>
+                                                                                {{getAge(data[$index].birth_date)}}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </md-list-item>
+                                                            </div>
+                                                            <div class="col-md-6" ng-repeat=" item in data | limitTo: 20"
+                                                                 ng-if="$even">
+                                                                <md-list-item>
+                                                                    <img class="player-icon"
+                                                                         ng-src="{{data[$index].profile_photo}}"/>
+
+                                                                    <div class="player-wrap">
+                                                                        <a ui-sref="player({pid: data[$index].id,lastName: data[$index].last_name,firstName: data[$index].first_name})"
+                                                                           href="{{data[$index].id}}" ng-click="foundPlayerId(data[$index]); lostFocus()">{{data[$index].last_name + ' ' + data[$index].first_name }}</a>
+                                                                        <div class="player-info-line">
+                                                                            <p> {{data[$index].position ? data[$index].position.short_name : ""}}
+                                                                                {{data[$index].height ? data[$index].height +" cm" :''}} <br>
+                                                                                {{getAge(data[$index].birth_date)}}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </md-list-item>
+                                                            </div>
+                                                        </div>
+                                                    </md-list>
+                                                </md-content>
+                                            </md-menu-content>
+                                        </md-menu>
+
+                                        <md-menu ng-controller="HeaderController" ng-class="accessConfig.video ? 'hover-effect' : 'menu-disabled'">
+                                            <md-button ng-disabled="!accessConfig.video" ng-click="frame.frameEditorFlag = true; hideFooter()">
+                                                <a href="" class="open-home">EDITOR</a>
+                                                <small class="menu-tooltip">Video editor subscription required</small>
+                                            </md-button>
+                                            <md-menu-content ng-click hide></md-menu-content>
+
+                                            <div ng-if="frame.frameEditorFlag" class="frame-container">
+                                                <div class="frame-header">
+                                                    <button ng-click="frame.frameEditorFlag = false; showFooter()"
+                                                            class="fa fa-times-circle"></button>
+                                                </div>
+                                                <iframe scrolling="no" ng-src="{{frame.getEditorLink()}}"
+                                                        frameborder="0" style="z-index: 1000000000000000000000000000000"></iframe>
+                                            </div>
+                                        </md-menu>
+
+                                        <md-menu  ng-controller="HeaderController" ng-class="accessConfig.scoutReport ? 'hover-effect' : 'menu-disabled'">
+                                            <md-button ng-disabled="!accessConfig.scoutReport" ng-click="frame.frameReportFlag = true">
+                                                <a class="open-home" href="/#">SCOUT REPORT</a>
+                                                <small class="menu-tooltip">Gold subscription required</small>
+                                            </md-button>
+                                            <md-menu-content ng-click hide></md-menu-content>
+                                            <div ng-if="frame.frameReportFlag" class="frame-container report-frame">
+                                                <div class="frame-header">
+                                                    <button ng-click="frame.frameReportFlag = false"
+                                                            class="fa fa-times-circle"></button>
+                                                </div>
+                                                <iframe ng-src="{{frame.getReportLink()}}" frameborder="0"></iframe>
+
+                                            </div>
+                                        </md-menu>
+
+                                        <!--<md-menu ng-class="user.last_name == 'Demo'? 'menu-disabled' : 'hover-effect'">-->
+                                        <!--<md-button ng-click="openPremium()">&lt;!&ndash;ng-click="$mdMenu.open()"&ndash;&gt;-->
+                                        <!--<a class="open-home demoPrem" >PREMIUM</a>-->
+                                        <!--</md-button>-->
+                                        <!--<md-menu-content ng-click hide></md-menu-content>-->
+                                        <!--</md-menu>-->
+                                    </md-menu-bar>
+                                    <div ng-controller="HeaderController" class="nav-sign col-md-4 nav-sign-div"
+                                         ng-if="isLoggedIn" ng-show="!frame.frameEditorFlag && !frame.frameReportFlag">
+                                        <div ng-show="!frame.frameEditorFlag && !frame.frameReportFlag"
+                                             class="navbar-login menus" >
+                                            <a class="dropdown-toggle" data-toggle="modal" data-target="#modal-contact-us">Contact Us</a>
+
+                                            <a href="#" data-toggle="modal" data-target="#update-modal">
+                                                {{ user.first_name + ' ' + user.last_name}}
+                                            </a>
+
+                                            <div ng-click="logout()" class="nav-sign-div">Log out</div>
+                                            <!--<md-menu-content ng-click hide></md-menu-content>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div layout="row" class="sign-in-block" ng-if="!isLoggedIn">
+                                    <!--<md-menu-bar class="col-md-8 col-sm-8"></md-menu-bar>-->
+                                    <div class="nav-sign col-md-4 col-sm-4">
+                                        <div class="navbar-login menus navbar-login-div">
+                                            <a class="dropdown-toggle" data-toggle="modal" data-target="#modal-contact-us">Contact Us</a>
+                                            <a href="#" data-toggle="modal" data-target="#login-modal">Sign
+                                                In</a>
+                                            <a href="#" data-toggle="modal" data-target="#register-modal"  ng-click="refreshRegisterForm()">
+                                                Join</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </md-toolbar>
+                        </div>
+                        <!-- <div class="search_box_wpr col-lg-12"  ng-if="isLoggedIn">
+                            <nav class="navbar navbar-default">
+                                <ul class="nav navbar-nav" style="float: right;">
+                                    <li class="float-right">
+                                        <div class="navbar-form">
+                                            <div class="input-group add-on" style="position: relative;">
+                                                <input type="hidden" name="pid" value="0" id="player_id">
+                                                <input class="form-control" placeholder="Search Player" name="player" id="srch-player" type="text" autocomplete="off" autofocus="true" style="float: right;">
+                                                  <div class="input-group-btn">
+                                                    <button class="btn btn-default" id="submit-btn"><i class="glyphicon glyphicon-search"></i></button>
+                                                  </div>
+                                                  <ul id="searched">
+
+                                                  </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div> -->
+
+                        <!--modal contact us start-->
+                        <div id="modal-contact-us" class="modal fade full_screen_modal" role="dialog">
+                            <div class="modal-dialog" style="width: 60%;margin: 0 auto;">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <!-- Modal heading -->
+                                    <div class="modal-header">
+                                        <button data-dismiss="modal" class="fa fa-times-circle button-scout"></button>
+                                        <h3 class="modal-title" style="height: 30px"></h3>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfaqqn0fYbYMeAme3E3_Ilnh4km5YIfokLqybj6trCq9yOJg/viewform?c=0&w=1" frameborder="0" width="100%" height="800px"></iframe>
+                                    <!-- // Modal body END -->
+                                </div>
+                            </div>
+                        </div>
+                        <!--modal contact us end-->
+
+                        <div id="editor" class="modal fade full_screen_modal" role="dialog">
+                            <div class="modal-dialog" style="width: 100%;margin: 0 auto;">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header box">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <div class="box-header">
+                                            <h4 class="box-title">Editor</h4>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body" style="overflow-y: scroll;">
+
+                                        <iframe id="if_editor" src="" width="100%" height="100%" style="border-width: 0px;">
+
+                                        </iframe>
+                                        <!--  <script type="text/javascript">
+                                          // console.log(JSON.parse(sessionStorage.user).token);
+                                          if(sessionStorage.length>0 && sessionStorage.user != '')
+                                           var iurl = 'http://tools.s4upro.com/angular-moviemasher/app/?token='+JSON.parse(sessionStorage.user).token;
+                                          else var iurl = 'http://tools.s4upro.com/angular-moviemasher/app/';
+                                           //document.getElementById('if_editor').getAttribute('src') = iurl;
+                                           $('#if_editor').attr('src',iurl);
+
+                                       </script> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="scout_report" class="modal fade full_screen_modal" role="dialog">
+                            <div class="modal-dialog" style="width: 100%; margin: 0 auto;">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header box">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <div class="box-header">
+                                            <h4 class="box-title">Scout Report</h4>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe src="" width="100%" height="100%" style="border-width: 0px;">
+
+                                        </iframe>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--update-modal-->
+                    <div id="update-modal" class="modal fade" role="dialog" ng-controller="AuthController">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <!-- <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Register</h4>
+                                </div> -->
+                                <div class="box modal-body" ng-submit="update()">
+                                    <div class="box-header">
+                                        <h4 class="box-title">Update profile</h4>
+                                    </div>
+                                    <div class="alert alert-danger" ng-if="registerErrors.non_field_errors">
+                                        <strong>Error!</strong> {{ registerErrors.non_field_errors[0] }}
+                                    </div>
+                                    <form>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.first_name}">
+                                                <label>First name</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.first_name" class="form-control"/>
+                                                <small class="error" ng-if="registerErrors.first_name[0]">
+                                                    {{registerErrors.first_name[0] }}
+                                                </small>
+                                            </div>
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.last_name}">
+                                                <label>Last name</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.last_name" class="form-control"/>
+                                                <small class="error" ng-if="registerErrors.last_name[0]">
+                                                    {{registerErrors.last_name[0] }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.email}">
+                                                <label>Email</label>
+                                                <input type="email" ng-model="user.email" disabled="disabled" class="form-control"/>
+                                                <small class="error" ng-if="registerErrors.email[0]">
+                                                    {{ registerErrors.email[0] }}
+                                                </small>
+                                            </div>
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.password}">
+                                                <label>Password</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="password" ng-model="user.password" class="form-control"/>
+                                                <small id="small-pass" class="error" ng-if="user.password && user.password.length < 8">
+                                                    password must contain at least 8 characters
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.user_type}">
+                                                <label>Occupation</label>
+                                                <select
+                                                        ng-disabled="user.last_name == 'Demo'? true:false"
+                                                        ng-model="user.user_type"
+                                                        class="form-control"
+                                                        ng-options="+(userType.id) as userType.name for userType in userTypes">
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.phone}">
+                                                <label>Phone</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.phone" class="form-control"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.skype}">
+                                                <label>Skype</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.skype" class="form-control"/>
+                                            </div>
+                                            <div class="form-group col-sm-6" ng-class="{'has-error': registerErrors.team}">
+                                                <label>Team</label>
+                                                <input ng-disabled="user.last_name == 'Demo'? true:false" type="text" ng-model="user.team" class="form-control"/>
+                                            </div>
+                                            <div class="form-group col-sm-12 text-right">
+                                                <small ng-show="updateError" class="error" >An error occurred</small>
+                                                <small ng-show="updateSuccess" class="success" >Successfully updated</small>
+                                                <input ng-disabled="!checkRegexPassword() || user.first_name == '' || user.last_name == ''|| user.last_name == 'Demo'? true:false" type="submit" class="btn btn-primary" value="Update" style="background: #c30200;border: #c30200;"/>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!--player modal-->
+                    <div id="playerProfileModal" class="modal fade full_screen" tabindex="-1" role="dialog"
+                         aria-labelledby="playerProfileModal" aria-hidden="true" style="">
+                        <div class="modal-dialog modal-lg" style="">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a href="#" data-dismiss="modal" aria-hidden="true" class="close"
+                                       onclick="$('#play-video').html('');">×</a>
+                                    <a href="javascript:void(0)" class="play_clips_modal"
+                                       style="float:right;margin-right: 15px;">
+                                        <i class="glyphicon glyphicon-fullscreen"></i>
+                                    </a>
+                                    <h4 id="labelPlayMediaModal">Player Clips <span></span></h4>
+                                </div>
+                                <div style="">
+                                    <div id="pcm_wppr" role="main">
+                                        <div id="play_list_data"
+                                             style="float: left; width: 250px; border-right: 1px solid silver; overflow: auto; padding: 0px 0;height: 100%;overflow-y: scroll;"></div>
+                                        <div style="overflow-y: hidden; display: block;padding-right: 1px;position: relative;"
+                                             id="play-video">
+                                            <div class="overlay"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="np_btn_wpr">
+                                        <button class="btn btn-sm btn-danger pull-left"
+                                                onclick="previous_play_list_clip();">
+                                            Previous
+                                        </button>
+                                        <button class="btn btn-sm btn-danger pull-left" onclick=" next_play_list_clip();">
+                                            Next
+                                        </button>
+                                    </div>
+
+                                    <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-hidden="true"
+                                            class="close">Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- player clips modal -->
+                    <!--<div id="playClipsModal" class="modal fade full_screen" tabindex="-1" role="dialog"-->
+                    <!--aria-labelledby="playClipsModal" aria-hidden="true" style="">-->
+                    <!--<div class="modal-dialog modal-lg" style="">-->
+                    <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                    <!--<a href="#" data-dismiss="modal" aria-hidden="true" class="close"-->
+                    <!--onclick="$('#play_clips_video').html('');">×</a>-->
+                    <!--<a href="javascript:void(0)" class="play_clips_modal"-->
+                    <!--style="float:right;margin-right: 15px;">-->
+                    <!--<i class="glyphicon glyphicon-fullscreen"></i>-->
+                    <!--</a>-->
+                    <!--<h4 id="labelPlayMediaModal">Player Clips <span></span></h4>-->
+                    <!--</div>-->
+                    <!--<div style="">-->
+                    <!--<div id="pcm_wppr" role="main">-->
+                    <!--<div id="play_list_data"-->
+                    <!--style="float: left; width: 250px; border-right: 1px solid silver; overflow: auto; padding: 0px 0;height: 100%;overflow-y: scroll;"></div>-->
+                    <!--<div style="overflow-y: hidden; display: block;padding-right: 1px;position: relative;"-->
+                    <!--id="play_clips_video">-->
+                    <!--<div class="overlay"></div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                    <!--<div class="np_btn_wpr">-->
+                    <!--<button class="btn btn-sm btn-danger pull-left"-->
+                    <!--onclick="previous_play_list_clip();">-->
+                    <!--Previous-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-sm btn-danger pull-left" onclick=" next_play_list_clip();">-->
+                    <!--Next-->
+                    <!--</button>-->
+                    <!--</div>-->
+
+                    <!--<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal" aria-hidden="true"-->
+                    <!--class="close">Close-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+
+                </div>
+            </div>
+
+        </div>
+        <div id="loader-container-home">
+            <img ng-src="../../image/loading.gif" alt="loading..." style="opacity:0">
+        </div>
+    </div>
+</div>
+
+<!--<div class="play_list_clip col-lg-12"-->
+     <!--data-s3-key="'+s3_key+'"-->
+     <!--data-folder="'+f.folder+'"-->
+     <!--data-id="'+f.id+'"-->
+     <!--data-source="'+file_path+'"-->
+     <!--data-name="'+f.name+'"-->
+     <!--data-file="'+f.file_name+'"-->
+     <!--data-orignalfile="'+f.file_name+'"-->
+     <!--style="cursor: pointer;padding: 0px 5px; border-bottom:1px solid #ccc;">-->
+    <!--<div style="height: 49px;">-->
+        <!--<img src="https://s3-eu-west-1.amazonaws.com/s4uvideos/clips/'+path+'.jpg"-->
+             <!--alt="" style="display: inline-block;padding: 3px;height: 50px;width: 67px;float: left"-->
+             <!--onerror="this.onerror=null;this.src=\'movie_file.png\';" />-->
+        <!--<span style="vertical-align: middle; display: table-cell; height: 50px;">-->
+            <!--<a data-label="'+f.name+'"-->
+               <!--data-id="'+f.id+'"-->
+               <!--data-folder="'+f.folder+'"-->
+               <!--data-orignalfile="'+f.file_name+'"></a>'+clipname+'-->
+        <!--</span>-->
+    <!--</div>-->
+<!--</div>-->
+
+

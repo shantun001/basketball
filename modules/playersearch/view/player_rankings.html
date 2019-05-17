@@ -1,0 +1,202 @@
+<div ng-controller="PRController">
+    <div class="wrapper_search wrapper_search-playersearch" >
+        <div class="title-modal-box box-header player-box">
+            <h4 class="title-modal-box box-title">
+                <span class="uppercase">Player Rankings</span>
+            </h4>
+        </div>
+        <div class="wrapper_modal">
+            <div class="select-menu col-lg-3 col-md-3">
+                <select class="selectpicker"
+                        id="search-season"
+                        data-live-search="true"
+                        data-selected-text-format="count > 2"
+                        data-actions-box="true"
+                        title="Select season"
+                        tabindex="-98">
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <select class="selectpicker profile-games-search"
+                        id="search-league"
+                        data-live-search="true"
+                        data-selected-text-format="count > 2"
+                        data-actions-box="true"
+                        multiple
+                        title="Select leagues"
+                        tabindex="-98">
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 panel_search">
+        <div class="panel-group" id="collapse-group">
+            <div class="panel panel-default panel_playersearch">
+                <div class="btn_wrapper-search">
+                    <button class="btn_search" ng-click="startSearch($event)">
+                        <img src="../../../image/search-icon.png" alt="">
+                        Search player
+                    </button>
+                </div>
+                <button class ="button_pint button_print-playersearch" onclick="window.print();">Print</button>
+                <div style="margin-left: -25px;">
+                    <table  ng-show="playersPagin" class=" table table-bordered table-hover table-team visited_player-tab ">
+                        <thead>
+                        <tr>
+                            <th class="nationale" style="width: 50px">Nat.</th>
+                            <!--<th style="width: 100px">Photo</th>-->
+                            <th class="playerSort players_name text_left_align" style="text-align: center !important;"  ng-click="playerSort('name')"> <p>Name</p> <span ng-show="playerSortObj.name == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.name == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_height"style="text-align: center" ng-click="playerSort('height')"> <p>Height</p> <span ng-show="playerSortObj.height == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.height == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_pos "style="text-align: center" ng-click="playerSort('position')"> <p>Position</p> <span ng-show="playerSortObj.position == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.position == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_age"style="text-align: center" ng-click="playerSort('age')"> <p>Age</p> <span ng-show="playerSortObj.age == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.age == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_pts"style="text-align: center" ng-click="playerSort('min')"> <p>Min</p> <span ng-show="playerSortObj.min == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.min == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_pts"style="text-align: center" ng-click="playerSort('pts')"> <p>PTS</p> <span ng-show="playerSortObj.pts == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.pts == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_s4ur"style="text-align: center" ng-click="playerSort('s4ur')"> <p>S4UR</p> <span ng-show="playerSortObj.s4ur == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.s4ur == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_oer"style="text-align: center" ng-click="playerSort('oer')"> <p>OER</p> <span ng-show="playerSortObj.oer == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.oer == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_oer"style="text-align: center" ng-click="playerSort('vir')"> <p>VIR</p> <span ng-show="playerSortObj.vir == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.vir == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                            <th class="playerSort players_oer"style="text-align: center" ng-click="playerSort('val')"> <p>VAL</p> <span ng-show="playerSortObj.val == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.val == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+
+                            <!--<th class="playerSort players_tr"style="text-align: center" ng-click="playerSort('tr')"> <p>TR</p> <span ng-show="playerSortObj.tr == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.tr == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>-->
+                            <!--<th class="playerSort players_astn"style="text-align: center" ng-click="playerSort('astn')"> <p>AS</p> <span ng-show="playerSortObj.astn == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.astn == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>-->
+                            <!--<th class="playerSort players_team"style="text-align: center" ng-click="playerSort('team')"> <p>Team</p> <span ng-show="playerSortObj.team == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.team == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>-->
+                            <th class="playerSort players_video"style="text-align: center" ng-click="playerSort('video')"><p>Video</p> <span ng-show="playerSortObj.video == 'up'" class="glyphicon glyphicon-chevron-down playerSortGlyphicon"></span> <span ng-show="playerSortObj.video == 'down'" class="glyphicon glyphicon-chevron-up playerSortGlyphicon"></span> </th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <md-content layout-padding="">
+                            <tr  ng-repeat="player in playersPagin">
+                                <td style="width: 50px">
+                                <span ng-show="player.country_code.length > 0" class="{{'flag flag-' + player.country_code | lowercase}} player-flag"
+                                      alt="{{player.country_name}}">
+                                </span>
+                                    <md-tooltip style="font-size: 12px">{{player.country_name}}</md-tooltip>
+                                </td>
+                                <!--<td width="100px">-->
+                                    <!--<img ng-src="{{player.player_photo}}" alt="photo" width="55" height="75"/>-->
+                                <!--</td>-->
+                                <td>
+                                    <a class="close-modal-box"
+                                       ng-click="getPlayerData(player.player_id, player.player_last_name, player.player_first_name)">
+                                        {{player.player_last_name +' '+ player.player_first_name}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="div_wrapper-height">
+                                         <span ng-show="player.player_height != null">{{player.player_height + ' ' + 'cm'}}</span>
+                                         <span ng-show="player.player_height != null"> / {{((player.player_height / 30.48).toFixed(1)+ "").replace(".", "'")}}"</span>
+                                    </div>
+                                </td>
+                                <td style="width:90px;">{{player.player_position}}</td>
+                                <td>{{player.player_age}}</td>
+                                <td>{{player.minutes.toFixed(1)}}</td>
+                                <td>{{player.points.toFixed(1)}}</td>
+                                <td>{{player.s4ur.toFixed(2)}}</td>
+                                <td>{{player.oer.toFixed(2)}}</td>
+                                <td>{{player.vir.toFixed(2)}}</td>
+                                <td>{{player.val.toFixed(2)}}</td>
+                                <!--<td>{{player.total_rebounds.toFixed(1)}}</td>-->
+                                <!--<td>{{player.assists.toFixed(1)}}</td>-->
+                                <!--<td>{{player.team_name}}</td>-->
+                                <td style="width:90px;"><i class="fa fa-play-circle" aria-hidden="true"></i> {{' ' + player.videos.length-1 }}</td>
+                            </tr>
+                        </md-content>
+                        </tbody>
+                    </table>
+                    <table  ng-show="playerListData"  class="table table-bordered table-hover table-team hidden_player-tab">
+                        <thead>
+                        <tr>
+                            <th class="nationale" style="width: 50px">Nat.</th>
+                            <th style="text-align:center !important;"class="playerSort players_name text_left_align"> <p style="color: #fff !important;">Name</p>
+
+                            </th>
+                            <th class="playerSort players_height" style="text-align:center;"> <p style="color: #fff !important;">Height</p>
+
+                            </th>
+                            <th style="width:90px;" class="playerSort players_pos"> <p style="color: #fff !important;">Position</p>
+
+                            </th>
+
+                            <th class="playerSort players_age" style="text-align:center"> <p style="color: #fff !important;">Age</p>
+
+                            </th>
+                            <th class="playerSort players_min" style="text-align:center"> <p style="color: #fff !important;">Min</p>
+
+                            </th>
+                            <th class="playerSort players_pts" style="text-align:center"> <p style="color: #fff !important;">PTS</p>
+
+                            </th>
+                            <th class="playerSort players_s4ur" style="text-align:center"> <p style="color: #fff !important;">S4UR</p>
+
+                            </th>
+                            <th class="playerSort players_s4ur" style="text-align:center"> <p style="color: #fff !important;">OER</p>
+
+                            </th>
+                            <th class="playerSort players_s4ur" style="text-align:center"> <p style="color: #fff !important;">VIR</p>
+
+                            </th>
+                            <th class="playerSort players_s4ur" style="text-align:center"> <p style="color: #fff !important;">VAL</p>
+
+                            </th>
+                            <!--<th class="playerSort players_tr" style="text-align:center"> <p style="color: #fff !important;">TR</p>-->
+
+                            <!--</th>-->
+                            <!--<th class="playerSort players_astn" style="text-align:center"> <p style="color: #fff !important;">AS</p>-->
+
+                            <!--</th>-->
+                            <!--<th class="playerSort players_team" style="text-align:center"> <p style="color: #fff !important;">Team name</p>-->
+
+                            </th>
+                            <th class="playerSort players_video" style="text-align:center;width:90px;"> <p style="color: #fff !important;">Videos</p>
+                                <!--<span  class="fa fa-caret-down"></span>-->
+                                <!--<span  class="fa fa-caret-up"></span>-->
+                            </th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="player in playerListData">
+                            <td class="player_flag-hidden" style="width: 50px">
+                                <span  ng-show="player.country_code.length > 0" class="{{'flag flag-' + player.country_code | lowercase}} player-flag"
+                                      alt="{{player.country_name}}">
+                                </span>
+                                <md-tooltip style="font-size: 12px">{{player.country_name}}</md-tooltip>
+
+                            </td>
+                            <td>
+                                <a class="close-modal-box"
+                                   ng-click="getPlayerData(player.player_id, player.player_last_name, player.player_first_name)">
+                                    {{player.player_last_name +' '+ player.player_first_name}}
+                                </a>
+                            </td>
+                            <td>
+                                <span ng-show="player.player_height != null">{{player.player_height + ' ' + 'cm'}}</span>
+                            </td>
+                            <td style="width:90px;">{{player.player_position}}</td>
+                            <td>{{player.player_age}}</td>
+                            <td>{{player.minutes.toFixed(1)}}</td>
+                            <td>{{player.points.toFixed(1)}}</td>
+                            <td>{{player.s4ur.toFixed(2)}}</td>
+                            <td>{{player.oer.toFixed(2)}}</td>
+                            <td>{{player.vir.toFixed(2)}}</td>
+                            <td>{{player.val.toFixed(2)}}</td>
+                            <!--<td>{{player.total_rebounds.toFixed(1)}}</td>-->
+                            <!--<td>{{player.assists.toFixed(1)}}</td>-->
+                            <!--<td>{{player.team_name}}</td>-->
+                            <td style="width:90px;"><i class="fa fa-play-circle" aria-hidden="true"></i> {{' ' + player.videos.length-1 + ' ' +'video'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <cl-paging flex cl-pages="paging.total"
+                       cl-steps="4" cl-page-changed="paging.onPageChanged()"
+                       cl-align="center center" cl-current-page="paging.current"
+            ></cl-paging>
+            <div id="loader-container-players">
+                <img ng-src="../../image/loading.gif" alt="loading...">
+            </div>
+        </div>
+    </div>
+</div>
+
